@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PuNarva | Workout Library &amp; Builder</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&amp;family=Geist:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .glass-card {
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(69, 73, 50, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            border-color: #d2f000;
+            background: rgba(26, 26, 26, 0.8);
+            transform: translateY(-4px);
+        }
+        .citron-glow {
+            box-shadow: 0 0 20px rgba(210, 240, 0, 0.3);
+        }
+        .citron-glow:hover {
+            box-shadow: 0 0 35px rgba(210, 240, 0, 0.5);
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #131313; }
+        ::-webkit-scrollbar-thumb { background: #353534; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #d2f000; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "outline-variant": "#454932",
+                      "on-tertiary": "#16343b",
+                      "on-background": "#e5e2e1",
+                      "on-secondary-container": "#b7b5b4",
+                      "surface-tint": "#b8d300",
+                      "surface-container-high": "#2a2a2a",
+                      "error-container": "#93000a",
+                      "tertiary": "#ffffff",
+                      "secondary": "#c8c6c5",
+                      "on-error": "#690005",
+                      "on-secondary-fixed": "#1c1b1b",
+                      "tertiary-fixed-dim": "#acccd4",
+                      "surface-dim": "#131313",
+                      "inverse-on-surface": "#313030",
+                      "primary-fixed-dim": "#b8d300",
+                      "surface": "#131313",
+                      "secondary-fixed-dim": "#c8c6c5",
+                      "error": "#ffb4ab",
+                      "surface-container-low": "#1c1b1b",
+                      "outline": "#909378",
+                      "surface-variant": "#353534",
+                      "on-primary-fixed": "#191e00",
+                      "primary-fixed": "#d2f000",
+                      "on-secondary-fixed-variant": "#474746",
+                      "surface-container": "#201f1f",
+                      "on-error-container": "#ffdad6",
+                      "secondary-container": "#474746",
+                      "on-tertiary-container": "#4b6971",
+                      "on-surface": "#e5e2e1",
+                      "inverse-surface": "#e5e2e1",
+                      "on-primary-fixed-variant": "#414c00",
+                      "tertiary-fixed": "#c8e8f1",
+                      "primary-container": "#d2f000",
+                      "on-secondary": "#313030",
+                      "surface-container-lowest": "#0e0e0e",
+                      "background": "#131313",
+                      "on-tertiary-fixed-variant": "#2e4b52",
+                      "on-tertiary-fixed": "#001f26",
+                      "secondary-fixed": "#e5e2e1",
+                      "inverse-primary": "#576500",
+                      "on-primary-container": "#5d6b00",
+                      "surface-bright": "#393939",
+                      "surface-container-highest": "#353534",
+                      "tertiary-container": "#c8e8f1",
+                      "on-primary": "#2c3400",
+                      "primary": "#ffffff",
+                      "on-surface-variant": "#c6c9ab"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "margin-desktop": "32px",
+                      "container-max": "1280px",
+                      "margin-mobile": "16px",
+                      "gutter": "16px",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Barlow Condensed"],
+                      "label-sm": ["Geist"],
+                      "headline-md": ["Barlow Condensed"],
+                      "display-lg": ["Barlow Condensed"],
+                      "headline-lg-mobile": ["Barlow Condensed"],
+                      "body-lg": ["Geist"],
+                      "body-md": ["Geist"]
+              },
+              "fontSize": {
+                      "headline-lg": ["40px", {"lineHeight": "1.1", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "display-lg": ["72px", {"lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "headline-lg-mobile": ["32px", {"lineHeight": "1.1", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar Implementation -->
+<header class="w-full sticky top-0 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 z-50 flex justify-between items-center px-margin-desktop py-4">
+<div class="flex items-center gap-8">
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary tracking-tighter">PuNarva</h1>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="font-headline-md text-headline-md text-secondary-fixed-dim hover:text-primary transition-colors cursor-pointer active:scale-95 duration-200" href="#">Recovery</a>
+<a class="font-headline-md text-headline-md text-primary border-b-2 border-primary-fixed pb-1 cursor-pointer active:scale-95 duration-200" href="#">Performance</a>
+<a class="font-headline-md text-headline-md text-secondary-fixed-dim hover:text-primary transition-colors cursor-pointer active:scale-95 duration-200" href="#">Vitals</a>
+<a class="font-headline-md text-headline-md text-secondary-fixed-dim hover:text-primary transition-colors cursor-pointer active:scale-95 duration-200" href="#">Analytics</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center bg-surface-container rounded-full px-4 py-2 border border-outline-variant/20">
+<span class="material-symbols-outlined text-secondary-fixed-dim mr-2" style="font-size: 20px;">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-label-sm font-label-sm text-on-surface w-48" placeholder="Search Protocols..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-secondary-fixed-dim hover:text-primary transition-all p-2 rounded-full hover:bg-surface-container-high/50 cursor-pointer active:scale-95 duration-200">notifications</button>
+<button class="material-symbols-outlined text-secondary-fixed-dim hover:text-primary transition-all p-2 rounded-full hover:bg-surface-container-high/50 cursor-pointer active:scale-95 duration-200">settings</button>
+</div>
+</header>
+<!-- SideNavBar Implementation (Responsive) -->
+<aside class="hidden lg:flex flex-col h-screen w-64 fixed left-0 top-0 pt-24 bg-surface-container-lowest border-r border-outline-variant/20 py-8 z-40">
+<div class="px-6 mb-10">
+<div class="flex items-center gap-3 p-3 bg-surface-container rounded-xl">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden">
+<img alt="Athlete Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkAm_an59_Ez67fZbDMW9XGMzSf8yWhUwJemjPrm2mvSBT8_4ocimnQ-qUvq1OuVBigWmOkTXinS1zJWcGL-KeBlaLBofBLpIXKOrw-9cmyNDwEA403NhEUzrI4xdRYTxYYs5he4kmyTK_Okh1MMNhPcLJSZYEVHQ5Z4zMeHQBkm-S1hTKGLRjyi_LUSGOwJWIFFjzeAimd66ADRg2aikJpLkE_On48rXCrSYEqsywqCHhoGsohcWiRAZcrabRF5gt3zru5MuSzAM"/>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-primary-fixed uppercase tracking-widest">Pro Athlete</p>
+<p class="text-[10px] text-secondary-fixed-dim opacity-70">Elite Performance Tier</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-4 text-secondary-fixed-dim py-3 px-6 hover:text-primary transition-all hover:bg-surface-container-high font-label-sm text-label-sm uppercase tracking-widest group" href="#">
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform duration-300">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-4 text-primary-fixed bg-primary-container/10 border-r-4 border-primary-fixed py-3 px-6 font-label-sm text-label-sm uppercase tracking-widest group" href="#">
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform duration-300">fitness_center</span>
+                Training
+            </a>
+<a class="flex items-center gap-4 text-secondary-fixed-dim py-3 px-6 hover:text-primary transition-all hover:bg-surface-container-high font-label-sm text-label-sm uppercase tracking-widest group" href="#">
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform duration-300">bedtime</span>
+                Sleep
+            </a>
+<a class="flex items-center gap-4 text-secondary-fixed-dim py-3 px-6 hover:text-primary transition-all hover:bg-surface-container-high font-label-sm text-label-sm uppercase tracking-widest group" href="#">
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform duration-300">restaurant</span>
+                Nutrition
+            </a>
+<a class="flex items-center gap-4 text-secondary-fixed-dim py-3 px-6 hover:text-primary transition-all hover:bg-surface-container-high font-label-sm text-label-sm uppercase tracking-widest group" href="#">
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform duration-300">groups</span>
+                Team
+            </a>
+</nav>
+<div class="px-6 mt-auto space-y-4">
+<button class="w-full bg-primary-fixed text-on-primary-fixed py-3 rounded-lg font-label-sm text-label-sm uppercase tracking-widest citron-glow active:scale-95 transition-transform">Log Session</button>
+<div class="pt-4 border-t border-outline-variant/20">
+<a class="flex items-center gap-4 text-secondary-fixed-dim py-2 px-0 hover:text-primary transition-all font-label-sm text-label-sm uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined">help</span>
+                    Support
+                </a>
+<a class="flex items-center gap-4 text-secondary-fixed-dim py-2 px-0 hover:text-primary transition-all font-label-sm text-label-sm uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined">logout</span>
+                    Logout
+                </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="lg:pl-64 min-h-screen">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8 md:py-12">
+<!-- Hero Header Section -->
+<section class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-2">WORKOUT PROTOCOLS</h2>
+<p class="text-secondary-fixed-dim max-w-xl font-body-md">Precision-engineered sessions optimized for metabolic efficiency and peak power output. Browse our validated library or architect your own.</p>
+</div>
+<button class="citron-glow flex items-center gap-3 bg-primary-fixed text-on-primary-fixed px-8 py-4 rounded-xl font-label-sm text-label-sm uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all">
+<span class="material-symbols-outlined">add_circle</span>
+                    Create Custom Workout
+                </button>
+</section>
+<!-- Filters & Search Toolbar -->
+<section class="mb-10 grid grid-cols-1 md:grid-cols-12 gap-4">
+<div class="md:col-span-5 bg-surface-container rounded-xl p-1 border border-outline-variant/10 flex">
+<button class="flex-1 py-2 px-4 bg-surface-container-high rounded-lg text-primary-fixed font-label-sm text-label-sm uppercase tracking-widest">All Workouts</button>
+<button class="flex-1 py-2 px-4 hover:bg-surface-container-high/50 rounded-lg text-secondary-fixed-dim font-label-sm text-label-sm uppercase tracking-widest transition-all">Cycling</button>
+<button class="flex-1 py-2 px-4 hover:bg-surface-container-high/50 rounded-lg text-secondary-fixed-dim font-label-sm text-label-sm uppercase tracking-widest transition-all">Running</button>
+<button class="flex-1 py-2 px-4 hover:bg-surface-container-high/50 rounded-lg text-secondary-fixed-dim font-label-sm text-label-sm uppercase tracking-widest transition-all">Strength</button>
+</div>
+<div class="md:col-span-4 flex items-center bg-surface-container rounded-xl px-4 border border-outline-variant/10">
+<span class="material-symbols-outlined text-outline mr-3">filter_list</span>
+<select class="bg-transparent border-none focus:ring-0 text-label-sm font-label-sm text-on-surface uppercase tracking-widest w-full">
+<option>Intensity: All Levels</option>
+<option>High Intensity (Z5+)</option>
+<option>Tempo (Z3-Z4)</option>
+<option>Base (Z1-Z2)</option>
+</select>
+</div>
+<div class="md:col-span-3 flex items-center bg-surface-container rounded-xl px-4 border border-outline-variant/10">
+<span class="material-symbols-outlined text-outline mr-3">sort</span>
+<select class="bg-transparent border-none focus:ring-0 text-label-sm font-label-sm text-on-surface uppercase tracking-widest w-full">
+<option>Sort By: Popularity</option>
+<option>Duration: Low to High</option>
+<option>TSS: High to Low</option>
+</select>
+</div>
+</section>
+<!-- Workout Grid (Bento Style & Glassmorphic) -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter">
+<!-- Card 1: VO2 Max -->
+<div class="glass-card rounded-2xl overflow-hidden p-6 relative flex flex-col justify-between min-h-[280px]">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-fixed to-transparent opacity-50"></div>
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="bg-primary-fixed/10 text-primary-fixed px-2 py-1 rounded text-[10px] font-label-sm uppercase tracking-tighter">Z5 • High Intensity</span>
+<span class="material-symbols-outlined text-secondary-fixed-dim cursor-pointer hover:text-primary">bookmark</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-1">VO2 Max Sprints</h3>
+<p class="text-secondary-fixed-dim text-sm opacity-80 mb-6">Repeated 2-minute bursts at 120% FTP with active recovery intervals.</p>
+</div>
+<div class="flex items-center justify-between border-t border-outline-variant/20 pt-4">
+<div class="flex gap-4">
+<div class="flex flex-col">
+<span class="text-[10px] text-outline uppercase font-label-sm">Duration</span>
+<span class="text-primary font-bold">55 MIN</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] text-outline uppercase font-label-sm">TSS</span>
+<span class="text-primary font-bold">78</span>
+</div>
+</div>
+<button class="material-symbols-outlined text-primary-fixed bg-primary-fixed/5 p-2 rounded-full hover:bg-primary-fixed hover:text-on-primary-fixed transition-all">play_arrow</button>
+</div>
+</div>
+<!-- Card 2: Threshold -->
+<div class="glass-card rounded-2xl overflow-hidden p-6 relative flex flex-col justify-between min-h-[280px]">
+<div class="absolute top-0 left-0 w-full h-1 bg-primary opacity-20"></div>
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="bg-surface-container-highest text-secondary-fixed-dim px-2 py-1 rounded text-[10px] font-label-sm uppercase tracking-tighter">Z4 • Threshold</span>
+<span class="material-symbols-outlined text-secondary-fixed-dim cursor-pointer hover:text-primary">bookmark</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-1">Sweet Spot 3x15</h3>
+<p class="text-secondary-fixed-dim text-sm opacity-80 mb-6">Sustained intervals at 88-94% FTP to build muscular endurance and FTP power.</p>
+</div>
+<div class="flex items-center justify-between border-t border-outline-variant/20 pt-4">
+<div class="flex gap-4">
+<div class="flex flex-col">
+<span class="text-[10px] text-outline uppercase font-label-sm">Duration</span>
+<span class="text-primary font-bold">75 MIN</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] text-outline uppercase font-label-sm">TSS</span>
+<span class="text-primary font-bold">84</span>
+</div>
+</div>
+<button class="material-symbols-outlined text-primary-fixed bg-primary-fixed/5 p-2 rounded-full hover:bg-primary-fixed hover:text-on-primary-fixed transition-all">play_arrow</button>
+</div>
+</div>
+<!-- Card 3: Recovery (Featured) -->
+<div class="glass-card rounded-2xl overflow-hidden col-span-1 sm:col-span-2 relative group flex flex-col md:flex-row">
+<div class="w-full md:w-1/2 h-48 md:h-full relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A high-contrast cinematic shot of an athlete stretching in a dark, atmospheric gym illuminated by subtle neon blue and white key lights. The mood is calm and focused, emphasizing recovery and mindfulness. High-quality digital photography with sharp details and deep shadows, reflecting a premium athletic lifestyle." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCl3gxJrkPSh0YcJYHgsKffqHqb0Z4vDpTds5c6Xjg6O6Irwwc1_8JvkulcVCeiU8NhJO8bR64rFPGYoE1PGKF-UOlxQrYw0VPMbK3B19_Sm_bEzeQgSB9ieh88BL6Dm5tCpcta300D2ulUjGtK8u3NjKkJJ_wQXqsRLjddkyw0uQyD-y4Sz7BYSGrxYCsQ9PrmmIDxufZQxQ-qjz_477Dagd_gbbuex52DZ683xDUt_Rn29gF4NcvHaNk_Pgiaa1fjnkFqwjs0Rk0"/>
+<div class="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent"></div>
+</div>
+<div class="w-full md:w-1/2 p-8 flex flex-col justify-between">
+<div>
+<span class="inline-block bg-tertiary-fixed-dim/20 text-tertiary-fixed-dim px-3 py-1 rounded-full text-[10px] font-label-sm uppercase tracking-widest mb-4">Active Recovery</span>
+<h3 class="font-headline-lg text-headline-md md:text-headline-lg text-primary mb-2">Recovery Flow: Phase I</h3>
+<p class="text-secondary-fixed-dim font-body-md opacity-80 mb-6 leading-relaxed">Low-impact mobility and active flush sequence designed to accelerate metabolic waste removal after high-stress blocks.</p>
+</div>
+<div class="flex items-center gap-8">
+<div class="flex flex-col">
+<span class="text-[10px] text-outline uppercase font-label-sm">Duration</span>
+<span class="text-primary font-bold text-lg">35 MIN</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] text-outline uppercase font-label-sm">TSS</span>
+<span class="text-primary font-bold text-lg">12</span>
+</div>
+<button class="ml-auto bg-primary text-background font-label-sm text-label-sm uppercase tracking-widest px-6 py-2 rounded-lg hover:bg-primary-fixed transition-all">Start Flow</button>
+</div>
+</div>
+</div>
+<!-- Card 4: Strength -->
+<div class="glass-card rounded-2xl overflow-hidden p-6 relative flex flex-col justify-between min-h-[280px]">
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="bg-surface-container-highest text-secondary-fixed-dim px-2 py-1 rounded text-[10px] font-label-sm uppercase tracking-tighter">Hypertrophy • Strength</span>
+<span class="material-symbols-outlined text-secondary-fixed-dim cursor-pointer hover:text-primary">bookmark</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-1">Explosive Power</h3>
+<p class="text-secondary-fixed-dim text-sm opacity-80 mb-6">Plyometric and high-velocity lifts focusing on fast-twitch fiber recruitment.</p>
+</div>
+<div class="flex items-center justify-between border-t border-outline-variant/20 pt-4">
+<div class="flex gap-4">
+<div class="flex flex-col">
+<span class="text-[10px] text-outline uppercase font-label-sm">Duration</span>
+<span class="text-primary font-bold">45 MIN</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] text-outline uppercase font-label-sm">Intensity</span>
+<span class="text-primary font-bold">HIGH</span>
+</div>
+</div>
+<button class="material-symbols-outlined text-primary-fixed bg-primary-fixed/5 p-2 rounded-full hover:bg-primary-fixed hover:text-on-primary-fixed transition-all">play_arrow</button>
+</div>
+</div>
+<!-- Card 5: Endurance -->
+<div class="glass-card rounded-2xl overflow-hidden p-6 relative flex flex-col justify-between min-h-[280px]">
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="bg-surface-container-highest text-secondary-fixed-dim px-2 py-1 rounded text-[10px] font-label-sm uppercase tracking-tighter">Z2 • Base</span>
+<span class="material-symbols-outlined text-secondary-fixed-dim cursor-pointer hover:text-primary">bookmark</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-1">Foundation Miles</h3>
+<p class="text-secondary-fixed-dim text-sm opacity-80 mb-6">Steady state aerobic conditioning to improve fat oxidation and mitochondrial density.</p>
+</div>
+<div class="flex items-center justify-between border-t border-outline-variant/20 pt-4">
+<div class="flex gap-4">
+<div class="flex flex-col">
+<span class="text-[10px] text-outline uppercase font-label-sm">Duration</span>
+<span class="text-primary font-bold">120 MIN</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] text-outline uppercase font-label-sm">TSS</span>
+<span class="text-primary font-bold">95</span>
+</div>
+</div>
+<button class="material-symbols-outlined text-primary-fixed bg-primary-fixed/5 p-2 rounded-full hover:bg-primary-fixed hover:text-on-primary-fixed transition-all">play_arrow</button>
+</div>
+</div>
+<!-- Custom Builder Prompt Card -->
+<div class="rounded-2xl overflow-hidden border-2 border-dashed border-primary-fixed/30 bg-primary-fixed/5 p-6 flex flex-col items-center justify-center text-center group cursor-pointer hover:bg-primary-fixed/10 transition-all min-h-[280px]">
+<div class="w-16 h-16 rounded-full bg-primary-fixed/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary-fixed text-4xl">auto_fix_high</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary-fixed mb-2 uppercase italic tracking-wider">The Architect</h3>
+<p class="text-secondary-fixed-dim text-sm mb-6 max-w-[200px]">Can't find what you need? Build a session tailored to your current fatigue levels.</p>
+<button class="bg-primary-fixed text-on-primary-fixed px-6 py-2 rounded-lg font-label-sm text-label-sm uppercase tracking-widest citron-glow">Open Builder</button>
+</div>
+</section>
+</div>
+</main>
+<!-- Mobile Bottom Navigation Shell -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface/90 backdrop-blur-lg border-t border-outline-variant/20 flex justify-around items-center py-3 z-50">
+<button class="flex flex-col items-center gap-1 text-secondary-fixed-dim">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-label-sm uppercase">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary-fixed">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">fitness_center</span>
+<span class="text-[10px] font-label-sm uppercase">Training</span>
+</button>
+<div class="-mt-8">
+<button class="w-14 h-14 bg-primary-fixed rounded-full flex items-center justify-center text-on-primary-fixed shadow-lg citron-glow">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</div>
+<button class="flex flex-col items-center gap-1 text-secondary-fixed-dim">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-[10px] font-label-sm uppercase">Stats</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-secondary-fixed-dim">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-label-sm uppercase">Profile</span>
+</button>
+</nav>
+<script>
+        // Micro-interaction: Dynamic scale on click for buttons
+        document.querySelectorAll('button, .glass-card').forEach(el => {
+            el.addEventListener('mousedown', () => {
+                el.style.transform = 'scale(0.98)';
+            });
+            el.addEventListener('mouseup', () => {
+                el.style.transform = '';
+            });
+        });
+
+        // Search Input Glow Effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput?.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('border-primary-fixed/50');
+            searchInput.parentElement.classList.remove('border-outline-variant/20');
+        });
+        searchInput?.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('border-primary-fixed/50');
+            searchInput.parentElement.classList.add('border-outline-variant/20');
+        });
+    </script>
+</body></html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PuNarva Coach Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Public Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                "surface-container-lowest": "#ffffff",
+                "inverse-primary": "#bec6e0",
+                "tertiary-container": "#002114",
+                "tertiary": "#000000",
+                "outline": "#76777d",
+                "on-secondary-container": "#006f66",
+                "primary-container": "#131b2e",
+                "tertiary-fixed": "#85f8c4",
+                "secondary": "#006a61",
+                "secondary-fixed-dim": "#6bd8cb",
+                "surface-container-high": "#e6e8ea",
+                "surface-bright": "#f7f9fb",
+                "inverse-surface": "#2d3133",
+                "surface-dim": "#d8dadc",
+                "surface-variant": "#e0e3e5",
+                "surface-container-low": "#f2f4f6",
+                "on-secondary": "#ffffff",
+                "on-secondary-fixed": "#00201d",
+                "surface-container": "#eceef0",
+                "on-tertiary-fixed-variant": "#005137",
+                "secondary-container": "#86f2e4",
+                "on-error-container": "#93000a",
+                "primary-fixed": "#dae2fd",
+                "surface-tint": "#565e74",
+                "primary-fixed-dim": "#bec6e0",
+                "secondary-fixed": "#89f5e7",
+                "on-tertiary-fixed": "#002114",
+                "on-secondary-fixed-variant": "#005049",
+                "error-container": "#ffdad6",
+                "on-surface": "#191c1e",
+                "on-primary-container": "#7c839b",
+                "on-error": "#ffffff",
+                "inverse-on-surface": "#eff1f3",
+                "outline-variant": "#c6c6cd",
+                "surface-container-highest": "#e0e3e5",
+                "on-primary-fixed-variant": "#3f465c",
+                "surface": "#f7f9fb",
+                "error": "#ba1a1a",
+                "primary": "#000000",
+                "on-tertiary": "#ffffff",
+                "tertiary-fixed-dim": "#68dba9",
+                "on-background": "#191c1e",
+                "on-primary": "#ffffff",
+                "on-surface-variant": "#45464d",
+                "on-tertiary-container": "#069669",
+                "on-primary-fixed": "#131b2e",
+                "background": "#f7f9fb"
+              },
+              "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+              },
+              "spacing": {
+                "gutter": "24px",
+                "stack-md": "16px",
+                "margin-desktop": "40px",
+                "margin-mobile": "16px",
+                "container-max-width": "1280px",
+                "stack-sm": "8px",
+                "stack-lg": "32px"
+              }
+            }
+          }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background min-h-screen pb-24">
+<!-- Top Navigation -->
+<header class="bg-surface-bright dark:bg-inverse-surface w-full top-0 sticky z-40 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 transition-opacity">
+<div class="flex items-center gap-4">
+<img alt="Coach Profile" class="w-10 h-10 rounded-full object-cover" data-alt="A professional headshot of a mature sports coach with a determined expression, wearing a sleek black high-performance athletic polo shirt. The background is a brightly lit, modern medical training facility with soft out-of-focus equipment and cool blue and white tones. The lighting is crisp and professional, emphasizing a clinical yet athletic atmosphere consistent with a premium health lab." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnD8Pv0vzeZ75yUM4KgHP20bmYp2Ok1y24y1K8CjRV08OGLEFysUlP6QU_s24ulOW4QGT4nhQw-R9xAtlS3mj0WDH3knL86n7XIfZ9kId26VYoB0NXn7O4rVNGdUoDa4mhdw_3k6VdNLBel9F1XGPMRTkGEPF4nwdoSPk6qSxTEFOD1qbJjw0MhXO9F-HhklxBniz3FOngXwVYZVUtfRG77mhyxi8SLXoy3upcb-7-qLysjfSCQWay_FnitlrDAv2aaPGb1z_9V6k"/>
+<h1 class="font-headline-lg text-primary dark:text-inverse-primary tracking-tight font-bold">PuNarva</h1>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-8">
+<a class="text-primary dark:text-inverse-primary font-bold transition-opacity hover:opacity-80" href="#">Team View</a>
+<a class="text-on-surface-variant dark:text-outline-variant transition-opacity hover:opacity-80" href="#">Training Load</a>
+<a class="text-on-surface-variant dark:text-outline-variant transition-opacity hover:opacity-80" href="#">Reports</a>
+</nav>
+<button class="material-symbols-outlined text-primary dark:text-inverse-primary transition-transform active:scale-95" data-icon="notifications">notifications</button>
+</div>
+</header>
+<main class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop mt-stack-lg">
+<!-- Team Readiness KPIs & AI Summary -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-stack-lg">
+<!-- Readiness Score (Bento Box 1) -->
+<div class="lg:col-span-4 bg-surface-container-lowest p-6 rounded-[24px] shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-outline-variant/30">
+<div class="flex justify-between items-start mb-4">
+<span class="text-on-surface-variant font-label-md">Avg Recovery</span>
+<span class="material-symbols-outlined text-secondary" data-icon="insights">insights</span>
+</div>
+<div class="flex items-end gap-2">
+<span class="text-5xl font-bold text-primary">82%</span>
+<span class="text-secondary font-label-md mb-1 flex items-center"><span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span> +4%</span>
+</div>
+<div class="mt-6 w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full" style="width: 82%"></div>
+</div>
+<div class="grid grid-cols-2 gap-4 mt-8">
+<div>
+<p class="text-on-surface-variant text-xs mb-1">High Risk</p>
+<p class="text-xl font-bold text-error">3</p>
+</div>
+<div>
+<p class="text-on-surface-variant text-xs mb-1">Missing</p>
+<p class="text-xl font-bold text-on-surface">2</p>
+</div>
+</div>
+</div>
+<!-- AI Coaching Summary (Bento Box 2) -->
+<div class="lg:col-span-8 bg-primary-container text-white p-8 rounded-[24px] relative overflow-hidden">
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-secondary-fixed" data-icon="auto_awesome">auto_awesome</span>
+<span class="text-secondary-fixed font-label-md tracking-widest uppercase">AI Squad Intelligence</span>
+</div>
+<h2 class="text-2xl font-semibold mb-4 leading-tight">Overall team readiness is high, but cumulative fatigue is mounting in the midfield unit.</h2>
+<p class="text-on-primary-container text-lg max-w-2xl">Recommend reducing tactical intensity for Group A today. Sleep quality has improved 12% across the squad since the hydration protocol update.</p>
+</div>
+<!-- Abstract decorative element -->
+<div class="absolute right-[-10%] top-[-20%] w-64 h-64 bg-secondary/10 rounded-full blur-3xl"></div>
+</div>
+</div>
+<!-- Pattern Alerts & Risk Athletes -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter mb-stack-lg">
+<!-- Pattern Detection Alert -->
+<div class="lg:col-span-1 bg-tertiary-container/5 border-l-4 border-on-secondary-container p-6 rounded-r-[24px]">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-on-secondary-container" data-icon="warning">warning</span>
+<h3 class="font-bold text-on-secondary-container">Midfield Fatigue Alert</h3>
+</div>
+<p class="text-on-surface-variant text-sm mb-4">HRV patterns indicate a 15% downward trend in the midfield group over the last 48 hours. Correlation found with increased high-speed running distances.</p>
+<button class="text-on-secondary-container font-label-md flex items-center gap-1 hover:underline">
+                    Adjust Training <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<!-- Flagged Athletes -->
+<div class="lg:col-span-2 flex flex-col gap-4">
+<h3 class="text-primary font-headline-md px-2">Priority Attention</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Athlete Card 1 -->
+<div class="bg-white p-4 rounded-[24px] border border-error/20 shadow-sm flex flex-col items-center text-center">
+<img class="w-14 h-14 rounded-full object-cover mb-3" data-alt="A focused female athlete with her hair pulled back, visible sweat on her forehead, against a minimalist industrial gym background with moody lighting and professional high-contrast tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDozUYllvRvdVE5LTPULY_FM4RAIkm5XQJV7J02drRfOFBwAd59MNXs_KV27DrorWcFufYaPU71iy21QdCzz6_Is8w-TwmQaRTNFxZRy9UUcAYyNccbwZuIHRnvkIEN72II_AeSZi67qfVw6jOJNrAjESQf30EHefFoh8kEshzhm714F01Wbfl1OfrYXDjyDFlEXDL65QYweyeLalj-X5F7_XhvnpE3YpJTE_dXlEcA81VzpksbvNyKDCaZ_KZ5o7AOXzxrLubWOVs"/>
+<span class="text-sm font-bold text-primary">Sarah Jenkins</span>
+<span class="bg-error-container text-on-error-container text-[10px] px-2 py-0.5 rounded-full mt-1 mb-3 font-bold">CRITICAL RISK</span>
+<p class="text-on-surface-variant text-xs">Low HRV: -22% vs Baseline</p>
+</div>
+<!-- Athlete Card 2 -->
+<div class="bg-white p-4 rounded-[24px] border border-error/20 shadow-sm flex flex-col items-center text-center">
+<img class="w-14 h-14 rounded-full object-cover mb-3" data-alt="A male athlete in a white training top, looking off-camera with a thoughtful expression. The setting is a clean, modern sports laboratory with bright natural light and subtle tech elements in the background, maintaining a minimalist athletic aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmc8lY8Xerpd_Qr95JVzOZroWfnkW9YakAVf8TneX10xjzR9blkA_zADlTDugmprHl_XPclSWl0jsUsd_JA7bCl9-WD0r5-TLH9wR14jSixXwFb2Svzshb6qPUadQ3YcgsEeNj8f43NG4sw6Ob80anwgFlBGtXyZNzRc8Z-YpN4o4C2sNGWygy4UZXD5rGUarNdLZAVXH5OOG1dk_3xvT8pPu12i4D0KR2blskbyL_OicUT40DWljwaWHaIcIha50AsO6qK_0Lhi8"/>
+<span class="text-sm font-bold text-primary">Marcus Thorne</span>
+<span class="bg-error-container text-on-error-container text-[10px] px-2 py-0.5 rounded-full mt-1 mb-3 font-bold">CRITICAL RISK</span>
+<p class="text-on-surface-variant text-xs">Sleep: 4h 12m (Quality: 40%)</p>
+</div>
+<!-- Athlete Card 3 -->
+<div class="bg-white p-4 rounded-[24px] border border-outline-variant/30 shadow-sm flex flex-col items-center text-center">
+<img class="w-14 h-14 rounded-full object-cover mb-3" data-alt="Portrait of a female professional runner with a sharp, determined look. High-fidelity studio lighting with a neutral gray background. The overall mood is serious and performance-oriented, using the brand's sophisticated clinical color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRsOX1Zmuw4DTp6kjVmPoqM8wMZSwk77fVB0i3A1h1XnE2M-TE4bgOtMdnwHDfeNCcRljuHcHXG0Tb2Eu1Gwby_OddI8gmrStEh2Ixhtn3vLjoLCc8d85vyIoaVuwpwvWg73SXX3Tk0NEyQVrqxljMxbLGIdkHK3-0qpeJgOxC0Vb47DeruIhBWm7ia5nsC3QJk1OHUmZmKWM5b22hewDu1FzE-V-xLvQkorhdAYTvD_i1Oct5203Pq_a9_z65eQ6yxJ5X4s1H7rI"/>
+<span class="text-sm font-bold text-primary">Elena Rodriguez</span>
+<span class="bg-surface-container-high text-on-surface-variant text-[10px] px-2 py-0.5 rounded-full mt-1 mb-3 font-bold">MODERATE RISK</span>
+<p class="text-on-surface-variant text-xs">Elevated RPE in Session 1</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Team Roster Table -->
+<div class="bg-white rounded-[24px] shadow-[0_4px_12px_rgba(0,0,0,0.05)] overflow-hidden">
+<div class="p-6 flex justify-between items-center border-b border-surface-container-high">
+<h3 class="text-xl font-bold text-primary">Squad Roster</h3>
+<div class="flex gap-2">
+<button class="p-2 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="filter_list">filter_list</span>
+</button>
+<button class="p-2 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="search">search</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-bright text-on-surface-variant font-label-sm">
+<tr>
+<th class="px-6 py-4 font-semibold uppercase tracking-wider">Athlete</th>
+<th class="px-6 py-4 font-semibold uppercase tracking-wider text-center">Recovery</th>
+<th class="px-6 py-4 font-semibold uppercase tracking-wider">Risk Level</th>
+<th class="px-6 py-4 font-semibold uppercase tracking-wider">Trend</th>
+<th class="px-6 py-4"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high">
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary-fixed-dim font-bold">SJ</div>
+<div>
+<p class="text-sm font-bold text-primary">Sarah Jenkins</p>
+<p class="text-xs text-on-surface-variant">Midfielder</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="text-sm font-bold text-error">42%</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-error"></div>
+<span class="text-xs font-semibold text-error">High</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="material-symbols-outlined text-error" data-icon="trending_down">trending_down</span>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="material-symbols-outlined text-outline-variant opacity-0 group-hover:opacity-100 transition-opacity" data-icon="chevron_right">chevron_right</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-bold">DK</div>
+<div>
+<p class="text-sm font-bold text-primary">David Kim</p>
+<p class="text-xs text-on-surface-variant">Defender</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="text-sm font-bold text-on-secondary-container">94%</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-on-secondary-container"></div>
+<span class="text-xs font-semibold text-on-secondary-container">Optimal</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="material-symbols-outlined text-on-secondary-container" data-icon="trending_up">trending_up</span>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="material-symbols-outlined text-outline-variant opacity-0 group-hover:opacity-100 transition-opacity" data-icon="chevron_right">chevron_right</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary-fixed-dim font-bold">LH</div>
+<div>
+<p class="text-sm font-bold text-primary">Leo Hoffman</p>
+<p class="text-xs text-on-surface-variant">Forward</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="text-sm font-bold text-on-surface">78%</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-outline-variant"></div>
+<span class="text-xs font-semibold text-on-surface-variant">Low</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="material-symbols-outlined text-outline-variant" data-icon="trending_flat">trending_flat</span>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="material-symbols-outlined text-outline-variant opacity-0 group-hover:opacity-100 transition-opacity" data-icon="chevron_right">chevron_right</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 bg-surface-bright text-center">
+<button class="text-on-surface-variant font-label-md hover:text-primary transition-colors">View All 24 Athletes</button>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-4 pt-2 bg-surface-container-lowest dark:bg-inverse-surface shadow-[0_-4px_12px_rgba(0,0,0,0.05)] rounded-t-xl z-50 md:hidden">
+<button class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed-dim rounded-full px-5 py-1.5 transition-transform active:scale-90 duration-150">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-label-sm font-label-sm">Dashboard</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+<span class="text-label-sm font-label-sm">Check-In</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="leaderboard">leaderboard</span>
+<span class="text-label-sm font-label-sm">Analytics</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="text-label-sm font-label-sm">Team</span>
+</button>
+</nav>
+<script>
+        // Micro-interaction for cards
+        document.querySelectorAll('.hover\\:bg-surface-container-low').forEach(row => {
+            row.addEventListener('click', () => {
+                row.classList.add('scale-[0.98]');
+                setTimeout(() => row.classList.remove('scale-[0.98]'), 150);
+            });
+        });
+
+        // Atmosphere effect: subtle pulse for critical badges
+        const badges = document.querySelectorAll('.bg-error-container');
+        setInterval(() => {
+            badges.forEach(badge => {
+                badge.style.opacity = badge.style.opacity === '0.7' ? '1' : '0.7';
+                badge.style.transition = 'opacity 1s ease-in-out';
+            });
+        }, 1000);
+    </script>
+</body></html>

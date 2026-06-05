@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vitality Community Feed</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(248, 250, 252, 0.5);
+        }
+        .orange-gradient-btn {
+            background: linear-gradient(135deg, #ff6b6b 0%, #fc9d41 100%);
+        }
+        body {
+            font-family: 'Public Sans', sans-serif;
+            background-color: #f7f9fb;
+        }
+    </style>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"on-surface-variant": "#4a4450", "surface-bright": "#fff7ff", secondary: "#67587c", "on-tertiary-container": "#4e3e00", "tertiary-container": "#c5a94d", "error-container": "#ffdad6", primary: "#58338b", outline: "#7c7482", "surface-container-low": "#f9f1fa", "surface-variant": "#e7e0e9", "on-error": "#ffffff", "on-tertiary-fixed-variant": "#564500", "on-secondary": "#ffffff", background: "#fff7ff", tertiary: "#725c00", "surface-tint": "#704ba4", "primary-fixed": "#eddcff", "on-primary": "#ffffff", "on-background": "#1d1a20", "on-tertiary-fixed": "#231b00", "surface-container-highest": "#e7e0e9", "on-secondary-container": "#68587d", "on-secondary-fixed-variant": "#4f4063", "inverse-on-surface": "#f6eef7", surface: "#fff7ff", "on-error-container": "#93000a", "surface-dim": "#dfd8e0", error: "#ba1a1a", "outline-variant": "#ccc3d2", "on-primary-fixed-variant": "#58338b", "on-primary-fixed": "#290055", "primary-container": "#714ca5", "secondary-fixed": "#eddcff", "secondary-fixed-dim": "#d2bfe9", "secondary-container": "#e6d2fd", "surface-container-high": "#ede6ee", "surface-container": "#f3ebf4", "primary-fixed-dim": "#d7baff", "on-primary-container": "#e6d1ff", "on-tertiary": "#ffffff", "inverse-primary": "#d7baff", "inverse-surface": "#322f35", "tertiary-fixed": "#ffe081", "surface-container-lowest": "#ffffff", "on-surface": "#1d1a20", "tertiary-fixed-dim": "#e2c465", "on-secondary-fixed": "#221535"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {"stack-md": "16px", "stack-lg": "32px", "container-padding-desktop": "40px", gutter: "16px", "stack-sm": "8px", unit: "8px", "container-padding-mobile": "20px"}, fontFamily: {"headline-lg-mobile": ["Public Sans"], "display-lg": ["Public Sans"], "body-md": ["Public Sans"], "headline-md": ["Public Sans"], "headline-lg": ["Public Sans"], "label-lg": ["Public Sans"], "body-lg": ["Public Sans"], "label-sm": ["Public Sans"], headline: ["Public Sans"], display: ["Public Sans"], body: ["Public Sans"], label: ["Public Sans"]}, fontSize: {"headline-lg-mobile": ["28px", {lineHeight: "34px", fontWeight: "700"}], "display-lg": ["48px", {lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "800"}], "body-md": ["16px", {lineHeight: "24px", fontWeight: "400"}], "headline-md": ["24px", {lineHeight: "32px", fontWeight: "600"}], "headline-lg": ["32px", {lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "700"}], "label-lg": ["14px", {lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "600"}], "body-lg": ["18px", {lineHeight: "28px", fontWeight: "400"}], "label-sm": ["12px", {lineHeight: "16px", fontWeight: "500"}]}}}};</script>
+</head>
+<body class="bg-surface">
+<!-- TopNavBar -->
+<header class="w-full top-0 sticky z-50 bg-surface dark:bg-on-background shadow-sm">
+<div class="flex justify-between items-center h-20 px-stack-lg max-w-7xl mx-auto">
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">VITALITY</div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="text-on-surface-variant dark:text-surface-variant font-label-lg text-label-lg hover:text-primary transition-colors duration-200" href="#">Dashboard</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-label-lg text-label-lg hover:text-primary transition-colors duration-200" href="#">Workouts</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-label-lg text-label-lg hover:text-primary transition-colors duration-200" href="#">Recovery</a>
+<a class="text-primary dark:text-primary-fixed font-bold border-b-2 border-primary pb-1 font-label-lg text-label-lg" href="#">Community</a>
+</nav>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+<img alt="Profile" class="w-10 h-10 rounded-full object-cover border-2 border-primary-container" data-alt="A professional headshot of a young woman with a focused, athletic expression, set against a softly blurred urban sunset background. The lighting is warm and cinematic, highlighting the natural textures of her skin. The overall aesthetic is clean and high-end, matching a premium wellness and performance app brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5TlYR6GD8uaoaNZoJEve9ZtTpmhR2FAWElBYJQhmjmjKywCLXT2aUC7AtseNyfdhFn3n-08Op1WeyoyrYgr3B8iiwxAS2mzVrAAQ6QFdnGaUR-tXXz9u7fPfw1HNe15r3FIkG2sebG6JxR1cwej6Pwqb-sb4CkfYn4n6g4NuWyjkWmtc8YDimg5KDj3VPX8kUJVBzXvfFUXkk7ul8roJR4OdrZRF9updNudk1LA2mSaZLdNYOGP-zW7Gc67Pmr5vL9mxvyFae6pg"/>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-container-padding-mobile md:px-container-padding-desktop py-stack-lg flex flex-col md:flex-row gap-stack-lg">
+<!-- Left Sidebar: Stats & Challenges -->
+<aside class="hidden lg:flex flex-col gap-stack-lg w-72 shrink-0">
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_4px_20px_0_rgba(0,0,0,0.04)]">
+<h3 class="font-headline-md text-headline-md mb-4 text-on-surface">Your Week</h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-label-lg font-label-lg text-on-surface-variant">Runs</span>
+<span class="text-label-lg font-label-lg text-primary">12.4 mi</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full" style="width: 65%;"></div>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-label-lg font-label-lg text-on-surface-variant">Recovery</span>
+<span class="text-label-lg font-label-lg text-tertiary">88%</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full" style="width: 88%;"></div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_4px_20px_0_rgba(0,0,0,0.04)]">
+<h3 class="font-headline-md text-headline-md mb-4 text-on-surface">Active Challenges</h3>
+<div class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low mb-3">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<div>
+<p class="text-label-lg font-label-lg text-on-surface">100k Steps Week</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">4.2k more to go</p>
+</div>
+</div>
+<button class="w-full py-2 border-2 border-outline-variant rounded-lg text-label-lg font-label-lg text-on-surface-variant hover:bg-surface-variant transition-colors">View All</button>
+</div>
+</aside>
+<!-- Main Feed -->
+<section class="flex-1 flex flex-col gap-stack-lg pb-32">
+<!-- Create Post -->
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-[0_4px_20px_0_rgba(0,0,0,0.04)] flex items-center gap-4">
+<img class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAou2qdmCu2qxLn4i5JYm3JK4NkSQZdsHxegIDceA89lI3XSSddhynqYip0cqHRg5AYhlMeRs1I6g3n8RM3TuMttZdnOe8GpnlCkGdVWDO1wP3LfquFY9GBqlwpgKp3yMccp0n_bVZ2xwUS3dWTp4qEMn071qbiCjxWNkm-3I41ki1Mn2dmRdVnUz6P0CJ3ssXHOnAI2ne6H4jM1Cp_ELSF62M-CHIEz23oZZa12koI5nGZvtyATOFtftjzH8W55fsHuTX_GcdWRkQ"/>
+<input class="flex-1 bg-surface-container-low border-none rounded-full px-6 py-3 text-body-md focus:ring-2 focus:ring-secondary-container transition-all" placeholder="Share your latest victory..." type="text"/>
+<button class="orange-gradient-btn text-white p-3 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<!-- Feed Item 1: Run with Map -->
+<article class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-[0_4px_20px_0_rgba(0,0,0,0.04)]">
+<div class="p-6">
+<div class="flex items-center gap-4 mb-4">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="A close-up portrait of a male athlete in his 30s with a kind, determined expression. He is wearing high-performance technical running gear. The background shows a soft-focus forest trail with dappled morning sunlight, evoking a sense of peaceful morning exercise and natural health." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAw23d2v_t7RWAL-veKfw4uxTHY7A_uB2eFyMfwU9zD5LeEzoV86kaLh9IVRTRnAwjYVmQOH3YdHuNyY8h1j5-axAhpa5Nk7FbhcIjn823fEIfgzwGvDmipx8YubzqJ2gnAzY8mnmT5xPKLJ01RMnw24EveGR88ZZDPWNwV7GBc1KUDuQanXsHwD-9mhBi4eTj0niINJhGvqrJKglQZ74A_l-x_Fz497BPhklpD6r5CQyJx37zKuRe2IwCZmI-he0R6VRLtcV6AAE0"/>
+<div>
+<h4 class="font-headline-md text-label-lg text-on-surface">Marcus Chen</h4>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Today at 7:14 AM • San Francisco, CA</p>
+</div>
+<button class="ml-auto text-on-surface-variant"><span class="material-symbols-outlined">more_horiz</span></button>
+</div>
+<p class="text-body-lg font-body-lg text-on-surface mb-6">Sunrise coastal run. Felt the altitude but the views made it worth every step. ⛰️</p>
+<div class="grid grid-cols-3 gap-4 mb-6">
+<div class="bg-surface-container-low p-4 rounded-xl">
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Distance</p>
+<p class="text-headline-md font-headline-md text-primary">8.2 mi</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl">
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Pace</p>
+<p class="text-headline-md font-headline-md text-on-surface">7:42 /mi</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl">
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Elevation</p>
+<p class="text-headline-md font-headline-md text-on-surface">412 ft</p>
+</div>
+</div>
+<!-- Map Placeholder -->
+<div class="relative w-full h-64 rounded-xl overflow-hidden mb-6 group cursor-pointer">
+<img class="w-full h-full object-cover grayscale-[0.3] contrast-125" data-alt="A clean, minimalist topographical map style graphic showing a winding running path along a coastal ridge in San Francisco. The map features elegant thin lines, soft teal and coral accents for the path, and a modern light-mode interface aesthetic. The lighting is bright and clear, emphasizing a high-tech data visualization style." data-location="San Francisco" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQIgGz0_VfBnLRuZq3NGRDxCTWdSPtbFGXPvjo-q8etT8PFekeEnYp4NVSN5SvKMva1w1RQ7myNPywF5MiUstNYM1suoOD_uWeEb9HDIIq3gbuYR8_UhdRMxGrtBRQdRSrhj74grlz_N8xQ563ResTZ8viAraO6wQFAHHxsiHMn4CEsC5145iS1VB2RJ9q-CDPf0pw_TBduwqa2j6bR7OuRCOvJfMWIyLMXhuFW6y16OmdLcw2uwoZ0CcfzQuUpDpeO_j7mtwOygU"/>
+<div class="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors"></div>
+<div class="absolute bottom-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-label-sm font-label-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[16px]">map</span> View Route
+                        </div>
+</div>
+<!-- Interactions -->
+<div class="flex items-center justify-between border-t border-surface-variant pt-4">
+<div class="flex items-center gap-6">
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-secondary-container transition-colors group">
+<span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1;">volunteer_activism</span>
+<span class="font-label-lg text-label-lg">24 Kudos</span>
+</button>
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="font-label-lg text-label-lg">12</span>
+</button>
+</div>
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-white object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeSgrxyBeBY4577pO41WCIsCAIky8VV4rMliIgeHfL4C6PoOb-BoYlVn8uaFkkVt8hKD1Gk8xX9jH-2knk6LphzPTuaZYHksKcz5jPp1A1PFu7dXwd3O7H-3TZv4WkwGZn2NJh7BEytNmB-pujSWT4n2nIXg-FLtGyZpMl9KlnymMXgyxLcwqOj8e5XkN8dcV4iZLnxlb3sVKrkAFFuVq2De7hDD_XF0m7PRwMpWaPCFHH5tpllLYU1_07lEZvlGcRX8EuXi4Qs_Y"/>
+<img class="w-8 h-8 rounded-full border-2 border-white object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7QACIZd4YK3LUVdcD3H7pRhSM6cZz-snolR8mx3gbPVExjAJys8kVOB_mYSYZHSRLiNrRt1L4l8U2tBmZeOfwOPB30HHfhwTnfemWEedm6bVW-2xSGmkH2e81QzixsvPzKzEFA0PcepLqi6zN3WDFeRBTZcAdsUYVVEbQ_bgxS1q0OA7mLHFTxLrwTSFD7BSCyZqikV_9ObLNQjkq3ti3wsLU4eKV0M1WFIPr9VbiBjCbqSpo7ZNw_8ZosfUY2f9UpGyYuZYdXKw"/>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-surface-container text-[10px] flex items-center justify-center font-bold text-on-surface-variant">+22</div>
+</div>
+</div>
+</div>
+</article>
+<!-- Feed Item 2: Photo Post -->
+<article class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-[0_4px_20px_0_rgba(0,0,0,0.04)]">
+<div class="p-6">
+<div class="flex items-center gap-4 mb-4">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="A portrait of a serene female yoga practitioner in her 40s. She has a peaceful expression and is sitting in a minimalist, bright studio with natural wooden floors. Large windows in the background let in soft, diffused daylight. The color palette is composed of soft whites, warm wood tones, and subtle teal accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBavlMSfPqdFcyUYMPnrm6yfjvJopb1BW1CssSM7D1R8nBPg4P5MpQI_VM1_66rve1kL8u1Fncmo9-Ckdpb7xMF_R0MbI-lDUYk8Ejm_qP39eJfceKqz049LhGchh4rYtsQYry58E_ws6X3giO3b9i8qoxyJZGKYDyDioSVMDgUYBpvg7EEXcEmy_8CYDxeNfqGLTLHNbmdLphdNQuRURKetUb0Qz76FlDM_uZZjj5Xsqr1HpernvOXOMoJkLc7PI4TONNqd3ugskA"/>
+<div>
+<h4 class="font-headline-md text-label-lg text-on-surface">Elena Rodriguez</h4>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Yesterday at 5:45 PM</p>
+</div>
+</div>
+<p class="text-body-lg font-body-lg text-on-surface mb-6">First evening session in the new studio. The energy was incredible. Recovery score back to 92%! ✨</p>
+<div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-6">
+<img class="w-full h-full object-cover" data-alt="A high-quality lifestyle photograph of a high-end yoga studio interior. The space is flooded with warm, golden hour sunlight. A single yoga mat is placed on a light oak floor, with a ceramic water bottle and a few green plants nearby. The atmosphere is quiet, meditative, and premium, using a soft white and warm beige color scheme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPv4ndOlwF_NnyH_obJc9tkqEoX9VUewR5_D_E83LaLcqQC-DimS-0obBKXMN0kx4govzAbj9DFkUyAOzteRR5iUNkxbpEIE2sPo-pP_pbjMeEElVgJwvVAuZfSDJpG8PwJk-TijsJV-D61uvK2Rvprzc9kBde8sd3ljjFEGdZupYnhRQsKc_uOsKJlZERmv99H7KGcScW8tMdRkLCtbXL0iiu_HY_yF61uT6Sg62L2ddIrCuMAudjL-NCbI0ZjfBmCURgzjNh4-c"/>
+<div class="absolute top-4 right-4 bg-tertiary/90 text-white px-3 py-1 rounded-full text-label-sm font-label-lg backdrop-blur">
+                            Recovery Focus
+                        </div>
+</div>
+<div class="flex items-center justify-between border-t border-surface-variant pt-4">
+<div class="flex items-center gap-6">
+<button class="flex items-center gap-1 text-secondary-container transition-transform active:scale-125">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-label-lg text-label-lg">156</span>
+</button>
+<button class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="font-label-lg text-label-lg">45</span>
+</button>
+</div>
+<button class="text-on-surface-variant"><span class="material-symbols-outlined">share</span></button>
+</div>
+<!-- Comments Preview -->
+<div class="mt-4 space-y-3">
+<div class="flex gap-3">
+<img class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFKOCpuGAHVszzc52PjsUaiwBxEF06bIglHKktUnR7Mx7lo7JpAn2Ggcocb2QpCJ84uoBK6TDGzGZd-ts7LXRAPK9mgindDRTsPsQ5HYDfAfybd3kkShNKl9PPaclsBEYwlYsfu-JJhOwNis5y5LjAPdwG-b5AtCXauEr2KfWPJ0itd6ZvI3yvFOMDFRczrzJh_izmXrsxUkIXjipEdNC5O0RjIoc4R-NbEopVeBaHBtja0DTmx66HX-AYP-U4wBrMbTcMU7jEnV4"/>
+<div class="flex-1 bg-surface-container-low p-3 rounded-xl">
+<p class="text-label-sm font-bold text-on-surface">David Kim</p>
+<p class="text-body-md text-on-surface-variant">That lighting is perfect! Great work on getting the recovery back up.</p>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<!-- Right Sidebar: Suggested Athletes -->
+<aside class="hidden xl:flex flex-col gap-stack-lg w-80 shrink-0">
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_4px_20px_0_rgba(0,0,0,0.04)]">
+<h3 class="font-headline-md text-headline-md mb-4 text-on-surface">Suggested Athletes</h3>
+<div class="space-y-6">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcUuss9VudqaSCVAG3SM0hLWd4tChQhjX1PcDOvlQA-WaHfHPuUM2XCKc6xSskcuyC0PHx1d3grL5PQSJb-03xhLWA-nN9JOrz1KrQqQmIcgJCzWxl5gg_CI5pN9BDThmxLs0s2f4BIUx8RSSIn0awWMoMYYIJ73N-kSikr0p8mawJbbY_xHXOuszNs75DRcPCEJbb_Lc_GFTIUDVGzBNck6jVhsm7qYXpV2AEukZPrUD15Fwevobbmf451by7bKPxiBsLZl1JGTs"/>
+<div>
+<p class="text-label-lg font-label-lg text-on-surface">Alex Rivera</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Cycling • LA</p>
+</div>
+</div>
+<button class="text-primary font-bold text-label-lg">Follow</button>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPI2Iig9RFYqynvEC4Q1RlUR1YnyrB9iIL_6xWcCOKYw4CycrMrR-UVmeA25s5PF2WxvvnTedrl2kX0lRPSMvVP5sBiAxNfxCIu6wlxTEgzL-uihG2aOzbGs9cWfqlfs71fKJza2TFwtC5ybCeYFiajhweopyVXle_N5ftxRbN9VFbihS0qle6ibPy8MpdAmrwXwgvjVA0o50xr55sNnypkgJehYbX43xq8gpe-7eCUTFXWs1uwXUN36yn_DVC3kVDlJW1H9yDC0Q"/>
+<div>
+<p class="text-label-lg font-label-lg text-on-surface">Sarah J.</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Triathlon • NYC</p>
+</div>
+</div>
+<button class="text-primary font-bold text-label-lg">Follow</button>
+</div>
+</div>
+</div>
+<div class="bg-gradient-to-br from-primary-container to-secondary-container p-6 rounded-2xl text-white">
+<h4 class="font-headline-md text-headline-md mb-2">Join the Challenge</h4>
+<p class="text-label-sm mb-6 opacity-90">Beat your personal best in our Summer Solstice 10K. 1,200 participants already joined.</p>
+<button class="w-full bg-white text-primary font-bold py-3 rounded-xl shadow-lg hover:scale-[1.02] transition-transform">Join Now</button>
+</div>
+</aside>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-surface/80 dark:bg-on-background/80 backdrop-blur-md shadow-[0_-4px_20px_0_rgba(0,0,0,0.04)] rounded-t-xl">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1">
+<span class="material-symbols-outlined" data-icon="fitness_center">fitness_center</span>
+<span class="font-label-sm text-label-sm">Workouts</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1">
+<span class="material-symbols-outlined" data-icon="self_care">self_care</span>
+<span class="font-label-sm text-label-sm">Recovery</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container dark:bg-on-primary-fixed-variant text-on-primary-container dark:text-primary-fixed rounded-full px-4 py-1">
+<span class="material-symbols-outlined" data-icon="group" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-sm text-label-sm">Social</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</div>
+</nav>
+<!-- Floating Action Button (Conditional for Social Feed) -->
+<button class="fixed right-6 bottom-24 md:bottom-12 orange-gradient-btn text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-40">
+<span class="material-symbols-outlined text-[32px]">edit</span>
+</button>
+<script>
+        // Simple Interaction logic
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Mimic haptic feedback visually
+                this.classList.add('haptic-feedback-ready');
+                setTimeout(() => this.classList.remove('haptic-feedback-ready'), 100);
+            });
+        });
+
+        // Like/Kudos toggle simulation
+        const kudosBtns = document.querySelectorAll('.group');
+        kudosBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const icon = this.querySelector('.material-symbols-outlined');
+                const fill = icon.style.fontVariationSettings.includes("'FILL' 1");
+                icon.style.fontVariationSettings = fill ? "'FILL' 0" : "'FILL' 1";
+                this.style.transform = "scale(1.1)";
+                setTimeout(() => this.style.transform = "scale(1)", 150);
+            });
+        });
+    </script>
+</body></html>

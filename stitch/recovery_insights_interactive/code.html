@@ -1,0 +1,246 @@
+<html class="dark" lang="en"><head></head><body class="bg-background">```html
+
+
+
+    <meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PuNarva | Recovery Insights</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,700;1,800&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+            overflow-x: hidden;
+            font-family: 'Geist', sans-serif;
+        }
+        .kinetic-hotspot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #d2f000;
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+            transition: all 0.3s ease;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(210, 240, 0, 0.7); }
+            50% { transform: scale(1.4); box-shadow: 0 0 0 12px rgba(210, 240, 0, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(210, 240, 0, 0); }
+        }
+        .float-card {
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+        }
+        .float-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), 0 0 15px -2px rgba(210, 240, 0, 0.1);
+            border-color: rgba(210, 240, 0, 0.3);
+        }
+        .glass-card {
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .performance-gradient {
+            background: linear-gradient(180deg, rgba(210, 240, 0, 0.1) 0%, rgba(18, 18, 18, 0) 100%);
+        }
+        
+        /* Staggered Entrance */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .reveal {
+            opacity: 0;
+            animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        .reveal-1 { animation-delay: 0.1s; }
+        .reveal-2 { animation-delay: 0.2s; }
+        .reveal-3 { animation-delay: 0.3s; }
+        .reveal-4 { animation-delay: 0.4s; }
+        .reveal-5 { animation-delay: 0.5s; }
+
+        .font-barlow { font-family: 'Barlow Condensed', sans-serif; }
+        .font-geist { font-family: 'Geist', sans-serif; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#c8e8f1",
+                        "surface-tint": "#b8d300",
+                        "outline-variant": "#454932",
+                        "tertiary": "#ffffff",
+                        "on-primary": "#2c3400",
+                        "on-background": "#e5e2e1",
+                        "on-secondary-fixed-variant": "#474746",
+                        "surface-container": "#201f1f",
+                        "primary-fixed-dim": "#b8d300",
+                        "primary-fixed": "#d2f000",
+                        "on-surface": "#e5e2e1",
+                        "primary": "#ffffff",
+                        "surface-container-lowest": "#0e0e0e",
+                        "primary-container": "#d2f000",
+                        "on-error-container": "#ffdad6",
+                        "on-surface-variant": "#c6c9ab",
+                        "on-secondary": "#313030",
+                        "tertiary-fixed-dim": "#acccd4",
+                        "inverse-primary": "#576500",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "on-tertiary-fixed-variant": "#2e4b52",
+                        "on-tertiary": "#16343b",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "surface": "#131313",
+                        "error": "#ffb4ab",
+                        "outline": "#909378",
+                        "surface-container-highest": "#353534",
+                        "surface-container-high": "#2a2a2a",
+                        "background": "#131313",
+                        "secondary-container": "#474746",
+                        "inverse-on-surface": "#313030",
+                        "on-error": "#690005",
+                        "error-container": "#93000a",
+                        "secondary-fixed": "#e5e2e1",
+                        "surface-container-low": "#1c1b1b",
+                        "on-primary-fixed-variant": "#414c00",
+                        "surface-variant": "#353534",
+                        "secondary": "#c8c6c5",
+                        "inverse-surface": "#e5e2e1",
+                        "on-tertiary-container": "#4b6971",
+                        "surface-bright": "#393939",
+                        "on-secondary-container": "#b7b5b4",
+                        "surface-dim": "#131313",
+                        "on-primary-container": "#5d6b00",
+                        "on-primary-fixed": "#191e00",
+                        "tertiary-container": "#c8e8f1",
+                        "on-tertiary-fixed": "#001f26"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "gutter": "16px",
+                        "container-max": "1280px",
+                        "margin-desktop": "32px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Barlow Condensed"],
+                        "body-lg": ["Geist"],
+                        "headline-lg": ["Barlow Condensed"],
+                        "headline-md": ["Barlow Condensed"],
+                        "body-md": ["Geist"],
+                        "label-sm": ["Geist"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["72px", { "lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg": ["40px", { "lineHeight": "1.1", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<!-- Side Navigation Bar -->
+<aside class="flex flex-col h-full py-gutter px-4 bg-surface-container border-r border-outline-variant h-full w-64 fixed left-0 top-0 z-50">
+<div class="mb-12 px-2">
+<h1 class="font-barlow text-headline-md text-primary-container tracking-tighter italic font-extrabold">PuNarva</h1>
+<p class="font-geist text-sm text-on-surface-variant opacity-60 uppercase tracking-widest font-semibold">Elite Performance</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant hover:bg-surface-container-highest hover:text-primary-container transition-all active:scale-95 duration-150 group" href="#">
+<span class="material-symbols-outlined group-hover:rotate-12 transition-transform">dashboard</span>
+<span class="font-geist text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant hover:bg-surface-container-highest hover:text-primary-container transition-all active:scale-95 duration-150 group" href="#">
+<span class="material-symbols-outlined group-hover:rotate-12 transition-transform">fitness_center</span>
+<span class="font-geist text-sm font-medium">Training</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-primary-container font-bold border-r-4 border-primary-container bg-surface-container-highest active:scale-95 duration-150 group" href="#">
+<span class="material-symbols-outlined group-hover:rotate-12 transition-transform">bedtime</span>
+<span class="font-geist text-sm font-medium">Sleep</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant hover:bg-surface-container-highest hover:text-primary-container transition-all active:scale-95 duration-150 group" href="#">
+<span class="material-symbols-outlined group-hover:rotate-12 transition-transform">restaurant</span>
+<span class="font-geist text-sm font-medium">Nutrition</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant hover:bg-surface-container-highest hover:text-primary-container transition-all active:scale-95 duration-150 group" href="#">
+<span class="material-symbols-outlined group-hover:rotate-12 transition-transform">groups</span>
+<span class="font-geist text-sm font-medium">Team</span>
+</a>
+</nav>
+<div class="mt-auto px-2">
+<button class="w-full py-3 bg-primary-container text-on-primary-container font-geist text-xs font-bold tracking-[0.2em] rounded-lg hover:opacity-90 transition-opacity active:scale-[0.98]">
+                SYNC DATA
+            </button>
+</div>
+</aside>
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 right-0 left-64 z-40 bg-surface/80 backdrop-blur-xl border-b border-outline-variant flex justify-between items-center h-16 px-margin-desktop w-auto">
+<div class="flex items-center gap-8">
+<nav class="flex items-center gap-6">
+<a class="font-geist text-sm text-primary-container font-bold border-b-2 border-primary-container pb-1 transition-all" href="#">Recovery</a>
+<a class="font-geist text-sm text-on-surface-variant hover:text-primary-container transition-all" href="#">Performance</a>
+<a class="font-geist text-sm text-on-surface-variant hover:text-primary-container transition-all" href="#">Vitals</a>
+<a class="font-geist text-sm text-on-surface-variant hover:text-primary-container transition-all" href="#">Analytics</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="bg-surface-container-low border border-outline-variant rounded-full pl-10 pr-4 py-1.5 text-xs font-geist focus:ring-1 focus:ring-primary-container focus:border-primary-container outline-none transition-all w-64" placeholder="Search metrics..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary-container transition-all active:scale-90">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary-container transition-all active:scale-90">settings</button>
+<img alt="Athlete Profile Avatar" class="w-8 h-8 rounded-full border border-outline-variant object-cover cursor-pointer hover:border-primary-container transition-colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuIobSaE463Ul5iwULEroBEoztE6zzW10HnlxjEiZAlITD0-l9RXFDBKYoQCTFH3QWhlmRyjVb5pRaj8sdYx7KQmvugTw4g-Ml5btHXfUoRTdN7-eRKQj6WniirUPjpWKX_Lra_-F19uwJhZDfbhjmJc3XEkGcFye8XWpACXCr2YUeQFCQnH4IoFVMH6FH4kIFmt3K-EL0dTf6LlOkdrbZhFYpOKdztL6ppRJAkhkuWeB1TdajoK5-3O8Gq4Lfi0nonUkJUkbGUOc"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-24 px-margin-desktop pb-12 min-h-screen">
+<!-- Header Section -->
+<section class="mb-12 reveal reveal-1">
+<div class="flex justify-between items-end">
+<div>
+<span class="font-geist text-xs text-primary-container mb-2 block tracking-[0.25em] font-bold">PERFORMANCE OVERVIEW</span>
+<h2 class="font-barlow text-headline-lg uppercase italic tracking-tighter font-extrabold">Recovery Insights</h2>
+</div>
+<div class="flex gap-4">
+<div class="bg-surface-container-high px-6 py-4 rounded-xl border border-outline-variant/30 flex flex-col items-end float-card">
+<span class="font-geist text-[10px] text-on-surface-variant mb-1 uppercase tracking-widest font-bold">Recovery Score</span>
+<div class="flex items-baseline gap-2">
+<span class="font-barlow text-headline-lg text-primary-container font-extrabold">88</span>
+<span class="font-barlow text-headline-md text-on-surface-variant opacity-50">%</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-6 items-stretch">
+<!-- Kinetic Tension Map (Hero Card) -->
+<div class="col-span-12 lg:col-span-7 glass-card rounded-2xl overflow-hidden relative min-h-[500px] group float-card reveal reveal-2">
+<div class="absolute top-8 left-8 z-10">
+<h3 class="font-barlow text-headline-md uppercase tracking-tight italic font-bold">Kinetic Tension Map</h3>
+<p class="font-geist text-sm text-on-surface-variant max-w-xs mt-2 leading-relaxed">Real-time biomechanical strain analysis based on morning mobility check-in.</p>
+</div>
+<!-- Body Visualization Container -->
+<div class="absolute inset-0 flex items-center justify-center p-12">
+<div class="relative h-full aspect-[1/2] opacity-80 group-hover:opacity-100 transition-opacity duration-700">
+<!-- Simulated Body Silhouette -->
+</div></div></div></div></main></body></html>

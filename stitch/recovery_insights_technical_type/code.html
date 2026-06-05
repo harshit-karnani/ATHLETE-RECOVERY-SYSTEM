@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PuNarva | Recovery Insights</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Inter:wght@400;500;700&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #121317;
+            background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .segmented-progress-bar {
+            display: flex;
+            gap: 2px;
+        }
+        .segment {
+            height: 8px;
+            flex: 1;
+            background-color: #474746;
+        }
+        .segment-active {
+            background-color: #abd600;
+        }
+        .segment-success {
+            background-color: #abd600;
+        }
+        .grid-texture {
+            background-image: linear-gradient(#343539 1px, transparent 1px), linear-gradient(90deg, #343539 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#1b1c1c",
+                        "tertiary-container": "#e4e2e1",
+                        "on-primary-fixed": "#161e00",
+                        "on-primary-container": "#556d00",
+                        "surface-dim": "#121317",
+                        "on-secondary-container": "#bab8b7",
+                        "surface-bright": "#38393d",
+                        "secondary": "#c8c6c5",
+                        "inverse-surface": "#e3e2e7",
+                        "on-tertiary-container": "#656464",
+                        "on-primary-fixed-variant": "#3c4d00",
+                        "surface-variant": "#343539",
+                        "surface-container-low": "#1a1b1f",
+                        "secondary-fixed": "#e5e2e1",
+                        "error-container": "#93000a",
+                        "on-error": "#690005",
+                        "inverse-on-surface": "#2f3034",
+                        "secondary-container": "#4a4949",
+                        "background": "#121317",
+                        "surface-container-high": "#292a2e",
+                        "surface-container-highest": "#343539",
+                        "outline": "#8e9379",
+                        "error": "#ffb4ab",
+                        "surface": "#121317",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-tertiary": "#303030",
+                        "on-tertiary-fixed-variant": "#474746",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "inverse-primary": "#506600",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "on-secondary": "#313030",
+                        "on-surface-variant": "#c4c9ac",
+                        "on-error-container": "#ffdad6",
+                        "primary-container": "#c3f400",
+                        "surface-container-lowest": "#0d0e12",
+                        "primary": "#ffffff",
+                        "on-surface": "#e3e2e7",
+                        "primary-fixed": "#c3f400",
+                        "surface-container": "#1e1f23",
+                        "primary-fixed-dim": "#abd600",
+                        "on-secondary-fixed-variant": "#474646",
+                        "on-background": "#e3e2e7",
+                        "on-primary": "#283500",
+                        "tertiary": "#ffffff",
+                        "outline-variant": "#444933",
+                        "surface-tint": "#abd600",
+                        "tertiary-fixed": "#e4e2e1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "32px",
+                        "margin-mobile": "16px",
+                        "container-max": "1440px",
+                        "unit": "4px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Barlow Condensed"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Barlow Condensed"],
+                        "data-sm": ["JetBrains Mono"],
+                        "label-caps": ["JetBrains Mono"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Barlow Condensed"],
+                        "data-lg": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-lg": ["40px", {"lineHeight": "1.1", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                        "data-sm": ["14px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "display-lg": ["72px", {"lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "data-lg": ["20px", {"lineHeight": "1.0", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="text-on-surface">
+<!-- Top Navigation -->
+<header class="bg-surface border-b-2 border-outline-variant fixed top-0 w-full z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md uppercase tracking-tighter text-primary-container">PuNarva</div>
+<nav class="hidden md:flex gap-8">
+<a class="text-primary-container border-b-2 border-primary-container pt-1 font-label-caps text-label-caps" href="#">Recovery</a>
+<a class="text-on-surface-variant font-body-md text-body-md hover:text-primary-container transition-colors" href="#">Performance</a>
+<a class="text-on-surface-variant font-body-md text-body-md hover:text-primary-container transition-colors" href="#">Vitals</a>
+<a class="text-on-surface-variant font-body-md text-body-md hover:text-primary-container transition-colors" href="#">Analytics</a>
+</nav>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary-container">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary-container">settings</span>
+<img alt="Athlete Profile" class="w-10 h-10 rounded-full border-2 border-outline" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTfuddtF5L9gaP_vLc-j8pE8_sLLhT8fbf5CharfWLR5GMxyxWVqWvQ7udi4M0GiBQ33vMIdrVGqpctIoaSxWcD8QXWvbL9iFHFB8JoM0CMOP8U_s5hu0OkCtwUwNXemEO-AMoD933eGP243YiO8azF3oX47xryWFQsfBTVUpcQhwiY80o5yL2vp9W5Nu_pHkvZXyFNfB8tiP2AgzaljTl1Rbr13Su_3eqq2SUMALw_dvdsxbz4cWEY5mNAoCSR1B_O6NUWzGSmZo"/>
+</div>
+</div>
+</header>
+<div class="flex pt-24 min-h-screen">
+<!-- Side Navigation -->
+<aside class="hidden md:flex flex-col h-screen w-64 bg-surface-container border-r-2 border-outline-variant fixed left-0 py-6 gap-2">
+<div class="px-6 mb-8">
+<div class="font-headline-md text-headline-md text-primary-container uppercase">Athlete Alpha</div>
+<div class="font-label-caps text-label-caps text-secondary uppercase">Status: Peak Performance</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-4 px-6 py-4 text-on-surface-variant hover:bg-surface-container-high hover:text-primary-container transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-on-surface-variant hover:bg-surface-container-high hover:text-primary-container transition-all" href="#">
+<span class="material-symbols-outlined">fitness_center</span>
+<span class="font-body-md text-body-md">Training</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-on-surface-variant hover:bg-surface-container-high hover:text-primary-container transition-all" href="#">
+<span class="material-symbols-outlined">bedtime</span>
+<span class="font-body-md text-body-md">Sleep</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-on-surface-variant hover:bg-surface-container-high hover:text-primary-container transition-all" href="#">
+<span class="material-symbols-outlined">restaurant</span>
+<span class="font-body-md text-body-md">Nutrition</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-on-surface-variant hover:bg-surface-container-high hover:text-primary-container transition-all" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-body-md text-body-md">Team</span>
+</a>
+</nav>
+<div class="mt-auto px-6">
+<button class="w-full py-4 bg-primary-container text-on-primary-container font-headline-md text-headline-md uppercase active:scale-95 transition-transform">
+                Log Session
+            </button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 md:ml-64 px-4 md:px-margin-desktop pb-12">
+<div class="max-w-container-max mx-auto">
+<!-- Hero Section: Recovery Gauge -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter py-8">
+<div class="lg:col-span-5 bg-surface-container border-2 border-outline-variant p-8 flex flex-col items-center justify-center relative overflow-hidden">
+<div class="absolute inset-0 grid-texture opacity-10"></div>
+<div class="relative z-10 text-center">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-4 tracking-widest">Recovery Index</h2>
+<div class="relative w-64 h-64 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-variant" cx="128" cy="128" fill="transparent" r="110" stroke="currentColor" stroke-width="12"></circle>
+<circle class="text-primary-container" cx="128" cy="128" fill="transparent" r="110" stroke="currentColor" stroke-dasharray="691" stroke-dashoffset="83" stroke-width="12"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-display-lg text-display-lg leading-none text-primary-container">88</span>
+<span class="font-label-caps text-label-caps text-secondary uppercase">Optimized</span>
+</div>
+</div>
+<div class="mt-8 flex items-center gap-2 bg-surface-container-high px-4 py-2 border border-outline-variant">
+<span class="material-symbols-outlined text-primary-container">trending_up</span>
+<span class="font-label-caps text-label-caps">PHYSIO LOAD: <span class="text-primary-container">+12% VS BASELINE</span></span>
+</div>
+</div>
+</div>
+<!-- Interactive Body Map -->
+<div class="lg:col-span-7 bg-surface-container border-2 border-outline-variant p-8 flex flex-col">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h2 class="font-headline-md text-headline-md uppercase tracking-tight">Kinetic Tension Map</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Real-time localized strain indicators</p>
+</div>
+<span class="px-3 py-1 bg-error-container text-error font-label-caps text-label-caps uppercase">2 Hotspots detected</span>
+</div>
+<div class="flex-1 flex items-center justify-center gap-12">
+<div class="relative h-[400px]">
+<!-- Schematic Human Body Placeholder -->
+<img alt="Human Body Map" class="h-full opacity-30 grayscale invert" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPWstHRLLlshzOPjya1XNMZbNj6V6Y_4Sqcg1i8OIzExVX-oRa6uhB5pCdsj6M5TPzGeUGkkneSPJSHEP1HKsIBQRUi_KTYR9YFZhoueY_lIYnv8djqSaMuNhAIlgVOj6-_dkfMuCc1ZfB5qLF_fYAg5iH75da6yWw34tZ5HU7SDp9JR4E1vWlYK1GJ-n3DCiOlKPawWrKrlOAzV1qFlVMjUc8qxG10G-iLpaHJKG3Qpe5qgdeAbDH2GaWjlUg_qDMJeNciSq_ouI"/>
+<!-- Hotspot 1: Left Patellar -->
+<div class="absolute top-[280px] left-[45px] group">
+<div class="w-4 h-4 bg-primary-container animate-ping rounded-full absolute"></div>
+<div class="w-4 h-4 bg-primary-container rounded-full relative z-10 border-2 border-surface cursor-pointer"></div>
+<div class="absolute left-6 top-1/2 -translate-y-1/2 whitespace-nowrap bg-surface-container-highest border border-primary-container px-3 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="font-label-caps text-label-caps text-primary-container">LEFT PATELLAR: HIGH TENSION</span>
+</div>
+</div>
+<!-- Hotspot 2: Right Trapezius -->
+<div class="absolute top-[80px] right-[45px] group">
+<div class="w-4 h-4 bg-error animate-ping rounded-full absolute"></div>
+<div class="w-4 h-4 bg-error rounded-full relative z-10 border-2 border-surface cursor-pointer"></div>
+<div class="absolute right-6 top-1/2 -translate-y-1/2 whitespace-nowrap bg-surface-container-highest border border-error px-3 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="font-label-caps text-label-caps text-error">RIGHT TRAPEZIUS: CRITICAL</span>
+</div>
+</div>
+</div>
+<div class="hidden md:flex flex-col gap-4">
+<div class="p-4 border-l-4 border-primary-container bg-surface-container-high">
+<div class="font-label-caps text-label-caps text-primary-container mb-1 uppercase">Patellar Tendon</div>
+<div class="font-body-md text-body-md">Moderate inflammation detected post-sprint session.</div>
+</div>
+<div class="p-4 border-l-4 border-error bg-surface-container-high">
+<div class="font-label-caps text-label-caps text-error mb-1 uppercase">Trapezius</div>
+<div class="font-body-md text-body-md">Myofascial trigger points identified in upper quadrant.</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Vitals Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-8">
+<!-- Sleep Quality -->
+<div class="bg-surface-container border-2 border-outline-variant p-6">
+<div class="flex justify-between items-center mb-6">
+<span class="material-symbols-outlined text-primary-container">bedtime</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Sleep Quality</span>
+</div>
+<div class="text-4xl font-headline-md mb-4 uppercase">8h 42m</div>
+<div class="flex items-end gap-1 h-16 mb-4">
+<div class="bg-secondary-container w-full h-[40%]"></div>
+<div class="bg-secondary-container w-full h-[60%]"></div>
+<div class="bg-secondary-container w-full h-[90%]"></div>
+<div class="bg-secondary-container w-full h-[70%]"></div>
+<div class="bg-primary-container w-full h-[100%]"></div>
+<div class="bg-secondary-container w-full h-[85%]"></div>
+<div class="bg-secondary-container w-full h-[95%]"></div>
+</div>
+<div class="font-label-caps text-label-caps text-primary-container uppercase">Deep Sleep: 2h 15m (Optimal)</div>
+</div>
+<!-- HRV Status -->
+<div class="bg-surface-container border-2 border-outline-variant p-6">
+<div class="flex justify-between items-center mb-6">
+<span class="material-symbols-outlined text-primary-container">ecg</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">HRV Status</span>
+</div>
+<div class="text-4xl font-headline-md mb-2"><span class="font-data-lg text-primary-container">74</span> <span class="text-lg text-on-surface-variant font-label-caps">ms</span></div>
+<div class="h-16 mb-6 flex items-center">
+<svg class="w-full h-10 overflow-visible">
+<path d="M0 20 L20 15 L40 25 L60 5 L80 15 L100 10 L120 30 L140 20 L160 25 L180 5 L200 10" fill="none" stroke="#abd600" stroke-width="2"></path>
+</svg>
+</div>
+<div class="font-label-caps text-label-caps text-primary-container uppercase">Trend: Stable +3%</div>
+</div>
+<!-- Stress Score -->
+<div class="bg-surface-container border-2 border-outline-variant p-6">
+<div class="flex justify-between items-center mb-6">
+<span class="material-symbols-outlined text-error">psychology</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Stress Score</span>
+</div>
+<div class="text-4xl font-headline-md mb-4"><span class="font-data-lg">18</span><span class="text-lg text-on-surface-variant font-label-caps">/100</span></div>
+<div class="segmented-progress-bar mb-4">
+<div class="segment segment-success"></div>
+<div class="segment segment-success"></div>
+<div class="segment"></div>
+<div class="segment"></div>
+<div class="segment"></div>
+<div class="segment"></div>
+<div class="segment"></div>
+<div class="segment"></div>
+<div class="segment"></div>
+<div class="segment"></div>
+</div>
+<div class="font-label-caps text-label-caps text-secondary uppercase">Autonomic Calm</div>
+</div>
+</section>
+<!-- Protocols Section -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+<!-- Action Required -->
+<div class="space-y-4">
+<h3 class="font-headline-md text-headline-md uppercase border-l-4 border-primary-container pl-4">Action Required</h3>
+<div class="bg-surface-container border-2 border-outline-variant p-4 flex items-center justify-between group hover:border-primary-container transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container-highest border border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container">hot_tub</span>
+</div>
+<div>
+<div class="font-headline-md text-lg uppercase">Contrast Bath</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant uppercase">15 MINS • TEMP: 10°C / 38°C</div>
+</div>
+</div>
+<button class="bg-primary-container text-on-primary-container px-4 py-2 font-label-caps text-label-caps uppercase hover:bg-white transition-colors">Start</button>
+</div>
+<div class="bg-surface-container border-2 border-outline-variant p-4 flex items-center justify-between group hover:border-primary-container transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container-highest border border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container">compress</span>
+</div>
+<div>
+<div class="font-headline-md text-lg uppercase">Pneumatic Compression</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant uppercase">LEVEL 4 • 20 MINS • LOWER LIMBS</div>
+</div>
+</div>
+<button class="bg-primary-container text-on-primary-container px-4 py-2 font-label-caps text-label-caps uppercase hover:bg-white transition-colors">Start</button>
+</div>
+</div>
+<!-- Suggested Recovery -->
+<div class="space-y-4">
+<h3 class="font-headline-md text-headline-md uppercase border-l-4 border-outline pl-4">Suggested Recovery</h3>
+<div class="bg-surface-container border-2 border-outline-variant p-4 flex items-center justify-between opacity-70 hover:opacity-100 hover:border-primary-container transition-all">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container-highest border border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined">roller_skating</span>
+</div>
+<div>
+<div class="font-headline-md text-lg uppercase">Foam Roll</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant uppercase">10 MINS • QUADRICEPS FOCUS</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary-container">chevron_right</span>
+</div>
+<div class="bg-surface-container border-2 border-outline-variant p-4 flex items-center justify-between opacity-70 hover:opacity-100 hover:border-primary-container transition-all">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container-highest border border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined">self_improvement</span>
+</div>
+<div>
+<div class="font-headline-md text-lg uppercase">Mobility Flow</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant uppercase">8 MINS • ANKLE DORSAL FLEXION</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary-container">chevron_right</span>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+<!-- Mobile Bottom Navigation -->
+<footer class="md:hidden fixed bottom-0 left-0 right-0 bg-surface border-t-2 border-outline-variant px-margin-mobile py-2 flex justify-around items-center z-50">
+<a class="flex flex-col items-center gap-1 text-primary-container" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] uppercase font-label-caps">Dash</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">fitness_center</span>
+<span class="text-[10px] uppercase font-label-caps">Train</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">health_and_safety</span>
+<span class="text-[10px] uppercase font-label-caps">Recover</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] uppercase font-label-caps">Profile</span>
+</a>
+</footer>
+<script>
+    // Micro-interaction for body map hotspots
+    document.querySelectorAll('.group').forEach(hotspot => {
+        hotspot.addEventListener('mouseenter', () => {
+            const ping = hotspot.querySelector('.animate-ping');
+            if (ping) ping.style.animationPlayState = 'paused';
+        });
+        hotspot.addEventListener('mouseleave', () => {
+            const ping = hotspot.querySelector('.animate-ping');
+            if (ping) ping.style.animationPlayState = 'running';
+        });
+    });
+
+    // Simple button active state visual feedback
+    document.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('mousedown', () => btn.classList.add('scale-95'));
+        btn.addEventListener('mouseup', () => btn.classList.remove('scale-95'));
+        btn.addEventListener('mouseleave', () => btn.classList.remove('scale-95'));
+    });
+</script>
+</body></html>

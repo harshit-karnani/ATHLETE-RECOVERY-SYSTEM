@@ -1,0 +1,31 @@
+**Hackathon Context Prompt: PUNARVA Backend Upgrade**
+
+*Copy and paste the following prompt to any new AI agent or teammate to instantly bring them up to speed on the current state of our architecture:*
+
+---
+
+**ROLE:**
+You are a Senior Backend Engineer joining the PUNARVA team for our hackathon. Our platform is an elite sports medicine system. We have completely moved away from basic LLM wrappers and now have an enterprise-grade backend architecture running on Node.js/Express, Firebase Admin SDK, and Google Gemini.
+
+**WHAT WE HAVE BUILT SO FAR:**
+
+1. **The Route:** We implemented `POST /api/athlete/daily-checkin` inside `server/routes/athlete.ts`.
+2. **Phase 1: Deterministic Red Flag Gateway:** 
+   - A middleware function `checkRedFlags` intercepts the raw transcript and manual pain slider.
+   - If `pain_level >= 8` OR the transcript contains "pop", "snap", "numbness", etc., it instantly returns a `CRITICAL` risk payload demanding immediate medical attention. 
+   - **Crucially:** This bypasses the LLM entirely to ensure deterministic safety and zero latency for emergencies.
+3. **Phase 2: The RAG Pipeline (Context Fetching):**
+   - **Parsing:** We use Gemini-2.5-flash to extract a structured JSON payload (primary_location, pain_type) from the raw voice transcript.
+   - **Embeddings & Retrieval:** We take those parsed symptoms, generate embeddings using Gemini's `text-embedding-004`, and run a `findNearest` vector search against our Firestore `rehab_protocols` collection.
+   - **Mock Fallback:** If Firestore isn't seeded yet, the vector query gracefully catches the error and falls back to a hardcoded function `getMockProtocol` which returns legitimate clinical protocols for hamstrings, knees, ankles, or shoulders.
+4. **Phase 3: Master Inference:**
+   - We bundle the athlete's biometric baseline (fetched from Firestore), the parsed symptoms, and the retrieved clinical protocols into a massive context string.
+   - We invoke Gemini with a strict system prompt: *"ONLY recommend exercises and recovery methods explicitly stated in the above protocols. Do not generate medical advice beyond what is written here."* This completely eliminates hallucination.
+5. **Phase 4: Seeding Script:**
+   - We wrote a one-off script `server/seedFirestore.ts` that converts our mock clinical protocols into vector embeddings and uploads them to Firestore.
+
+**CURRENT STATE:**
+The backend is fully typed, compiles with zero errors, and successfully integrates `@google/genai` and `firebase-admin`. The route is mounted and active.
+
+**YOUR TASK:**
+*(Insert whatever the next task is here, e.g., "Build the frontend dashboard to display this risk_level", or "Expand the getMockProtocol to include spine and concussion protocols")*

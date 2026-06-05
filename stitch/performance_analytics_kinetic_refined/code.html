@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PuNarva | Performance Analytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;family=Space+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-surface": "#e5e2e1",
+                "secondary-container": "#474746",
+                "error": "#ffb4ab",
+                "on-secondary-fixed": "#1b1b1c",
+                "surface-bright": "#393939",
+                "secondary-fixed-dim": "#c8c6c5",
+                "error-container": "#93000a",
+                "surface": "#131313",
+                "inverse-on-surface": "#313030",
+                "tertiary-fixed-dim": "#c8c6c5",
+                "tertiary": "#ffffff",
+                "surface-variant": "#353534",
+                "primary-container": "#e2ff3b",
+                "on-primary": "#191e00",
+                "primary-fixed-dim": "#b8d300",
+                "background": "#131313",
+                "on-secondary-container": "#b7b5b4",
+                "tertiary-container": "#e4e2e1",
+                "on-secondary": "#303030",
+                "surface-dim": "#131313",
+                "on-tertiary": "#303030",
+                "inverse-primary": "#576500",
+                "on-error": "#690005",
+                "on-background": "#e5e2e1",
+                "primary-fixed": "#d3f02a",
+                "surface-container-high": "#2a2a2a",
+                "outline": "#90937a",
+                "surface-container-low": "#1c1b1b",
+                "surface-tint": "#b8d300",
+                "primary": "#e2ff3b",
+                "tertiary-fixed": "#e4e2e1",
+                "on-primary-container": "#414c00",
+                "on-primary-fixed": "#191e00",
+                "on-tertiary-fixed-variant": "#474746",
+                "surface-container-highest": "#353534",
+                "on-tertiary-container": "#656464",
+                "on-secondary-fixed-variant": "#474746",
+                "surface-container": "#201f1f",
+                "on-error-container": "#ffdad6",
+                "on-tertiary-fixed": "#1b1c1c",
+                "surface-container-lowest": "#0e0e0e",
+                "outline-variant": "#464934",
+                "on-surface-variant": "#c6c9ad",
+                "on-primary-fixed-variant": "#414c00",
+                "inverse-surface": "#e5e2e1",
+                "secondary": "#c8c6c5",
+                "secondary-fixed": "#e5e2e1"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "margin-mobile": "16px",
+                "gutter": "16px",
+                "unit": "4px",
+                "grid-base": "8px",
+                "margin-desktop": "32px"
+            },
+            "fontFamily": {
+                "headline-lg": ["Oswald"],
+                "body-md": ["Inter"],
+                "label-caps": ["Space Mono"],
+                "body-lg": ["Inter"],
+                "data-display": ["Oswald"],
+                "headline-xl": ["Oswald"],
+                "headline-md": ["Oswald"],
+                "headline-lg-mobile": ["Oswald"]
+            },
+            "fontSize": {
+                "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                "label-caps": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "data-display": ["64px", {"lineHeight": "1", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+                "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0e0e0e;
+            background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
+            color: #e5e2e1;
+        }
+        .grain-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url('https://www.transparenttextures.com/patterns/asfalt-light.png');
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .segmented-progress span {
+            width: 4px;
+            height: 12px;
+            background: #2a2a2a;
+            margin-right: 2px;
+        }
+        .segmented-progress span.active {
+            background: #e2ff3b;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0e0e0e; }
+        ::-webkit-scrollbar-thumb { background: #353534; }
+        ::-webkit-scrollbar-thumb:hover { background: #e2ff3b; }
+    </style>
+</head>
+<body class="font-body-md text-body-md overflow-x-hidden">
+<div class="grain-overlay"></div>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen w-64 bg-surface-container border-r-2 border-outline-variant flex flex-col py-6 gap-2 z-50 hidden md:flex">
+<div class="px-6 mb-8">
+<h1 class="font-headline-md text-headline-md text-primary uppercase">PuNarva</h1>
+<div class="mt-6 flex items-center gap-3">
+<img alt="Athlete Avatar" class="w-10 h-10 object-cover border-2 border-primary" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA286EmeJGBowYLGPpJnTiaeN_kVukvq1g7hPhwWkIPImw2LUGHp4hMp8UKAXEp0WDBqlzS6yd-nE3EeXGBGWI2Ibz55jxJSf0fMtUZNaSGrz13xh_TiHJBgkaPf9BaetzHi4YzHjHJB6nw0kAZqsn01G-G0ub7ZvMjL4aymfy30ghRvhey6rfnstXPoOMkjQsbw7Khd6vCo6QCxNRlzDLEj0r6ls2OxvC47zCMdtva5myUeiazGVDAHblxisJrrEKwkbUmJ3HMBrQ"/>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface">Athlete Alpha</p>
+<p class="font-label-caps text-[10px] text-primary">Status: Peak Performance</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-4 px-6 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps uppercase">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined">fitness_center</span>
+<span class="font-label-caps text-label-caps uppercase">Training</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined">bedtime</span>
+<span class="font-label-caps text-label-caps uppercase">Sleep</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined">restaurant</span>
+<span class="font-label-caps text-label-caps uppercase">Nutrition</span>
+</a>
+<a class="bg-primary text-on-primary font-bold border-r-4 border-on-primary-container flex items-center gap-4 px-6 py-4 transition-all" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-caps text-label-caps uppercase">Analytics</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-caps text-label-caps uppercase">Team</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full py-3 bg-transparent border-2 border-primary text-primary font-label-caps text-label-caps uppercase tracking-widest hover:bg-primary hover:text-on-primary active:scale-95 transition-all">
+            Log Session
+        </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-64 min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-40 bg-surface border-b-2 border-outline-variant w-full">
+<div class="flex justify-between items-center w-full px-margin-desktop py-4 max-w-[1440px] mx-auto">
+<div class="flex items-center gap-8">
+<div class="md:hidden font-headline-lg text-headline-lg-mobile uppercase tracking-tighter text-primary">PN</div>
+<nav class="hidden lg:flex gap-6">
+<a class="text-on-surface-variant font-label-caps text-label-caps uppercase hover:text-primary transition-colors" href="#">Recovery</a>
+<a class="text-on-surface-variant font-label-caps text-label-caps uppercase hover:text-primary transition-colors" href="#">Performance</a>
+<a class="text-on-surface-variant font-label-caps text-label-caps uppercase hover:text-primary transition-colors" href="#">Vitals</a>
+<a class="text-primary border-b-2 border-primary pt-1 font-label-caps text-label-caps uppercase" href="#">Analytics</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden sm:flex items-center bg-surface-container-low border-2 border-outline-variant px-3 py-1">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-label-caps font-label-caps placeholder:text-outline-variant text-on-surface w-40" placeholder="SEARCH METRICS..." type="text"/>
+</div>
+<div class="flex gap-4 items-center">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">settings</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Analytics Canvas -->
+<div class="flex-1 p-margin-desktop space-y-gutter">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between border-b-4 border-primary pb-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg uppercase leading-none">Performance Analytics</h2>
+<p class="font-label-caps text-label-caps text-primary mt-2 tracking-widest">CYCLE: HIGH INTENSITY PHASE II // WEEK 42</p>
+</div>
+<div class="mt-4 md:mt-0 flex flex-col items-end gap-2">
+<button class="px-6 py-2 bg-primary text-on-primary font-label-caps text-label-caps uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all">
+                    Export Report
+                </button>
+<div class="text-right">
+<p class="font-label-caps text-[10px] text-on-surface-variant">LAST UPDATED</p>
+<p class="font-label-caps text-label-caps">02.11.2023 08:45 AM</p>
+</div>
+</div>
+</div>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Main Analytics Section -->
+<div class="col-span-12 lg:col-span-9 space-y-gutter">
+<!-- Weekly Training Volume -->
+<section class="bg-surface-container border-2 border-outline-variant overflow-hidden">
+<div class="bg-surface-container-high px-4 py-2 border-b-2 border-outline-variant flex justify-between items-center">
+<span class="font-label-caps text-label-caps uppercase tracking-widest text-primary">Weekly Training Volume</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant uppercase">Unit: Total Work (kJ)</span>
+</div>
+<div class="p-6 h-[300px] flex items-end justify-between gap-4 relative">
+<!-- Background Grid Lines -->
+<div class="absolute inset-0 p-6 flex flex-col justify-between pointer-events-none opacity-10">
+<div class="border-t border-on-surface w-full"></div>
+<div class="border-t border-on-surface w-full"></div>
+<div class="border-t border-on-surface w-full"></div>
+<div class="border-t border-on-surface w-full"></div>
+</div>
+<!-- Bar Charts -->
+<div class="flex-1 flex flex-col items-center group cursor-pointer">
+<div class="w-full bg-outline-variant relative transition-all group-hover:bg-primary" style="height: 60%">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 font-label-caps text-[10px] bg-primary text-on-primary px-1">1,240</div>
+</div>
+<span class="mt-4 font-label-caps text-[10px] text-on-surface-variant uppercase">Mon</span>
+</div>
+<div class="flex-1 flex flex-col items-center group cursor-pointer">
+<div class="w-full bg-outline-variant relative transition-all group-hover:bg-primary" style="height: 85%">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 font-label-caps text-[10px] bg-primary text-on-primary px-1">1,850</div>
+</div>
+<span class="mt-4 font-label-caps text-[10px] text-on-surface-variant uppercase">Tue</span>
+</div>
+<div class="flex-1 flex flex-col items-center group cursor-pointer">
+<div class="w-full bg-primary relative transition-all" style="height: 100%">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 font-label-caps text-[10px] bg-primary text-on-primary px-1">2,100</div>
+</div>
+<span class="mt-4 font-label-caps text-[10px] text-primary uppercase font-bold">Wed</span>
+</div>
+<div class="flex-1 flex flex-col items-center group cursor-pointer">
+<div class="w-full bg-outline-variant relative transition-all group-hover:bg-primary" style="height: 45%">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 font-label-caps text-[10px] bg-primary text-on-primary px-1">940</div>
+</div>
+<span class="mt-4 font-label-caps text-[10px] text-on-surface-variant uppercase">Thu</span>
+</div>
+<div class="flex-1 flex flex-col items-center group cursor-pointer">
+<div class="w-full bg-outline-variant relative transition-all group-hover:bg-primary" style="height: 70%">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 font-label-caps text-[10px] bg-primary text-on-primary px-1">1,450</div>
+</div>
+<span class="mt-4 font-label-caps text-[10px] text-on-surface-variant uppercase">Fri</span>
+</div>
+<div class="flex-1 flex flex-col items-center group cursor-pointer">
+<div class="w-full bg-outline-variant relative transition-all group-hover:bg-primary" style="height: 90%">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 font-label-caps text-[10px] bg-primary text-on-primary px-1">1,980</div>
+</div>
+<span class="mt-4 font-label-caps text-[10px] text-on-surface-variant uppercase">Sat</span>
+</div>
+<div class="flex-1 flex flex-col items-center group cursor-pointer">
+<div class="w-full bg-outline-variant relative transition-all group-hover:bg-primary" style="height: 20%">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 font-label-caps text-[10px] bg-primary text-on-primary px-1">420</div>
+</div>
+<span class="mt-4 font-label-caps text-[10px] text-on-surface-variant uppercase">Sun</span>
+</div>
+</div>
+</section>
+<!-- Intensity & Fatigue -->
+<section class="bg-surface-container border-2 border-outline-variant overflow-hidden">
+<div class="bg-surface-container-high px-4 py-2 border-b-2 border-outline-variant flex justify-between items-center">
+<span class="font-label-caps text-label-caps uppercase tracking-widest text-primary">Intensity vs. Fatigue</span>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 bg-primary"></div>
+<span class="font-label-caps text-[10px] uppercase">Intensity</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 bg-secondary"></div>
+<span class="font-label-caps text-[10px] uppercase">Fatigue</span>
+</div>
+</div>
+</div>
+<div class="p-6 h-[240px] relative">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 1000 200">
+<!-- Fatigue Line -->
+<path d="M0,180 L150,150 L300,160 L450,120 L600,100 L750,90 L900,40 L1000,60" fill="none" stroke="#c8c6c5" stroke-dasharray="5,5" stroke-width="3"></path>
+<!-- Intensity Line -->
+<path d="M0,150 L150,100 L300,40 L450,80 L600,20 L750,110 L900,10 L1000,50" fill="none" stroke="#e2ff3b" stroke-width="4"></path>
+<!-- Interaction Nodes -->
+<circle cx="300" cy="40" fill="#e2ff3b" r="6"></circle>
+<circle cx="600" cy="20" fill="#e2ff3b" r="6"></circle>
+<circle cx="900" cy="10" fill="#e2ff3b" r="6"></circle>
+</svg>
+<div class="absolute top-10 left-[30%] bg-surface-container-highest border border-primary p-2 text-[10px] font-label-caps">
+                            PEAK INTENSITY: 98%<br/>THRESHOLD REACHED
+                        </div>
+</div>
+</section>
+</div>
+<!-- Right Sidebar -->
+<aside class="col-span-12 lg:col-span-3 space-y-gutter">
+<div class="bg-surface-container border-2 border-outline-variant flex flex-col h-full">
+<div class="bg-surface-container-high px-4 py-2 border-b-2 border-outline-variant">
+<span class="font-label-caps text-label-caps uppercase tracking-widest text-primary">Personal Bests</span>
+</div>
+<div class="p-4 space-y-6 flex-1">
+<div class="border-l-4 border-primary pl-4 py-2">
+<p class="font-label-caps text-[10px] text-on-surface-variant uppercase">5K Run</p>
+<p class="font-headline-md text-headline-md text-on-surface">18:42.04</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[12px] text-primary">trending_up</span>
+<span class="font-label-caps text-[10px] text-primary">-12s vs PREV</span>
+</div>
+</div>
+<div class="border-l-4 border-primary pl-4 py-2">
+<p class="font-label-caps text-[10px] text-on-surface-variant uppercase">Deadlift Max</p>
+<p class="font-headline-md text-headline-md text-on-surface">245.0 KG</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[12px] text-primary">trending_up</span>
+<span class="font-label-caps text-[10px] text-primary">+5 KG vs PREV</span>
+</div>
+</div>
+<div class="border-l-4 border-outline-variant pl-4 py-2 opacity-50">
+<p class="font-label-caps text-[10px] text-on-surface-variant uppercase">Bench Press</p>
+<p class="font-headline-md text-headline-md text-on-surface">120.0 KG</p>
+<p class="font-label-caps text-[10px] text-on-surface-variant">PLATEAU: 4 WEEKS</p>
+</div>
+<div class="border-l-4 border-primary pl-4 py-2">
+<p class="font-label-caps text-[10px] text-on-surface-variant uppercase">VO2 MAX</p>
+<p class="font-headline-md text-headline-md text-on-surface">58 ml/kg</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[12px] text-primary">trending_up</span>
+<span class="font-label-caps text-[10px] text-primary">+2.1%</span>
+</div>
+</div>
+</div>
+<div class="p-4 bg-primary/10">
+<img class="w-full grayscale h-32 object-cover border-2 border-outline-variant mb-2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKC_nF9TGvJazAezpdzwSXRr7TyzzeXyeP0_XwrgJirbMFt-O0bmEriA8Ga9Wx4r5jhVYJN8GEKV0ZysaxyxEk15TfVXAl5Ve1LlOwYLjwE0xJz79zixAd3029RRDhfV0jQYq_M1JkHE68cFzleoR8sljSGbE9GP6SbZ4XS-3_ybOg2oTByw2oCt2YF9lqnv3RSquRPMy1eAxLegaXHUKTb_W5I9bdei7gOnUkCjlKT916-wWS1mtcW8zBxcblirwhjoPfqm_Sfek"/>
+<p class="font-label-caps text-[10px] text-on-surface text-center uppercase tracking-tighter">Peak Motivation: Discipline &gt; Inspiration</p>
+</div>
+</div>
+</aside>
+</div>
+<!-- Bottom Metrics Footer Grid -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+<div class="bg-surface-container border-2 border-outline-variant p-4">
+<p class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Duration</p>
+<p class="font-headline-md text-headline-md text-on-surface">18h 45m</p>
+<div class="segmented-progress mt-3 flex">
+<span class="active"></span><span class="active"></span><span class="active"></span><span class="active"></span><span class="active"></span><span></span><span></span><span></span><span></span><span></span>
+</div>
+</div>
+<div class="bg-surface-container border-2 border-outline-variant p-4">
+<p class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Avg Heart Rate</p>
+<div class="flex items-baseline gap-2">
+<p class="font-headline-md text-headline-md text-on-surface">142</p>
+<span class="font-label-caps text-[10px] text-on-surface-variant uppercase">bpm</span>
+</div>
+<div class="segmented-progress mt-3 flex">
+<span class="active"></span><span class="active"></span><span class="active"></span><span class="active"></span><span></span><span></span><span></span><span></span><span></span><span></span>
+</div>
+</div>
+<div class="bg-surface-container border-2 border-primary p-4">
+<p class="font-label-caps text-[10px] text-primary uppercase tracking-widest">Recovery Score</p>
+<div class="flex items-baseline gap-2">
+<p class="font-headline-md text-headline-md text-primary">88</p>
+<span class="font-label-caps text-[10px] text-primary uppercase">/100</span>
+</div>
+<div class="segmented-progress mt-3 flex">
+<span class="active"></span><span class="active"></span><span class="active"></span><span class="active"></span><span class="active"></span><span class="active"></span><span class="active"></span><span class="active"></span><span></span><span></span>
+</div>
+</div>
+<div class="bg-surface-container border-2 border-outline-variant p-4">
+<p class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Calories</p>
+<div class="flex items-baseline gap-2">
+<p class="font-headline-md text-headline-md text-on-surface">12,450</p>
+<span class="font-label-caps text-[10px] text-on-surface-variant uppercase">kcal</span>
+</div>
+<div class="segmented-progress mt-3 flex">
+<span class="active"></span><span class="active"></span><span class="active"></span><span class="active"></span><span class="active"></span><span class="active"></span><span></span><span></span><span></span><span></span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Navigation Shell Mobile -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface-container-high border-t border-outline-variant flex justify-around py-3 z-50">
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="font-label-caps text-[8px] uppercase">Dash</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined text-[20px]">fitness_center</span>
+<span class="font-label-caps text-[8px] uppercase">Train</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-label-caps text-[8px] uppercase">Data</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined text-[20px]">person</span>
+<span class="font-label-caps text-[8px] uppercase">Profile</span>
+</a>
+</nav>
+<script>
+    // Micro-interaction for bar highlights
+    document.querySelectorAll('.group.cursor-pointer').forEach(bar => {
+        bar.addEventListener('mouseenter', () => {
+            bar.style.transform = 'scaleY(1.02)';
+        });
+        bar.addEventListener('mouseleave', () => {
+            bar.style.transform = 'scaleY(1)';
+        });
+    });
+
+    // Simple animation for the segmented progress bars on load
+    window.addEventListener('load', () => {
+        const segments = document.querySelectorAll('.segmented-progress span');
+        segments.forEach((seg, i) => {
+            seg.style.opacity = '0';
+            setTimeout(() => {
+                seg.style.opacity = '1';
+                seg.style.transition = 'opacity 0.3s ease';
+            }, i * 20);
+        });
+    });
+</script>
+</body></html>

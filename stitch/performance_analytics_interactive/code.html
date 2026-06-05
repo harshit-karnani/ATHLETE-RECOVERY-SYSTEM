@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&amp;family=Geist:wght@400;600&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(69, 73, 50, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .analytics-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .analytics-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px -5px rgba(210, 240, 0, 0.15);
+        }
+        .chart-glow {
+            filter: drop-shadow(0 0 8px rgba(210, 240, 0, 0.4));
+        }
+        .animate-draw {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: draw 3s ease-out forwards;
+        }
+        @keyframes draw {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+        .cursor-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(210, 240, 0, 0.03) 0%, rgba(210, 240, 0, 0) 70%);
+            pointer-events: none;
+            z-index: 0;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out;
+        }
+        .font-tech {
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 0.05em;
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121212;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #454932;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#c8e8f1",
+                        "surface-tint": "#b8d300",
+                        "outline-variant": "#454932",
+                        "tertiary": "#ffffff",
+                        "on-primary": "#2c3400",
+                        "on-background": "#e5e2e1",
+                        "on-secondary-fixed-variant": "#474746",
+                        "surface-container": "#201f1f",
+                        "primary-fixed-dim": "#b8d300",
+                        "primary-fixed": "#d2f000",
+                        "on-surface": "#e5e2e1",
+                        "primary": "#ffffff",
+                        "surface-container-lowest": "#0e0e0e",
+                        "primary-container": "#d2f000",
+                        "on-error-container": "#ffdad6",
+                        "on-surface-variant": "#c6c9ab",
+                        "on-secondary": "#313030",
+                        "tertiary-fixed-dim": "#acccd4",
+                        "inverse-primary": "#576500",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "on-tertiary-fixed-variant": "#2e4b52",
+                        "on-tertiary": "#16343b",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "surface": "#131313",
+                        "error": "#ffb4ab",
+                        "outline": "#909378",
+                        "surface-container-highest": "#353534",
+                        "surface-container-high": "#2a2a2a",
+                        "background": "#131313",
+                        "secondary-container": "#474746",
+                        "inverse-on-surface": "#313030",
+                        "on-error": "#690005",
+                        "error-container": "#93000a",
+                        "secondary-fixed": "#e5e2e1",
+                        "surface-container-low": "#1c1b1b",
+                        "on-primary-fixed-variant": "#414c00",
+                        "surface-variant": "#353534",
+                        "secondary": "#c8c6c5",
+                        "inverse-surface": "#e5e2e1",
+                        "on-tertiary-container": "#4b6971",
+                        "surface-bright": "#393939",
+                        "on-secondary-container": "#b7b5b4",
+                        "surface-dim": "#131313",
+                        "on-primary-container": "#5d6b00",
+                        "on-primary-fixed": "#191e00",
+                        "tertiary-container": "#c8e8f1",
+                        "on-tertiary-fixed": "#001f26"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "gutter": "16px",
+                        "container-max": "1280px",
+                        "margin-desktop": "32px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Barlow Condensed"],
+                        "body-lg": ["Geist"],
+                        "headline-lg": ["Barlow Condensed"],
+                        "headline-md": ["Barlow Condensed"],
+                        "body-md": ["Geist"],
+                        "label-sm": ["Geist"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["72px", { "lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg": ["40px", { "lineHeight": "1.1", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container overflow-hidden">
+<div class="cursor-glow" id="cursor-glow"></div>
+<!-- Side Navigation Shell -->
+<aside class="h-full w-64 fixed left-0 top-0 bg-surface-container dark:bg-surface-container border-r border-outline-variant flex flex-col py-gutter px-4 z-50">
+<div class="mb-10 flex flex-col px-2">
+<span class="font-display-lg text-headline-md text-primary-container dark:text-primary-container tracking-tighter">PuNarva</span>
+<span class="font-label-sm text-on-surface-variant tracking-widest opacity-60 font-tech uppercase">Elite Performance</span>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest hover:text-primary-container transition-colors rounded" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest hover:text-primary-container transition-colors rounded" href="#">
+<span class="material-symbols-outlined" data-icon="fitness_center">fitness_center</span>
+<span class="font-body-md">Training</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest hover:text-primary-container transition-colors rounded" href="#">
+<span class="material-symbols-outlined" data-icon="bedtime">bedtime</span>
+<span class="font-body-md">Sleep</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest hover:text-primary-container transition-colors rounded" href="#">
+<span class="material-symbols-outlined" data-icon="restaurant">restaurant</span>
+<span class="font-body-md">Nutrition</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-primary-container font-bold border-r-4 border-primary-container bg-surface-container-highest rounded-l" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-body-md">Analytics</span>
+</a>
+</nav>
+<div class="mt-auto px-2">
+<button class="w-full bg-primary-container text-on-primary-fixed font-tech text-[11px] font-bold py-3 px-4 rounded hover:opacity-90 transition-opacity active:scale-95 duration-150">
+                SYNC DATA
+            </button>
+<div class="mt-6 flex items-center gap-3 px-2">
+<img alt="Athlete Profile Picture" class="w-10 h-10 rounded-full border border-outline" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHjTb6kDGLP_rBLcgfmdmHdAxy38gYBJNX6TfM7KF1CvDsskJuyP2rfaXghuWdDMesGzzYt7_AbMIKjm-FnC1avHf4NNWmlAX-ow3n8vJo4g19rucNTu1vrJFwvTKQCTCd-WXW7PcL2UtUilownG36c1lHRJTjVPaqdg9n9XoavYEUs3Asr03eQlW9x5wDdzn_kLHZ1bXUbhK10LwK5GLj1GfbuO9rTzjS2Vnu9TuG0pJpHhNjy0YkL9ltthhqBqfmOYHZa02s5Fw"/>
+<div class="flex flex-col">
+<span class="text-body-md font-bold leading-tight">M. Thompson</span>
+<span class="text-label-sm text-on-surface-variant font-tech text-[10px]">TIER 1 PRO</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Top Navigation Shell -->
+<header class="fixed top-0 right-0 left-64 h-16 px-margin-desktop bg-surface/80 backdrop-blur-xl border-b border-outline-variant flex justify-between items-center z-40">
+<div class="flex items-center gap-8">
+<nav class="flex items-center gap-6">
+<a class="text-on-surface-variant hover:text-primary-container font-body-md transition-all" href="#">Recovery</a>
+<a class="text-on-surface-variant hover:text-primary-container font-body-md transition-all" href="#">Performance</a>
+<a class="text-on-surface-variant hover:text-primary-container font-body-md transition-all" href="#">Vitals</a>
+<a class="text-primary-container font-bold border-b-2 border-primary-container pb-1 font-body-md transition-all" href="#">Analytics</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm" data-icon="search">search</span>
+<input class="bg-surface-container-low border border-outline-variant rounded-full pl-10 pr-4 py-1 text-sm focus:border-primary-container focus:ring-0 w-64 transition-all font-tech" placeholder="Search session..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary-container transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="text-on-surface-variant hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-16 h-screen overflow-y-auto bg-background relative">
+<div class="p-margin-desktop space-y-gutter max-w-container-max mx-auto relative z-10">
+<!-- Header Section -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<h1 class="font-display-lg text-headline-lg uppercase text-on-surface tracking-normal">Performance Analytics</h1>
+<p class="text-on-surface-variant font-body-md -mt-2">Real-time physiological insights and output metrics.</p>
+</div>
+<div class="flex gap-2">
+<button class="bg-surface-container-high border border-outline-variant px-4 py-2 rounded text-label-sm text-on-surface hover:bg-surface-container-highest transition-colors font-tech uppercase tracking-widest">LAST 7 DAYS</button>
+<button class="bg-surface-container-high border border-outline-variant px-4 py-2 rounded text-label-sm text-on-surface hover:bg-surface-container-highest transition-colors font-tech uppercase tracking-widest">EXPORT PDF</button>
+</div>
+</div>
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Main Stats Grid (Left Column) -->
+<div class="col-span-12 lg:col-span-9 space-y-gutter">
+<!-- Top Summary Bento -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="analytics-card bg-surface-container-high p-6 rounded-lg relative overflow-hidden group border border-outline-variant/30">
+<div class="relative z-10">
+<span class="text-label-sm text-primary-container uppercase tracking-widest font-bold font-tech text-[10px]">Strain Score</span>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="text-headline-lg font-display-lg">18.4</span>
+<span class="text-on-surface-variant font-tech text-[11px] text-error">▲ 12%</span>
+</div>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-9xl text-primary-container" data-icon="bolt">bolt</span>
+</div>
+</div>
+<div class="analytics-card bg-surface-container-high p-6 rounded-lg relative overflow-hidden group border border-outline-variant/30">
+<div class="relative z-10">
+<span class="text-label-sm text-primary-container uppercase tracking-widest font-bold font-tech text-[10px]">Avg. Recovery</span>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="text-headline-lg font-display-lg">82%</span>
+<span class="text-on-surface-variant font-tech text-[11px] text-primary-container">▼ 4%</span>
+</div>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-9xl text-primary-container" data-icon="favorite">favorite</span>
+</div>
+</div>
+<div class="analytics-card bg-surface-container-high p-6 rounded-lg relative overflow-hidden group border border-outline-variant/30">
+<div class="relative z-10">
+<span class="text-label-sm text-primary-container uppercase tracking-widest font-bold font-tech text-[10px]">Training Load</span>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="text-headline-lg font-display-lg">2,410</span>
+<span class="text-on-surface-variant font-tech text-[11px]">OPTIMAL</span>
+</div>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-9xl text-primary-container" data-icon="monitoring">monitoring</span>
+</div>
+</div>
+</div>
+<!-- Main Intensity Chart -->
+<div class="analytics-card bg-surface-container-high p-8 rounded-lg border border-outline-variant/30">
+<div class="flex justify-between items-center mb-8">
+<h3 class="font-headline-md text-on-surface uppercase tracking-tight">Intensity vs. Fatigue</h3>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 bg-primary-container rounded-full"></span>
+<span class="text-label-sm font-tech text-[10px] uppercase">INTENSITY</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 bg-on-surface-variant rounded-full"></span>
+<span class="text-label-sm font-tech text-[10px] uppercase">FATIGUE</span>
+</div>
+</div>
+</div>
+<div class="h-80 w-full relative flex items-end justify-between gap-4">
+<svg class="absolute inset-0 w-full h-full chart-glow" preserveaspectratio="none" viewbox="0 0 800 200">
+<path class="animate-draw" d="M0,150 Q100,20 200,100 T400,50 T600,120 T800,30" fill="none" stroke="#d2f000" stroke-linecap="round" stroke-width="4"></path>
+<path class="animate-draw" d="M0,180 Q100,160 200,170 T400,140 T600,150 T800,120" fill="none" stroke="#c6c9ab" stroke-dasharray="8 4" stroke-opacity="0.5" stroke-width="2" style="animation-delay: 0.5s;"></path>
+</svg>
+<!-- X-Axis Labels -->
+<div class="absolute bottom-[-24px] left-0 w-full flex justify-between text-label-sm text-on-surface-variant px-2 font-tech text-[10px] font-bold">
+<span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span>
+</div>
+</div>
+</div>
+<!-- Weekly Volume Bento -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="analytics-card bg-surface-container-high p-8 rounded-lg flex flex-col border border-outline-variant/30">
+<h3 class="font-headline-md text-on-surface mb-6 uppercase tracking-tight">Weekly Training Volume</h3>
+<div class="flex-1 flex items-end justify-between gap-2">
+<div class="w-full bg-surface-container-highest rounded-t-sm h-[40%] group relative transition-all hover:bg-primary-container">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-tech opacity-0 group-hover:opacity-100 transition-opacity">4H</div>
+</div>
+<div class="w-full bg-surface-container-highest rounded-t-sm h-[70%] group relative transition-all hover:bg-primary-container">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-tech opacity-0 group-hover:opacity-100 transition-opacity">7H</div>
+</div>
+<div class="w-full bg-surface-container-highest rounded-t-sm h-[60%] group relative transition-all hover:bg-primary-container">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-tech opacity-0 group-hover:opacity-100 transition-opacity">6H</div>
+</div>
+<div class="w-full bg-primary-container rounded-t-sm h-[95%] group relative transition-all">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-tech opacity-100 font-bold">9.5H</div>
+</div>
+<div class="w-full bg-surface-container-highest rounded-t-sm h-[55%] group relative transition-all hover:bg-primary-container">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-tech opacity-0 group-hover:opacity-100 transition-opacity">5.5H</div>
+</div>
+<div class="w-full bg-surface-container-highest rounded-t-sm h-[30%] group relative transition-all hover:bg-primary-container">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-tech opacity-0 group-hover:opacity-100 transition-opacity">3H</div>
+</div>
+<div class="w-full bg-surface-container-highest rounded-t-sm h-[45%] group relative transition-all hover:bg-primary-container">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-tech opacity-0 group-hover:opacity-100 transition-opacity">4.5H</div>
+</div>
+</div>
+</div>
+<div class="analytics-card bg-surface-container-high p-8 rounded-lg border-l-4 border-primary-container flex justify-between items-center border border-y-outline-variant/30 border-r-outline-variant/30">
+<div class="space-y-2">
+<h3 class="font-headline-md text-on-surface uppercase tracking-tight">Session Focus</h3>
+<p class="text-on-surface-variant font-body-md">Primary anaerobic power threshold targeted today.</p>
+<div class="flex gap-2 pt-4">
+<span class="bg-surface-container-highest text-primary-container px-3 py-1 rounded-sm text-label-sm font-tech text-[10px] font-bold uppercase tracking-wider">Aerobic</span>
+<span class="bg-surface-container-highest text-primary-container px-3 py-1 rounded-sm text-label-sm font-tech text-[10px] font-bold uppercase tracking-wider">Tempo</span>
+</div>
+</div>
+<div class="w-24 h-24 relative flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<path class="stroke-surface-container-highest" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="4"></path>
+<path class="stroke-primary-container animate-draw" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-dasharray="75, 100" stroke-linecap="round" stroke-width="4"></path>
+</svg>
+<span class="absolute text-headline-md font-display-lg">75%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Sidebar (Right Column) -->
+<div class="col-span-12 lg:col-span-3 space-y-gutter">
+<!-- Personal Bests Sidebar -->
+<div class="analytics-card bg-surface-container-high p-6 rounded-lg border border-outline-variant/30">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary-container" data-icon="military_tech">military_tech</span>
+<h3 class="font-headline-md uppercase text-on-surface tracking-tight">Personal Bests</h3>
+</div>
+<div class="space-y-6">
+<div class="border-b border-outline-variant pb-4">
+<div class="flex justify-between items-start mb-1">
+<span class="text-label-sm text-on-surface-variant uppercase font-tech text-[10px] font-bold">5K Run</span>
+<span class="bg-primary-container/10 text-primary-container px-2 py-0.5 rounded text-[10px] font-tech font-bold uppercase">NEW PR</span>
+</div>
+<div class="flex justify-between items-end">
+<span class="text-headline-md font-display-lg">18:24</span>
+<span class="text-label-sm text-on-surface-variant font-tech text-[10px]">2 DAYS AGO</span>
+</div>
+</div>
+<div class="border-b border-outline-variant pb-4 opacity-80">
+<div class="flex justify-between items-start mb-1">
+<span class="text-label-sm text-on-surface-variant uppercase font-tech text-[10px] font-bold">Back Squat</span>
+</div>
+<div class="flex justify-between items-end">
+<span class="text-headline-md font-display-lg">145kg</span>
+<span class="text-label-sm text-on-surface-variant font-tech text-[10px]">JUN 14</span>
+</div>
+</div>
+<div class="border-b border-outline-variant pb-4 opacity-80">
+<div class="flex justify-between items-start mb-1">
+<span class="text-label-sm text-on-surface-variant uppercase font-tech text-[10px] font-bold">Vo2 Max</span>
+</div>
+<div class="flex justify-between items-end">
+<span class="text-headline-md font-display-lg">62.1</span>
+<span class="text-label-sm text-on-surface-variant font-tech text-[10px]">JUN 12</span>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 py-3 border border-outline-variant text-label-sm font-tech text-[11px] font-bold hover:bg-surface-container-highest transition-colors uppercase tracking-widest">View Record History</button>
+</div>
+<!-- Upcoming Session Glass Card -->
+<div class="analytics-card glass-card p-6 rounded-lg relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4">
+<div class="w-3 h-3 bg-primary-container rounded-full animate-pulse shadow-[0_0_12px_rgba(210,240,0,0.8)]"></div>
+</div>
+<span class="text-label-sm text-on-surface-variant uppercase tracking-widest font-tech text-[10px]">Next Up: 14:00</span>
+<h4 class="font-headline-md mt-2 tracking-tight">Interval Power Sprints</h4>
+<div class="flex items-center gap-4 mt-6">
+<div class="flex flex-col">
+<span class="text-label-sm text-on-surface-variant font-tech text-[10px] uppercase">Duration</span>
+<span class="font-bold font-tech text-[14px]">45 MIN</span>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant"></div>
+<div class="flex flex-col">
+<span class="text-label-sm text-on-surface-variant font-tech text-[10px] uppercase">Expected Strain</span>
+<span class="font-bold text-primary-container font-tech text-[14px]">16.2</span>
+</div>
+</div>
+<button class="w-full mt-6 bg-primary-container text-on-primary font-tech text-[12px] font-bold py-3 uppercase hover:opacity-90 active:scale-95 transition-all tracking-widest">
+                            PRE-HYDRATE
+                        </button>
+</div>
+<!-- Performance Tip -->
+<div class="analytics-card bg-surface-container p-6 rounded-lg border border-outline-variant/30">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary-container text-lg" data-icon="lightbulb">lightbulb</span>
+<span class="text-label-sm font-tech text-[11px] font-bold uppercase tracking-widest">Pro Insight</span>
+</div>
+<p class="text-body-md italic text-on-surface-variant leading-relaxed">"Your HRV has trended upward for 3 days. High-intensity CNS training is recommended today for peak adaptation."</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Scripts -->
+<script>
+        // Button interactions
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.classList.add('scale-95');
+            });
+            button.addEventListener('mouseup', () => {
+                button.classList.remove('scale-95');
+            });
+            button.addEventListener('mouseleave', () => {
+                button.classList.remove('scale-95');
+            });
+        });
+
+        // Background cursor follow effect
+        const cursorGlow = document.getElementById('cursor-glow');
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            cursorGlow.style.left = x + 'px';
+            cursorGlow.style.top = y + 'px';
+            
+            // Subtle card glass parallax if they have specific shine
+            const cards = document.querySelectorAll('.glass-card');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const xPos = e.clientX - rect.left;
+                const yPos = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${xPos}px`);
+                card.style.setProperty('--mouse-y', `${yPos}px`);
+            });
+        });
+
+        // Trigger animations for SVG paths on reload (optional, they start by default via CSS)
+        window.addEventListener('load', () => {
+            const paths = document.querySelectorAll('.animate-draw');
+            paths.forEach(path => {
+                path.style.animation = 'none';
+                path.offsetHeight; // trigger reflow
+                path.style.animation = null;
+            });
+        });
+    </script>
+</body></html>

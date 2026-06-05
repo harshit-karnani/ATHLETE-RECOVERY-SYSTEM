@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PuNarva | Recovery Insights</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&amp;family=Geist:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+            overflow-x: hidden;
+        }
+        /* Electric Citron Variations */
+        :root {
+            --citron-brightest: #d2f000;
+            --citron-muted: #8c9e00;
+            --citron-clinical: #4a5426;
+            --citron-glow: rgba(210, 240, 0, 0.15);
+        }
+
+        .kinetic-hotspot {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background: var(--citron-brightest);
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: pulse-citron 2s infinite ease-in-out;
+            box-shadow: 0 0 15px var(--citron-brightest);
+        }
+        @keyframes pulse-citron {
+            0% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(210, 240, 0, 0.7); }
+            70% { transform: scale(1.6); opacity: 0.5; box-shadow: 0 0 0 12px rgba(210, 240, 0, 0); }
+            100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(210, 240, 0, 0); }
+        }
+
+        /* Lively Card Effects */
+        .glass-card {
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .glass-card:hover {
+            transform: translateY(-8px);
+            background: rgba(30, 30, 30, 0.8);
+            border-color: var(--citron-muted);
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5), 0 0 20px var(--citron-glow);
+        }
+
+        .performance-gradient {
+            background: linear-gradient(180deg, rgba(210, 240, 0, 0.08) 0%, rgba(18, 18, 18, 0) 100%);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "citron-bright": "#d2f000",
+                        "citron-muted": "#8c9e00",
+                        "citron-clinical": "#4a5426",
+                        "tertiary-fixed": "#c8e8f1",
+                        "surface-tint": "#b8d300",
+                        "outline-variant": "#454932",
+                        "tertiary": "#ffffff",
+                        "on-primary": "#2c3400",
+                        "on-background": "#e5e2e1",
+                        "on-secondary-fixed-variant": "#474746",
+                        "surface-container": "#201f1f",
+                        "primary-fixed-dim": "#b8d300",
+                        "primary-fixed": "#d2f000",
+                        "on-surface": "#e5e2e1",
+                        "primary": "#ffffff",
+                        "surface-container-lowest": "#0e0e0e",
+                        "primary-container": "#d2f000",
+                        "on-error-container": "#ffdad6",
+                        "on-surface-variant": "#c6c9ab",
+                        "on-secondary": "#313030",
+                        "tertiary-fixed-dim": "#acccd4",
+                        "inverse-primary": "#576500",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "on-tertiary-fixed-variant": "#2e4b52",
+                        "on-tertiary": "#16343b",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "surface": "#131313",
+                        "error": "#ffb4ab",
+                        "outline": "#909378",
+                        "surface-container-highest": "#353534",
+                        "surface-container-high": "#2a2a2a",
+                        "background": "#131313",
+                        "secondary-container": "#474746",
+                        "inverse-on-surface": "#313030",
+                        "on-error": "#690005",
+                        "error-container": "#93000a",
+                        "secondary-fixed": "#e5e2e1",
+                        "surface-container-low": "#1c1b1b",
+                        "on-primary-fixed-variant": "#414c00",
+                        "surface-variant": "#353534",
+                        "secondary": "#c8c6c5",
+                        "inverse-surface": "#e5e2e1",
+                        "on-tertiary-container": "#4b6971",
+                        "surface-bright": "#393939",
+                        "on-secondary-container": "#b7b5b4",
+                        "surface-dim": "#131313",
+                        "on-primary-container": "#5d6b00",
+                        "on-primary-fixed": "#191e00",
+                        "tertiary-container": "#c8e8f1",
+                        "on-tertiary-fixed": "#001f26"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "gutter": "16px",
+                        "container-max": "1280px",
+                        "margin-desktop": "32px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Barlow Condensed"],
+                        "body-lg": ["Geist"],
+                        "headline-lg": ["Barlow Condensed"],
+                        "headline-md": ["Barlow Condensed"],
+                        "body-md": ["Geist"],
+                        "label-sm": ["Geist"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["72px", { "lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg": ["40px", { "lineHeight": "1.1", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background">
+<!-- Side Navigation Bar -->
+<aside class="flex flex-col h-full py-gutter px-4 bg-surface-container dark:bg-surface-container border-r border-outline-variant h-full w-64 fixed left-0 top-0 z-50">
+<div class="mb-12 px-2">
+<h1 class="font-display-lg text-headline-md text-citron-bright tracking-tighter">PuNarva</h1>
+<p class="font-body-md text-label-sm font-medium text-on-surface-variant opacity-60 uppercase tracking-widest">Elite Performance</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant hover:bg-surface-container-highest hover:text-citron-bright transition-colors active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant hover:bg-surface-container-highest hover:text-citron-bright transition-colors active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">fitness_center</span>
+<span class="font-body-md text-body-md">Training</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-citron-bright font-bold border-r-4 border-citron-bright bg-surface-container-highest active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">bedtime</span>
+<span class="font-body-md text-body-md font-semibold">Sleep</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant hover:bg-surface-container-highest hover:text-citron-bright transition-colors active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">restaurant</span>
+<span class="font-body-md text-body-md">Nutrition</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant hover:bg-surface-container-highest hover:text-citron-bright transition-colors active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-body-md text-body-md">Team</span>
+</a>
+</nav>
+<div class="mt-auto px-2">
+<button class="w-full py-3 bg-citron-bright text-on-primary-container font-label-sm text-label-sm tracking-[0.2em] font-bold rounded-lg hover:brightness-110 transition-all shadow-[0_0_20px_rgba(210,240,0,0.2)]">
+                SYNC DATA
+            </button>
+</div>
+</aside>
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 right-0 left-64 z-40 bg-surface/80 backdrop-blur-xl border-b border-outline-variant flex justify-between items-center h-16 px-margin-desktop w-auto">
+<div class="flex items-center gap-8">
+<nav class="flex items-center gap-6">
+<a class="font-body-md text-body-md text-citron-bright font-bold border-b-2 border-citron-bright pb-1 transition-all" href="#">Recovery</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-citron-bright transition-all" href="#">Performance</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-citron-bright transition-all" href="#">Vitals</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-citron-bright transition-all" href="#">Analytics</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="bg-surface-container-low border border-outline-variant rounded-full pl-10 pr-4 py-1.5 text-sm focus:ring-1 focus:ring-citron-bright focus:border-citron-bright outline-none transition-all w-64" placeholder="Search metrics..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-citron-bright transition-all">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-citron-bright transition-all">settings</button>
+<img alt="Athlete Profile Avatar" class="w-8 h-8 rounded-full border border-outline-variant object-cover" data-alt="A professional studio headshot of a high-performance athlete with focused intensity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuIobSaE463Ul5iwULEroBEoztE6zzW10HnlxjEiZAlITD0-l9RXFDBKYoQCTFH3QWhlmRyjVb5pRaj8sdYx7KQmvugTw4g-Ml5btHXfUoRTdN7-eRKQj6WniirUPjpWKX_Lra_-F19uwJhZDfbhjmJc3XEkGcFye8XWpACXCr2YUeQFCQnH4IoFVMH6FH4kIFmt3K-EL0dTf6LlOkdrbZhFYpOKdztL6ppRJAkhkuWeB1TdajoK5-3O8Gq4Lfi0nonUkJUkbGUOc"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-24 px-margin-desktop pb-12 min-h-screen">
+<!-- Header Section -->
+<section class="mb-12">
+<div class="flex justify-between items-end">
+<div>
+<span class="font-label-sm text-label-sm text-citron-muted mb-2 block tracking-[0.3em] font-bold">PERFORMANCE OVERVIEW</span>
+<h2 class="font-headline-lg text-display-lg uppercase italic tracking-tighter leading-none">Recovery Insights</h2>
+</div>
+<div class="flex gap-4">
+<div class="bg-surface-container-high px-8 py-6 rounded-2xl border border-outline-variant/30 flex flex-col items-end shadow-xl animate-float">
+<span class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider font-semibold">Overall Recovery</span>
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg text-headline-lg text-citron-bright">88</span>
+<span class="font-headline-md text-headline-md text-citron-muted opacity-50">%</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-6 items-stretch">
+<!-- Kinetic Tension Map (Hero Card) -->
+<div class="col-span-12 lg:col-span-7 glass-card rounded-2xl overflow-hidden relative min-h-[500px] group">
+<div class="absolute top-8 left-8 z-10">
+<h3 class="font-headline-md text-headline-lg uppercase tracking-tighter text-white">Kinetic Tension Map</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xs mt-2 font-light">Real-time biomechanical strain analysis from morning check-in.</p>
+</div>
+<!-- Body Visualization Container -->
+<div class="absolute inset-0 flex items-center justify-center p-12">
+<div class="relative h-full aspect-[1/2] opacity-70 group-hover:opacity-100 transition-opacity duration-1000 flex items-center justify-center"><img class="h-full w-auto object-contain mix-blend-screen grayscale contrast-125 mx-auto" data-alt="Anatomical silhouette of an athlete." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3rRHmkgZlTfQgBIJGatfjarBdrSHc3IYFMhe_fnUiJM3_jZYZFf9o-4mateku400-Wr6_RkL9_WC4_xAdK-jPT-ivL5VHe9i26jw31QkU5VQkxP-ibFCE232o-WwBZXZmm0eSGVjDXfpTxjM6ml8zwtH9oeFEyxWrx_7hy8iuGr_VwyhQ03JMabs7VUOBKPeEXsDdhyKvfzQn5gu-DGoBNp6vbWM_o1jeBeRWFpZOotgqgXvnTaJRsY7khFS3xllBhkvlOqTS-kI"/>
+<!-- Forehead -->
+<div class="kinetic-hotspot top-[6%] left-[49%]" title="Cranial Tension"></div>
+<!-- Shoulders -->
+<div class="kinetic-hotspot top-[23%] left-[42%]" title="L-Shoulder"></div>
+<div class="kinetic-hotspot top-[23%] left-[56%]" title="R-Shoulder"></div>
+<!-- Pubic Region -->
+<div class="kinetic-hotspot top-[51%] left-[49%]" title="Pelvic Alignment"></div>
+<!-- Knees (2 per knee) -->
+<div class="kinetic-hotspot top-[66%] left-[42%]" title="L-Knee Lateral"></div>
+<div class="kinetic-hotspot top-[66%] left-[45%]" title="L-Knee Medial"></div>
+<div class="kinetic-hotspot top-[66%] left-[53%]" title="R-Knee Medial"></div>
+<div class="kinetic-hotspot top-[66%] left-[56%]" title="R-Knee Lateral"></div>
+<!-- Ankles (2 per ankle) -->
+<div class="kinetic-hotspot top-[90%] left-[45%]" title="L-Ankle Medial"></div>
+<div class="kinetic-hotspot top-[90%] left-[43%]" title="L-Ankle Lateral"></div>
+<div class="kinetic-hotspot top-[90%] left-[53%]" title="R-Ankle Medial"></div>
+<div class="kinetic-hotspot top-[90%] left-[55%]" title="R-Ankle Lateral"></div></div>
+</div>
+<div class="absolute bottom-8 left-8 right-8 flex justify-between items-center">
+<div class="flex gap-6">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-citron-bright shadow-[0_0_8px_var(--citron-brightest)]"></div>
+<span class="font-label-sm text-label-sm text-on-surface font-bold uppercase tracking-widest">High Tension</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-citron-clinical"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium uppercase tracking-widest">Optimal Range</span>
+</div>
+</div>
+<button class="px-6 py-2 bg-surface-container-highest border border-outline-variant/30 rounded-lg font-label-sm text-label-sm font-bold uppercase tracking-widest hover:text-citron-bright transition-colors">Adjust Focus</button>
+</div>
+</div>
+<!-- Side Metrics Column -->
+<div class="col-span-12 lg:col-span-5 flex flex-col gap-6">
+<!-- HRV Card -->
+<div class="glass-card bg-surface-container-high rounded-2xl p-8 relative overflow-hidden flex-1 group">
+<div class="absolute top-0 right-0 w-48 h-48 performance-gradient blur-3xl opacity-40 group-hover:opacity-70 transition-opacity"></div>
+<div class="flex justify-between items-start mb-8">
+<div>
+<span class="font-label-sm text-label-sm text-citron-muted uppercase tracking-[0.2em] font-bold">Bio-Rhythm</span>
+<h3 class="font-headline-md text-headline-lg mt-1 tracking-tighter">HRV STATUS</h3>
+</div>
+<span class="material-symbols-outlined text-citron-bright text-4xl">vital_signs</span>
+</div>
+<div class="flex items-baseline gap-4 mb-6">
+<span class="font-display-lg text-headline-lg text-white">74</span>
+<span class="font-headline-md text-on-surface-variant opacity-60">ms</span>
+<span class="font-label-sm text-label-sm bg-citron-bright/10 text-citron-bright border border-citron-bright/20 px-3 py-1 rounded-full ml-2 font-bold">+12% vs Avg</span>
+</div>
+<!-- Minimal Sparkline with Desaturated Shades -->
+<div class="h-20 w-full flex items-end gap-1.5">
+<div class="bg-citron-clinical/40 w-full h-[40%] rounded-t-sm"></div>
+<div class="bg-citron-clinical/40 w-full h-[55%] rounded-t-sm"></div>
+<div class="bg-citron-clinical/40 w-full h-[45%] rounded-t-sm"></div>
+<div class="bg-citron-muted w-full h-[85%] rounded-t-sm"></div>
+<div class="bg-citron-muted w-full h-[95%] rounded-t-sm"></div>
+<div class="bg-citron-bright w-full h-[75%] rounded-t-sm shadow-[0_-4px_10px_rgba(210,240,0,0.1)]"></div>
+<div class="bg-citron-bright w-full h-[100%] rounded-t-sm shadow-[0_-4px_15px_rgba(210,240,0,0.2)]"></div>
+</div>
+</div>
+<!-- Stress Score Card -->
+<div class="glass-card bg-surface-container-high rounded-2xl p-8 relative flex-1">
+<div class="flex justify-between items-start mb-6">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-[0.2em] font-medium">Autonomic State</span>
+<h3 class="font-headline-md text-headline-lg mt-1 tracking-tighter">STRESS LOAD</h3>
+</div>
+<div class="px-4 py-1.5 bg-citron-bright/10 border border-citron-bright/30 rounded-full font-label-sm text-label-sm font-bold text-citron-bright tracking-widest">RECOVERY MODE</div>
+</div>
+<div class="flex items-center gap-10 py-2">
+<div class="relative w-28 h-28">
+<svg class="w-full h-full -rotate-90" viewbox="0 0 36 36">
+<circle class="stroke-surface-container-highest" cx="18" cy="18" fill="none" r="16" stroke-width="2.5"></circle>
+<circle class="stroke-citron-bright" cx="18" cy="18" fill="none" r="16" stroke-dasharray="100" stroke-dashoffset="78" stroke-linecap="round" stroke-width="2.5" style="filter: drop-shadow(0 0 5px var(--citron-brightest));"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-display-lg text-headline-lg leading-none">22</span>
+<span class="text-[10px] font-label-sm text-citron-muted font-bold uppercase tracking-tighter">Minimal</span>
+</div>
+</div>
+<div class="space-y-4 flex-1">
+<div>
+<div class="flex justify-between items-center mb-1.5">
+<span class="font-body-md text-on-surface-variant font-medium">Psychological</span>
+<span class="font-label-sm text-label-sm text-citron-clinical font-bold">LOW</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-citron-clinical h-full w-[15%] rounded-full"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-1.5">
+<span class="font-body-md text-on-surface-variant font-medium">Physiological</span>
+<span class="font-label-sm text-label-sm text-citron-muted font-bold">MODERATE</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-citron-muted h-full w-[35%] rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sleep Quality Section (Full Width) -->
+<div class="col-span-12 glass-card rounded-2xl p-10 border border-outline-variant/10">
+<div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-12 gap-8">
+<div>
+<h3 class="font-headline-lg text-display-lg uppercase tracking-tighter italic leading-none mb-3">Sleep Architecture</h3>
+<p class="font-body-md text-body-lg text-on-surface-variant font-light max-w-2xl">High-resolution analysis of neural recovery phases and metabolic restoration cycles over the previous 24-hour cycle.</p>
+</div>
+<div class="flex gap-8">
+<div class="text-right">
+<div class="font-headline-md text-headline-lg text-white tracking-tighter leading-none">08h 12m</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-[0.2em] font-bold mt-2">Duration</div>
+</div>
+<div class="w-px h-12 bg-outline-variant/30"></div>
+<div class="text-right">
+<div class="font-headline-md text-headline-lg text-citron-bright tracking-tighter leading-none">92/100</div>
+<div class="font-label-sm text-label-sm text-citron-muted uppercase tracking-[0.2em] font-bold mt-2">Efficiency</div>
+</div>
+</div>
+</div>
+<!-- Custom Sleep Timeline -->
+<div class="space-y-12">
+<div class="relative h-28 w-full flex items-end">
+<!-- Background Grid Lines -->
+<div class="absolute inset-0 border-b border-outline-variant/20 flex flex-col justify-between opacity-30">
+<div class="w-full border-t border-outline-variant/10"></div>
+<div class="w-full border-t border-outline-variant/10"></div>
+<div class="w-full border-t border-outline-variant/10"></div>
+</div>
+<!-- Timeline Bars - Clinical/Desaturated vs Bright -->
+<div class="flex-1 bg-citron-clinical/20 h-[20%] mx-0.5 rounded-t-sm" title="Light Sleep"></div>
+<div class="flex-1 bg-citron-clinical/20 h-[15%] mx-0.5 rounded-t-sm"></div>
+<div class="flex-1 bg-citron-muted/40 h-[45%] mx-0.5 rounded-t-sm" title="REM Sleep"></div>
+<div class="flex-1 bg-citron-muted/40 h-[50%] mx-0.5 rounded-t-sm"></div>
+<div class="flex-1 bg-citron-bright h-[85%] mx-0.5 rounded-t-sm shadow-[0_0_15px_rgba(210,240,0,0.1)]" title="Deep Sleep"></div>
+<div class="flex-1 bg-citron-bright h-[90%] mx-0.5 rounded-t-sm shadow-[0_0_20px_rgba(210,240,0,0.15)]"></div>
+<div class="flex-1 bg-citron-clinical/20 h-[25%] mx-0.5 rounded-t-sm"></div>
+<div class="flex-1 bg-citron-muted/40 h-[40%] mx-0.5 rounded-t-sm"></div>
+<div class="flex-1 bg-citron-bright h-[80%] mx-0.5 rounded-t-sm"></div>
+<div class="flex-1 bg-citron-clinical/20 h-[30%] mx-0.5 rounded-t-sm"></div>
+<div class="flex-1 bg-citron-muted/40 h-[50%] mx-0.5 rounded-t-sm"></div>
+<div class="flex-1 bg-citron-clinical/20 h-[20%] mx-0.5 rounded-t-sm"></div>
+<div class="flex-1 bg-citron-clinical/20 h-[15%] mx-0.5 rounded-t-sm"></div>
+<div class="flex-1 bg-citron-muted/40 h-[45%] mx-0.5 rounded-t-sm"></div>
+<div class="flex-1 bg-citron-muted/40 h-[50%] mx-0.5 rounded-t-sm"></div>
+<div class="flex-1 bg-citron-bright h-[85%] mx-0.5 rounded-t-sm"></div>
+<div class="flex-1 bg-citron-bright h-[90%] mx-0.5 rounded-t-sm"></div>
+<div class="flex-1 bg-citron-clinical/20 h-[25%] mx-0.5 rounded-t-sm"></div>
+<div class="flex-1 bg-citron-muted/40 h-[40%] mx-0.5 rounded-t-sm"></div>
+<div class="flex-1 bg-citron-bright h-[80%] mx-0.5 rounded-t-sm"></div>
+<div class="flex-1 bg-citron-clinical/20 h-[30%] mx-0.5 rounded-t-sm"></div>
+<div class="flex-1 bg-citron-muted/40 h-[50%] mx-0.5 rounded-t-sm"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="flex flex-col border-l-2 border-citron-bright pl-6">
+<span class="font-label-sm text-label-sm text-citron-muted uppercase font-bold tracking-widest mb-2">Deep Sleep</span>
+<div class="flex items-baseline gap-3">
+<span class="font-headline-md text-white text-3xl font-bold tracking-tighter">02h 45m</span>
+<span class="font-label-sm text-citron-bright font-black tracking-widest text-[10px]">OPTIMAL</span>
+</div>
+</div>
+<div class="flex flex-col border-l-2 border-citron-muted/30 pl-6">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-medium tracking-widest mb-2">REM Sleep</span>
+<div class="flex items-baseline gap-3">
+<span class="font-headline-md text-white/80 text-3xl font-bold tracking-tighter">01h 58m</span>
+<span class="font-label-sm text-on-surface-variant font-medium tracking-widest text-[10px]">NORMAL</span>
+</div>
+</div>
+<div class="flex flex-col border-l-2 border-citron-muted/30 pl-6">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-medium tracking-widest mb-2">Resting HR</span>
+<div class="flex items-baseline gap-3">
+<span class="font-headline-md text-white/80 text-3xl font-bold tracking-tighter">48</span>
+<span class="font-label-sm text-citron-muted font-bold tracking-widest text-[10px]">BPM</span>
+</div>
+</div>
+<div class="flex flex-col border-l-2 border-citron-muted/30 pl-6">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-medium tracking-widest mb-2">Body Temp</span>
+<div class="flex items-baseline gap-3">
+<span class="font-headline-md text-white/80 text-3xl font-bold tracking-tighter">-0.4°</span>
+<span class="font-label-sm text-on-surface-variant font-medium tracking-widest text-[10px]">STABLE</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Call to Action -->
+<div class="mt-16 flex justify-center">
+<button class="group relative px-16 py-5 bg-transparent border-2 border-citron-bright text-citron-bright font-label-sm text-label-sm font-black tracking-[0.3em] rounded-xl overflow-hidden transition-all hover:text-black hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(210,240,0,0.15)]">
+<span class="relative z-10">DOWNLOAD RECOVERY PROTOCOL</span>
+<div class="absolute inset-0 bg-citron-bright translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
+</button>
+</div>
+</main>
+<script>
+        // Micro-interactions for hotspots
+        document.querySelectorAll('.kinetic-hotspot').forEach(spot => {
+            spot.addEventListener('mouseenter', () => {
+                spot.style.boxShadow = '0 0 30px 15px rgba(210, 240, 0, 0.6)';
+                spot.style.transform = 'scale(2.2)';
+            });
+            spot.addEventListener('mouseleave', () => {
+                spot.style.boxShadow = '';
+                spot.style.transform = '';
+            });
+        });
+    </script>
+</body></html>

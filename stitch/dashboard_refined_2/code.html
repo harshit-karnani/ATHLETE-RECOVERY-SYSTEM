@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PuNarva - Clinical Performance Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#57f1db", 
+                        "on-surface": "#d4e4fa",
+                        "on-surface-variant": "#bacac5",
+                        "background": "#051424",
+                        "surface": "rgba(255, 255, 255, 0.05)",
+                        "surface-container": "rgba(255, 255, 255, 0.03)",
+                        "surface-container-low": "rgba(255, 255, 255, 0.02)",
+                        "outline": "rgba(255, 255, 255, 0.15)",
+                        "outline-variant": "rgba(255, 255, 255, 0.1)",
+                        "performance-teal": "#3cddc7",
+                        "success-green": "#84CC16",
+                        "sport-coral": "#ffb2b9",
+                        "secondary": "#ffb2b9"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "1rem",
+                        full: "9999px"
+                    },
+                    spacing: {
+                        "stack-md": "16px",
+                        "stack-lg": "32px",
+                        "container-padding-desktop": "40px",
+                        gutter: "16px",
+                        "stack-sm": "8px",
+                        unit: "8px",
+                        "container-padding-mobile": "20px"
+                    },
+                    fontFamily: {
+                        body: ["Public Sans", "sans-serif"],
+                        headline: ["Public Sans", "sans-serif"]
+                    },
+                    fontSize: {
+                        "display-lg": ["48px", {lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "800"}],
+                        "headline-lg": ["32px", {lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "700"}],
+                        "headline-md": ["24px", {lineHeight: "32px", fontWeight: "600"}],
+                        "body-lg": ["18px", {lineHeight: "28px", fontWeight: "400"}],
+                        "body-md": ["16px", {lineHeight: "24px", fontWeight: "400"}],
+                        "label-lg": ["14px", {lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "600"}],
+                        "label-sm": ["12px", {lineHeight: "16px", fontWeight: "500"}]
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                        'stagger-fade': 'staggerFade 0.8s ease-out forwards'
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        staggerFade: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+<style>
+        body {
+            font-family: 'Public Sans', sans-serif;
+            background-color: #051424;
+            color: #d4e4fa;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .glass-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.07);
+        }
+        .readiness-ring {
+            transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-primary {
+            background-color: #57f1db;
+            color: #00201c;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-primary:hover {
+            background-color: #62fae3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(87, 241, 219, 0.3);
+        }
+        .animate-delay-1 { animation-delay: 100ms; }
+        .animate-delay-2 { animation-delay: 200ms; }
+        .animate-delay-3 { animation-delay: 300ms; }
+        .animate-delay-4 { animation-delay: 400ms; }
+    </style>
+</head>
+<body class="min-h-screen pb-24 md:pb-0">
+<!-- TopNavBar -->
+<header class="w-full top-0 sticky z-50 bg-background/80 backdrop-blur-md border-b border-outline-variant">
+<nav class="flex justify-between items-center h-16 px-6 lg:px-stack-lg max-w-7xl mx-auto">
+<div class="text-xl font-extrabold tracking-tighter text-primary">PuNarva</div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-label-lg font-bold text-primary border-b-2 border-primary pb-4 mt-4" href="#">Dashboard</a>
+<a class="text-label-lg text-on-surface-variant hover:text-primary transition-colors" href="#">Workouts</a>
+<a class="text-label-lg text-on-surface-variant hover:text-primary transition-colors" href="#">Recovery</a>
+<a class="text-label-lg text-on-surface-variant hover:text-primary transition-colors" href="#">Community</a>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex bg-surface-container border border-outline-variant px-4 py-1.5 rounded-md items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-xl">search</span>
+<span class="text-label-lg text-on-surface-variant">Search...</span>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant ring-2 ring-primary/20">
+<img alt="User profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrtD1Il90HgXK1n40rvo1D7IH4qZUqriDGuymgwtwanJ5kWQ5SSDYcmxdNK-TxGEXOd2DFYTqSIrGBz2avPIs8kzgaj0kASA7bqr0LuMaaU0IY_WsKPsBwZoTsKgPlhYMwfPzncuDkxwpnUteUt8-McsIU8sdxzfReuNDMPYH2_WiD1rPMTVafFLlf0MBZrza4o7uzZaAEAf0MfT_hAXtXn7rcwxvsFjnChAU0fvcDwhRaBwUz0SJAGMcsutpEPjMOxYcgkdO0Klk"/>
+</div>
+</div>
+</nav>
+</header>
+<main class="max-w-7xl mx-auto px-6 lg:px-stack-lg py-12 space-y-12 animate-fade-in-up">
+<!-- Welcome Section -->
+<section class="space-y-2 border-l-4 border-primary pl-6 opacity-0 animate-stagger-fade animate-delay-1">
+<h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-on-surface">Good morning, Alex.</h1>
+<p class="text-body-lg text-on-surface-variant max-w-2xl">Recovery metrics are optimal. Physiology suggests readiness for high-intensity metabolic load.</p>
+</section>
+<!-- Performance Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 opacity-0 animate-stagger-fade animate-delay-2">
+<!-- Daily Readiness -->
+<div class="md:col-span-4 p-8 rounded-xl glass-card flex flex-col items-center text-center">
+<div class="w-full text-left mb-8">
+<h2 class="text-label-lg font-bold uppercase tracking-widest text-on-surface-variant">Daily Readiness</h2>
+<div class="flex items-center gap-1 text-success-green">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+<span class="text-label-sm font-bold">Optimal Condition</span>
+</div>
+</div>
+<div class="relative w-44 h-44 flex items-center justify-center mb-8">
+<svg class="w-full h-full -rotate-90">
+<circle class="text-white/5" cx="88" cy="88" fill="transparent" r="80" stroke="currentColor" stroke-width="10"></circle>
+<circle class="readiness-ring" cx="88" cy="88" fill="transparent" r="80" stroke="#84CC16" stroke-dasharray="502" stroke-dashoffset="502" stroke-linecap="round" stroke-width="10"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-5xl font-black text-on-surface">88</span>
+<span class="text-label-sm font-bold text-on-surface-variant">READINESS</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 w-full border-t border-outline-variant pt-6">
+<div class="text-left">
+<p class="text-label-sm text-on-surface-variant font-bold uppercase">Sleep Quality</p>
+<p class="text-2xl font-bold text-on-surface">92%</p>
+</div>
+<div class="text-left border-l border-outline-variant pl-4">
+<p class="text-label-sm text-on-surface-variant font-bold uppercase">HRV Status</p>
+<p class="text-2xl font-bold text-on-surface">74<span class="text-sm font-medium ml-1">ms</span></p>
+</div>
+</div>
+</div>
+<!-- Training Focus -->
+<div class="md:col-span-8 flex flex-col gap-6">
+<div class="glass-card rounded-xl overflow-hidden flex flex-col md:flex-row h-full">
+<div class="md:w-1/2 p-8 flex flex-col justify-between">
+<div class="space-y-4">
+<span class="inline-block border border-primary text-primary px-3 py-1 rounded text-label-sm font-black uppercase tracking-wider">Today's Focus</span>
+<h3 class="text-3xl font-bold leading-tight text-on-surface">Power &amp; Interval Training</h3>
+<div class="flex gap-6 py-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">schedule</span>
+<span class="text-body-md font-bold text-on-surface">45m Session</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sport-coral text-xl">bolt</span>
+<span class="text-body-md font-bold text-on-surface">High Load</span>
+</div>
+</div>
+</div>
+<button class="mt-8 btn-primary px-8 py-3 rounded-md font-black uppercase tracking-widest text-sm self-start">Start Workout</button>
+</div>
+<div class="md:w-1/2 relative bg-surface-container-low min-h-[200px]">
+<img class="w-full h-full object-cover grayscale opacity-60" data-alt="High performance athlete on track" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOt5qdYXebiiVemGNW_dspPr-qIYCOYz16jv19qxealfqn1BjRNqiSM-dsm3eW1rdmxAS7JIByFWzaoN0bhS9zqI2UVK6FMa7oHhM6z2EJ4mW2tbDQWyw36w1PXXyXY8dclG904U2_tK7dFWdmwHmLqy_TPOhAZIwugePLMnFe0GlaOHuHoXF6t4HyoL0dF_AVtn6y15CUt0v10UIkw7K9rLXuGx8rFfKEwj1F48FykyscG2XTKyMKaHw88JRxyjbWkAf3YM1XoMM"/>
+<div class="absolute inset-0 bg-gradient-to-r from-[#051424]/40 to-transparent md:from-transparent"></div>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+<!-- Recovery Status -->
+<div class="glass-card p-6 rounded-xl space-y-4">
+<div class="flex items-center justify-between">
+<h4 class="text-label-lg font-black uppercase tracking-wider text-on-surface-variant">Metabolic Recovery</h4>
+<span class="material-symbols-outlined text-performance-teal">spa</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-black text-on-surface">14h</span>
+<span class="text-label-sm font-bold text-on-surface-variant">UNTIL FULL BASELINE</span>
+</div>
+<div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-performance-teal w-3/4"></div>
+</div>
+<p class="text-label-sm text-on-surface-variant font-medium italic">Protocol: 15 min Active Mobility</p>
+</div>
+<!-- Heart Rate Analysis -->
+<div class="glass-card p-6 rounded-xl space-y-4">
+<div class="flex items-center justify-between">
+<h4 class="text-label-lg font-black uppercase tracking-wider text-on-surface-variant">Resting Heart Rate</h4>
+<span class="material-symbols-outlined text-sport-coral">favorite</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-black text-on-surface">54</span>
+<span class="text-label-sm font-bold text-on-surface-variant uppercase">BPM Average</span>
+</div>
+<div class="flex gap-1 h-10 items-end">
+<div class="flex-1 bg-outline-variant h-2/3 rounded-sm"></div>
+<div class="flex-1 bg-outline-variant h-1/2 rounded-sm"></div>
+<div class="flex-1 bg-outline-variant h-3/4 rounded-sm"></div>
+<div class="flex-1 bg-primary h-1/2 rounded-sm"></div>
+<div class="flex-1 bg-outline-variant h-2/3 rounded-sm"></div>
+<div class="flex-1 bg-outline-variant h-5/6 rounded-sm"></div>
+<div class="flex-1 bg-outline-variant h-1/2 rounded-sm"></div>
+</div>
+<p class="text-label-sm text-performance-teal font-bold">-2 BPM Variance (Optimal)</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Performance History -->
+<section class="space-y-6 opacity-0 animate-stagger-fade animate-delay-3">
+<div class="flex justify-between items-baseline border-b border-outline-variant pb-2">
+<h2 class="text-2xl font-black uppercase tracking-tight text-on-surface">Performance History</h2>
+<a class="text-primary font-black text-label-sm flex items-center gap-1 uppercase tracking-widest hover:underline" href="#">All Activity <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Activity 1 -->
+<div class="glass-card p-5 rounded-xl flex items-center gap-4 transition-all cursor-pointer group">
+<div class="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center border border-outline-variant group-hover:bg-primary group-hover:text-[#00201c] transition-colors">
+<span class="material-symbols-outlined text-2xl">directions_run</span>
+</div>
+<div>
+<p class="text-label-sm text-on-surface-variant font-bold uppercase">Yesterday</p>
+<h4 class="text-body-lg font-black text-on-surface">5km Trail Session</h4>
+<p class="text-label-sm text-on-surface-variant font-medium">320 kcal • 28:40 Intensity</p>
+</div>
+</div>
+<!-- Activity 2 -->
+<div class="glass-card p-5 rounded-xl flex items-center gap-4 transition-all cursor-pointer group">
+<div class="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center border border-outline-variant group-hover:bg-primary group-hover:text-[#00201c] transition-colors">
+<span class="material-symbols-outlined text-2xl">fitness_center</span>
+</div>
+<div>
+<p class="text-label-sm text-on-surface-variant font-bold uppercase">48h Ago</p>
+<h4 class="text-body-lg font-black text-on-surface">Upper Body Loading</h4>
+<p class="text-label-sm text-on-surface-variant font-medium">450 kcal • 55:00 Duration</p>
+</div>
+</div>
+<!-- Activity 3 -->
+<div class="glass-card p-5 rounded-xl flex items-center gap-4 transition-all cursor-pointer group">
+<div class="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center border border-outline-variant group-hover:bg-primary group-hover:text-[#00201c] transition-colors">
+<span class="material-symbols-outlined text-2xl">self_care</span>
+</div>
+<div>
+<p class="text-label-sm text-on-surface-variant font-bold uppercase">72h Ago</p>
+<h4 class="text-body-lg font-black text-on-surface">Neuro-Mobility Flow</h4>
+<p class="text-label-sm text-on-surface-variant font-medium">120 kcal • 20:00 Recovery</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Insights Banner -->
+<section class="glass-card bg-gradient-to-br from-primary/20 to-transparent p-8 rounded-xl flex flex-col md:flex-row justify-between items-center gap-6 opacity-0 animate-stagger-fade animate-delay-4">
+<div class="space-y-2">
+<h3 class="text-2xl font-bold tracking-tight text-primary">Clinical Insights</h3>
+<p class="text-body-md text-on-surface opacity-80 max-w-xl font-medium">Sustained sleep hygiene over the last 7 cycles has resulted in a 12% improvement in cardiovascular recovery efficiency. Maintain current protocol.</p>
+</div>
+<button class="bg-primary text-[#00201c] px-8 py-3 rounded-md font-black uppercase tracking-widest text-sm hover:bg-[#62fae3] transition-all transform hover:scale-105">Review Report</button>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-background/80 backdrop-blur-lg border-t border-outline-variant flex justify-around items-center px-4 py-3 pb-safe shadow-lg">
+<a class="flex flex-col items-center justify-center text-primary px-4 py-1" href="#">
+<span class="material-symbols-outlined text-2xl">home</span>
+<span class="text-label-sm font-black uppercase">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1" href="#">
+<span class="material-symbols-outlined text-2xl">fitness_center</span>
+<span class="text-label-sm font-bold uppercase">Track</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1" href="#">
+<span class="material-symbols-outlined text-2xl">spa</span>
+<span class="text-label-sm font-bold uppercase">Vital</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1" href="#">
+<span class="material-symbols-outlined text-2xl">person</span>
+<span class="text-label-sm font-bold uppercase">Stats</span>
+</a>
+</nav>
+<!-- FAB -->
+<div class="fixed bottom-24 right-6 md:bottom-12 md:right-12">
+<button class="w-16 h-16 bg-primary text-[#00201c] rounded-full shadow-xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all border-4 border-background">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const ring = document.querySelector('.readiness-ring');
+        const totalLength = 2 * Math.PI * 80;
+        const targetScore = 88;
+        const offset = totalLength - (targetScore / 100) * totalLength;
+        
+        ring.style.strokeDasharray = totalLength;
+        ring.style.strokeDashoffset = totalLength;
+        
+        setTimeout(() => {
+            ring.style.strokeDashoffset = offset;
+        }, 800);
+    });
+</script>
+</body></html>

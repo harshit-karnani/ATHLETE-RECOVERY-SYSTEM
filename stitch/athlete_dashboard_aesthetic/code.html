@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PuNarva | Elite Performance Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&amp;family=Geist:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#c8e8f1",
+                        "surface-tint": "#b8d300",
+                        "outline-variant": "#454932",
+                        "tertiary": "#ffffff",
+                        "on-primary": "#2c3400",
+                        "on-background": "#e5e2e1",
+                        "on-secondary-fixed-variant": "#474746",
+                        "surface-container": "#201f1f",
+                        "primary-fixed-dim": "#b8d300",
+                        "primary-fixed": "#d2f000",
+                        "on-surface": "#e5e2e1",
+                        "primary": "#ffffff",
+                        "surface-container-lowest": "#0e0e0e",
+                        "primary-container": "#d2f000",
+                        "on-error-container": "#ffdad6",
+                        "on-surface-variant": "#c6c9ab",
+                        "on-secondary": "#313030",
+                        "tertiary-fixed-dim": "#acccd4",
+                        "inverse-primary": "#576500",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "on-tertiary-fixed-variant": "#2e4b52",
+                        "on-tertiary": "#16343b",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "surface": "#131313",
+                        "error": "#ffb4ab",
+                        "outline": "#909378",
+                        "surface-container-highest": "#353534",
+                        "surface-container-high": "#2a2a2a",
+                        "background": "#131313",
+                        "secondary-container": "#474746",
+                        "inverse-on-surface": "#313030",
+                        "on-error": "#690005",
+                        "error-container": "#93000a",
+                        "secondary-fixed": "#e5e2e1",
+                        "surface-container-low": "#1c1b1b",
+                        "on-primary-fixed-variant": "#414c00",
+                        "surface-variant": "#353534",
+                        "secondary": "#c8c6c5",
+                        "inverse-surface": "#e5e2e1",
+                        "on-tertiary-container": "#4b6971",
+                        "surface-bright": "#393939",
+                        "on-secondary-container": "#b7b5b4",
+                        "surface-dim": "#131313",
+                        "on-primary-container": "#5d6b00",
+                        "on-primary-fixed": "#191e00",
+                        "tertiary-container": "#c8e8f1",
+                        "on-tertiary-fixed": "#001f26"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "gutter": "16px",
+                        "container-max": "1280px",
+                        "margin-desktop": "32px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Barlow Condensed"],
+                        "body-lg": ["Geist"],
+                        "headline-lg": ["Barlow Condensed"],
+                        "headline-md": ["Barlow Condensed"],
+                        "body-md": ["Geist"],
+                        "label-sm": ["Geist"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #131313; color: #e5e2e1; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-effect { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .citron-glow { filter: drop-shadow(0 0 8px rgba(210, 240, 0, 0.3)); }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #131313; }
+        ::-webkit-scrollbar-thumb { background: #353534; border-radius: 2px; }
+    </style>
+</head>
+<body class="font-body-md text-body-md overflow-x-hidden">
+<!-- Side Navigation Shell -->
+<aside class="h-full w-64 fixed left-0 top-0 flex flex-col py-gutter px-4 bg-surface-container border-r border-outline-variant z-50">
+<div class="mb-10 px-2">
+<h1 class="font-display-lg text-headline-md text-primary-container tracking-tighter">PuNarva</h1>
+<p class="font-label-sm text-on-surface-variant tracking-[0.2em] uppercase mt-1">Elite Performance</p>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Active Tab: Dashboard -->
+<a class="flex items-center gap-3 px-4 py-3 text-primary-container font-bold border-r-4 border-primary-container bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest hover:text-primary-container transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="fitness_center">fitness_center</span>
+<span class="font-body-md">Training</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest hover:text-primary-container transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="bedtime">bedtime</span>
+<span class="font-body-md">Sleep</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest hover:text-primary-container transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="restaurant">restaurant</span>
+<span class="font-body-md">Nutrition</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest hover:text-primary-container transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="font-body-md">Team</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-outline-variant pt-6 px-2">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest border border-outline-variant overflow-hidden">
+<img alt="Athlete Profile Picture" class="w-full h-full object-cover" data-alt="A professional close-up portrait of a determined elite athlete in high-performance gear. The lighting is cinematic and dramatic, casting sharp shadows against a dark, moody charcoal background. The athlete has a focused, disciplined expression, reflecting peak physical condition. The overall aesthetic is premium, high-contrast, and energetic, matching a world-class athletic brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbuuWZHQYvm5NqOMi8ftkgymhS3B4Yho-OLy4uOpmhMMZVJs9r017EeSY3kYcptNd0ZKvPD8AeRmg25MClw-pkWuHe3Ofy3yG6VC1v9hJ4mfowQMAvipAlaotvl4FeL7lLw7jrKLBAV-zbg646lHKjt_NU87IZ7ax_g5RJDUWJs8rzBihuPWsKCEfdjE1dYS6jaoBRFEjCwc6mkwo02UGUVpM-rS5uQVWqDBUXu8uxdFu0CHwCqTGyUz6vyociyeVmTVMVyApS7PE"/>
+</div>
+<div>
+<p class="font-label-sm text-primary-fixed">AXEL VANCE</p>
+<p class="text-[10px] text-on-surface-variant">PRO CYCLIST</p>
+</div>
+</div>
+<button class="w-full bg-primary-container text-on-primary-container py-3 font-label-sm tracking-widest hover:brightness-110 active:scale-95 transition-all">
+                SYNC DATA
+            </button>
+</div>
+</aside>
+<!-- Top Navigation -->
+<header class="fixed top-0 right-0 left-64 z-40 bg-surface/80 backdrop-blur-xl border-b border-outline-variant flex justify-between items-center h-16 px-margin-desktop">
+<div class="flex gap-8 items-center">
+<nav class="hidden lg:flex gap-6">
+<a class="font-label-sm text-primary-container font-bold border-b-2 border-primary-container pb-1" href="#">Recovery</a>
+<a class="font-label-sm text-on-surface-variant hover:text-primary-container transition-all" href="#">Performance</a>
+<a class="font-label-sm text-on-surface-variant hover:text-primary-container transition-all" href="#">Vitals</a>
+<a class="font-label-sm text-on-surface-variant hover:text-primary-container transition-all" href="#">Analytics</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative flex items-center">
+<input class="bg-surface-container-low border-none focus:ring-1 focus:ring-primary-container text-label-sm px-4 py-2 w-48 rounded-lg" placeholder="SEARCH STATS..." type="text"/>
+<span class="material-symbols-outlined absolute right-2 text-on-surface-variant text-sm" data-icon="search">search</span>
+</div>
+<div class="flex gap-4">
+<button class="text-on-surface-variant hover:text-primary-container transition-opacity relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-primary-container rounded-full border-2 border-surface"></span>
+</button>
+<button class="text-on-surface-variant hover:text-primary-container transition-opacity">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-24 px-margin-desktop pb-12">
+<!-- Dashboard Header -->
+<section class="mb-10">
+<div class="flex items-end justify-between">
+<div>
+<h2 class="font-display-lg text-headline-lg text-primary uppercase tracking-tight">Performance Hub</h2>
+<p class="text-on-surface-variant font-body-md mt-1">Status: <span class="text-primary-container font-bold">OPTIMIZED FOR TRAINING</span> • Last Sync: 2m ago</p>
+</div>
+<div class="flex gap-2">
+<div class="px-3 py-1 bg-surface-container-highest border border-outline-variant rounded-lg flex items-center gap-2">
+<span class="w-2 h-2 bg-primary-container rounded-full animate-pulse"></span>
+<span class="font-label-sm text-primary-container">LIVE BIOMETRICS</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Top Bento Grid -->
+<section class="grid grid-cols-12 gap-gutter mb-gutter">
+<!-- Daily Readiness Circular Gauge -->
+<div class="col-span-12 lg:col-span-4 bg-[#1A1A1A] p-6 rounded-xl flex flex-col items-center justify-center relative overflow-hidden group">
+<div class="absolute top-4 left-6">
+<p class="font-label-sm text-on-surface-variant tracking-widest">DAILY READINESS</p>
+</div>
+<div class="relative w-48 h-48 flex items-center justify-center mt-4">
+<!-- Gauge Background -->
+<svg class="w-full h-full -rotate-90">
+<circle class="text-surface-container-highest" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary-container citron-glow transition-all duration-1000 ease-out" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-dasharray="552.92" stroke-dashoffset="82.93" stroke-width="8"></circle>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="font-display-lg text-7xl text-primary leading-none">85</span>
+<span class="font-label-sm text-primary-container uppercase mt-1">Optimal</span>
+</div>
+</div>
+<div class="grid grid-cols-2 w-full mt-8 border-t border-outline-variant/30 pt-4">
+<div class="text-center">
+<p class="text-[10px] text-on-surface-variant uppercase">Sleep Score</p>
+<p class="font-headline-md text-primary">92%</p>
+</div>
+<div class="text-center border-l border-outline-variant/30">
+<p class="text-[10px] text-on-surface-variant uppercase">Recovery</p>
+<p class="font-headline-md text-primary">High</p>
+</div>
+</div>
+</div>
+<!-- Today's Focus Section -->
+<div class="col-span-12 lg:col-span-8 bg-[#1A1A1A] rounded-xl overflow-hidden flex flex-col">
+<div class="p-6 border-b border-outline-variant/20 flex justify-between items-center">
+<div>
+<p class="font-label-sm text-on-surface-variant tracking-widest">TODAY'S FOCUS</p>
+<h3 class="font-display-lg text-headline-md text-primary mt-1">POWER &amp; INTERVAL TRAINING</h3>
+</div>
+<div class="text-right">
+<p class="font-label-sm text-on-surface-variant">TARGET LOAD</p>
+<p class="font-display-lg text-headline-md text-primary-container">480 TSS</p>
+</div>
+</div>
+<div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-px bg-outline-variant/20">
+<div class="bg-[#1A1A1A] p-6 hover:bg-surface-container-high transition-colors group">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-primary-container text-4xl" data-icon="bolt" data-weight="fill" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="font-label-sm bg-surface-container-highest px-2 py-1 rounded">09:00 AM</span>
+</div>
+<h4 class="font-headline-md text-primary mb-2">NEUROMUSCULAR POWER</h4>
+<p class="text-on-surface-variant text-sm mb-4">6 x 20s Max Sprints with 4m recovery. Focus on explosive torque and high cadence acceleration.</p>
+<div class="flex items-center gap-4">
+<div class="h-1 flex-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[40%]"></div>
+</div>
+<span class="font-label-sm text-on-surface-variant">2/6 Sets</span>
+</div>
+</div>
+<div class="bg-[#1A1A1A] p-6 hover:bg-surface-container-high transition-colors group">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-primary-container text-4xl" data-icon="timer">timer</span>
+<span class="font-label-sm bg-surface-container-highest px-2 py-1 rounded">04:30 PM</span>
+</div>
+<h4 class="font-headline-md text-primary mb-2">THRESHOLD INTERVALS</h4>
+<p class="text-on-surface-variant text-sm mb-4">3 x 12m at 95-100% FTP. Sustained effort to push aerobic ceiling. Flat terrain preferred.</p>
+<div class="flex items-center gap-4">
+<div class="h-1 flex-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-0"></div>
+</div>
+<span class="font-label-sm text-on-surface-variant">Scheduled</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Performance Metrics & History -->
+<section class="grid grid-cols-12 gap-gutter">
+<!-- Secondary Vitals Cards -->
+<div class="col-span-12 lg:col-span-3 space-y-gutter">
+<div class="bg-[#1A1A1A] p-5 rounded-xl border-l-4 border-primary-container">
+<p class="font-label-sm text-on-surface-variant uppercase">Resting Heart Rate</p>
+<div class="flex items-end gap-2 mt-2">
+<p class="font-display-lg text-4xl text-primary">42</p>
+<p class="text-on-surface-variant mb-1">BPM</p>
+</div>
+<p class="text-[10px] text-primary-container mt-2">↓ 3% from weekly avg</p>
+</div>
+<div class="bg-[#1A1A1A] p-5 rounded-xl border-l-4 border-outline-variant">
+<p class="font-label-sm text-on-surface-variant uppercase">VO2 Max Est.</p>
+<div class="flex items-end gap-2 mt-2">
+<p class="font-display-lg text-4xl text-primary">68.4</p>
+<p class="text-on-surface-variant mb-1">mL/kg/min</p>
+</div>
+<p class="text-[10px] text-on-surface-variant mt-2">Top 1% of age group</p>
+</div>
+<div class="bg-[#1A1A1A] p-5 rounded-xl overflow-hidden relative group cursor-pointer">
+<img alt="Training Environment" class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-110 transition-transform duration-700" data-alt="A moody, atmospheric high-angle shot of an elite gym facility featuring high-end professional equipment. The scene is dominated by deep charcoal and black tones with sharp, focused lighting highlighting the texture of the rubber floors and steel weights. Vibrant, neon-like citron lighting accents are strategically placed to create a futuristic, high-performance vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzhPfHJZIFpaF62kgq7PzO_xi-kMSq0PoGGU8i4TqGEk1fIdd5jVkWqWlET-AWqKsTkDfxA0odVBeDJ-VPmaiTAG7soseTBxWF7xo_3W9AuNVTiAYJrKvvmYfw4CIqBsI_99R2mlULrjAXHxv_G6yvivIuD32fpM2tZqX7cdeoKsI1fyly1xEiZ3fDjNxPiGDMfkdZP6fCUjSN1522j1iTcpk016VTEel099Ks4QcdbONb0LPEb42cpho19lnDNxmLXDp3QKo9kbE"/>
+<div class="relative z-10">
+<p class="font-label-sm text-primary-container uppercase">VIEW FACILITY MAP</p>
+<p class="text-sm text-primary mt-1 font-semibold">PuNarva Elite Lab A</p>
+</div>
+</div>
+</div>
+<!-- Performance History Table -->
+<div class="col-span-12 lg:col-span-9 bg-[#1A1A1A] rounded-xl overflow-hidden">
+<div class="p-6 border-b border-outline-variant/20 flex justify-between items-center">
+<h3 class="font-display-lg text-headline-md text-primary">PERFORMANCE HISTORY</h3>
+<div class="flex gap-2">
+<button class="font-label-sm px-3 py-1 bg-surface-container-highest rounded text-primary">WEEKLY</button>
+<button class="font-label-sm px-3 py-1 text-on-surface-variant hover:text-primary transition-colors">MONTHLY</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container/50">
+<th class="px-6 py-4 font-label-sm text-on-surface-variant uppercase">Activity</th>
+<th class="px-6 py-4 font-label-sm text-on-surface-variant uppercase">Load (TSS)</th>
+<th class="px-6 py-4 font-label-sm text-on-surface-variant uppercase">Power (NP)</th>
+<th class="px-6 py-4 font-label-sm text-on-surface-variant uppercase">Heart Rate</th>
+<th class="px-6 py-4 font-label-sm text-on-surface-variant uppercase">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-high/50 transition-colors">
+<td class="px-6 py-4">
+<p class="font-bold text-primary">Hill Repeats</p>
+<p class="text-xs text-on-surface-variant">Yesterday, 07:12 AM</p>
+</td>
+<td class="px-6 py-4 font-display-lg text-xl">184</td>
+<td class="px-6 py-4 font-display-lg text-xl text-primary-container">342W</td>
+<td class="px-6 py-4 text-on-surface">164 AVG</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-primary-container/10 text-primary-container text-[10px] font-bold rounded">COMPLETED</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/50 transition-colors">
+<td class="px-6 py-4">
+<p class="font-bold text-primary">Base Endurance</p>
+<p class="text-xs text-on-surface-variant">May 12, 08:45 AM</p>
+</td>
+<td class="px-6 py-4 font-display-lg text-xl">210</td>
+<td class="px-6 py-4 font-display-lg text-xl text-primary-container">215W</td>
+<td class="px-6 py-4 text-on-surface">132 AVG</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-primary-container/10 text-primary-container text-[10px] font-bold rounded">COMPLETED</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/50 transition-colors">
+<td class="px-6 py-4">
+<p class="font-bold text-primary">Recovery Spin</p>
+<p class="text-xs text-on-surface-variant">May 11, 04:00 PM</p>
+</td>
+<td class="px-6 py-4 font-display-lg text-xl">45</td>
+<td class="px-6 py-4 font-display-lg text-xl text-primary-container">140W</td>
+<td class="px-6 py-4 text-on-surface">118 AVG</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-primary-container/10 text-primary-container text-[10px] font-bold rounded">COMPLETED</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/50 transition-colors">
+<td class="px-6 py-4">
+<p class="font-bold text-primary">FTP Test</p>
+<p class="text-xs text-on-surface-variant">May 10, 09:30 AM</p>
+</td>
+<td class="px-6 py-4 font-display-lg text-xl">120</td>
+<td class="px-6 py-4 font-display-lg text-xl text-primary-container">395W</td>
+<td class="px-6 py-4 text-on-surface">188 MAX</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-primary-container/10 text-primary-container text-[10px] font-bold rounded">COMPLETED</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<button class="w-full py-4 bg-surface-container border-t border-outline-variant/10 text-on-surface-variant font-label-sm hover:text-primary-container transition-colors">
+                    VIEW FULL WORKOUT LIBRARY
+                </button>
+</div>
+</section>
+</main>
+<!-- FAB Action (Contextual to Home/Dashboard) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center shadow-xl z-50 hover:scale-110 active:scale-95 transition-all citron-glow">
+<span class="material-symbols-outlined" data-icon="add" style="font-size: 32px;">add</span>
+</button>
+<script>
+        // Micro-interaction: Update active state on hover/click for nav items
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                document.querySelectorAll('nav a').forEach(el => {
+                    el.classList.remove('text-primary-container', 'font-bold', 'border-r-4', 'border-primary-container', 'bg-surface-container-highest');
+                    el.classList.add('text-on-surface-variant');
+                });
+                link.classList.add('text-primary-container', 'font-bold', 'border-r-4', 'border-primary-container', 'bg-surface-container-highest');
+                link.classList.remove('text-on-surface-variant');
+            });
+        });
+
+        // Atmospheric effect: Subtle pulse on metric cards
+        const stats = document.querySelectorAll('.font-display-lg');
+        setInterval(() => {
+            stats.forEach(stat => {
+                if(Math.random() > 0.95) {
+                    stat.classList.add('opacity-80');
+                    setTimeout(() => stat.classList.remove('opacity-80'), 150);
+                }
+            });
+        }, 1000);
+    </script>
+</body></html>

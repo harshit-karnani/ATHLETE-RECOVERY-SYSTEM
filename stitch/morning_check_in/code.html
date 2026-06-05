@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .mic-pulse {
+            animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 111, 102, 0.4); }
+            70% { transform: scale(1); box-shadow: 0 0 0 12px rgba(0, 111, 102, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 111, 102, 0); }
+        }
+        .step-transition {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-out;
+        }
+        .custom-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            background: #eceef0;
+            border-radius: 5px;
+            outline: none;
+        }
+        .custom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #006a61;
+            cursor: pointer;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#bec6e0",
+                        "tertiary-container": "#002114",
+                        "tertiary": "#000000",
+                        "outline": "#76777d",
+                        "on-secondary-container": "#006f66",
+                        "primary-container": "#131b2e",
+                        "tertiary-fixed": "#85f8c4",
+                        "secondary": "#006a61",
+                        "secondary-fixed-dim": "#6bd8cb",
+                        "surface-container-high": "#e6e8ea",
+                        "surface-bright": "#f7f9fb",
+                        "inverse-surface": "#2d3133",
+                        "surface-dim": "#d8dadc",
+                        "surface-variant": "#e0e3e5",
+                        "surface-container-low": "#f2f4f6",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#00201d",
+                        "surface-container": "#eceef0",
+                        "on-tertiary-fixed-variant": "#005137",
+                        "secondary-container": "#86f2e4",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#dae2fd",
+                        "surface-tint": "#565e74",
+                        "primary-fixed-dim": "#bec6e0",
+                        "secondary-fixed": "#89f5e7",
+                        "on-tertiary-fixed": "#002114",
+                        "on-secondary-fixed-variant": "#005049",
+                        "error-container": "#ffdad6",
+                        "on-surface": "#191c1e",
+                        "on-primary-container": "#7c839b",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "outline-variant": "#c6c6cd",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "surface": "#f7f9fb",
+                        "error": "#ba1a1a",
+                        "primary": "#000000",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed-dim": "#68dba9",
+                        "on-background": "#191c1e",
+                        "on-primary": "#ffffff",
+                        "on-surface-variant": "#45464d",
+                        "on-tertiary-container": "#069669",
+                        "on-primary-fixed": "#131b2e",
+                        "background": "#f7f9fb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "stack-md": "16px",
+                        "margin-desktop": "40px",
+                        "margin-mobile": "16px",
+                        "container-max-width": "1280px",
+                        "stack-sm": "8px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Public Sans"],
+                        "body-md": ["Public Sans"],
+                        "label-md": ["Public Sans"],
+                        "label-sm": ["Public Sans"],
+                        "display-lg-mobile": ["Public Sans"],
+                        "display-lg": ["Public Sans"],
+                        "body-lg": ["Public Sans"],
+                        "headline-md": ["Public Sans"],
+                        "headline-lg-mobile": ["Public Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body-md text-on-surface min-h-screen pb-24">
+<!-- Top Navigation Shell -->
+<header class="bg-surface-bright dark:bg-inverse-surface w-full top-0 sticky z-40 flex justify-between items-center px-margin-mobile h-16 w-full">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover border-2 border-secondary-container" data-alt="A professional athletic profile photograph of a high-performance endurance athlete in a bright, modern studio setting. The lighting is soft and high-key, emphasizing a look of health and focus. The overall aesthetic is clean, medical-grade, and corporate minimalist with a neutral background that complements a premium health instrument UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOUchmgsK4hnEK4lV6NRWn3e_qUPWWKi98KVwv2SYT6yjU_NaTiPVC4VqAtS9yz2sKRCbxS3NaY17hLU0uElP_4tHIGx6IajUV70t9lAnAe9765tvijvFNJ469ckzHsKszz2_G28abnChzszvvflW4UWZD3QVyPK5Fq-o3c-R5P_cMUZe0BOnTqkLMOIIZEJA_cQIHjy4TF6q1679R_tPb8lldKW8bM9t6bG3Uw8zhV1sgoU7COdzwlbnUPNyi90QgAyRYH16gTLk"/>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-primary dark:text-inverse-primary tracking-tight font-bold">PuNarva</span>
+</div>
+<button class="text-on-surface-variant dark:text-outline-variant hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-2xl">notifications</span>
+</button>
+</header>
+<main class="max-w-xl mx-auto px-margin-mobile pt-8">
+<!-- Progress Indicator -->
+<div class="mb-stack-lg">
+<div class="flex justify-between items-center mb-2 px-1">
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-widest">Step <span id="current-step-label">1</span> of 4</span>
+<span class="text-label-sm font-label-sm text-secondary font-bold" id="step-name">Symptoms</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary transition-all duration-500 ease-out" id="progress-bar" style="width: 25%;"></div>
+</div>
+</div>
+<form id="checkin-flow">
+<!-- Step 1: Voice & Symptoms -->
+<section class="step-transition" id="step-1">
+<div class="bg-surface-container-lowest rounded-[24px] p-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-outline-variant mb-stack-md">
+<h2 class="font-headline-md text-headline-md mb-4">How are you feeling today?</h2>
+<!-- Voice Logging -->
+<div class="flex flex-col items-center py-6 bg-surface-container-low rounded-xl mb-6">
+<button class="w-16 h-16 bg-on-secondary-container text-white rounded-full flex items-center justify-center transition-all active:scale-95" id="mic-button" type="button">
+<span class="material-symbols-outlined text-3xl">mic</span>
+</button>
+<p class="mt-4 text-label-md font-label-md text-on-surface-variant" id="mic-status">Tap to speak symptoms</p>
+<div class="mt-4 px-6 w-full">
+<div class="bg-white/50 border border-dashed border-outline-variant rounded-lg p-3 min-h-[60px] text-sm text-on-surface-variant italic" id="transcription-placeholder">
+                                "Feeling slight tightness in left calf after yesterday's hill sprints..."
+                            </div>
+</div>
+</div>
+<!-- Symptom Chips -->
+<div class="mb-6">
+<label class="text-label-sm font-label-sm text-on-surface-variant uppercase mb-3 block">Symptom Type</label>
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-2 rounded-full border border-outline-variant text-label-md font-label-md hover:border-secondary hover:text-secondary transition-colors active:bg-secondary-container" type="button">Aching</button>
+<button class="px-4 py-2 rounded-full border border-outline-variant text-label-md font-label-md hover:border-secondary hover:text-secondary transition-colors active:bg-secondary-container" type="button">Sharp</button>
+<button class="px-4 py-2 rounded-full border border-outline-variant text-label-md font-label-md hover:border-secondary hover:text-secondary transition-colors active:bg-secondary-container" type="button">Stiff</button>
+<button class="px-4 py-2 rounded-full border border-outline-variant text-label-md font-label-md hover:border-secondary hover:text-secondary transition-colors active:bg-secondary-container" type="button">Tender</button>
+<button class="px-4 py-2 rounded-full border border-outline-variant text-label-md font-label-md hover:border-secondary hover:text-secondary transition-colors active:bg-secondary-container" type="button">Numb</button>
+</div>
+</div>
+<!-- Pain Score -->
+<div>
+<div class="flex justify-between items-center mb-4">
+<label class="text-label-sm font-label-sm text-on-surface-variant uppercase">Pain Score</label>
+<span class="text-headline-md font-headline-md text-secondary" id="pain-val">0</span>
+</div>
+<input class="w-full custom-slider" id="pain-slider" max="10" min="0" oninput="document.getElementById('pain-val').innerText = this.value" type="range" value="0"/>
+<div class="flex justify-between mt-2 text-[10px] text-outline uppercase font-bold tracking-tighter">
+<span>None</span>
+<span>Moderate</span>
+<span>Severe</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Step 2: Biometrics -->
+<section class="step-transition hidden opacity-0 translate-y-4" id="step-2">
+<div class="bg-surface-container-lowest rounded-[24px] p-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-outline-variant mb-stack-md">
+<h2 class="font-headline-md text-headline-md mb-6">Core Biometrics</h2>
+<div class="grid grid-cols-1 gap-6">
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl border border-transparent focus-within:border-secondary transition-all">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">bedtime</span>
+<div>
+<p class="text-label-md font-label-md">Sleep Duration</p>
+<p class="text-[10px] text-outline uppercase">Hours</p>
+</div>
+</div>
+<input class="w-20 bg-transparent border-none text-right font-headline-md text-secondary focus:ring-0" placeholder="8.0" step="0.5" type="number"/>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl border border-transparent focus-within:border-secondary transition-all">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">favorite</span>
+<div>
+<p class="text-label-md font-label-md">Resting Heart Rate</p>
+<p class="text-[10px] text-outline uppercase">BPM</p>
+</div>
+</div>
+<input class="w-20 bg-transparent border-none text-right font-headline-md text-secondary focus:ring-0" placeholder="52" type="number"/>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl border border-transparent focus-within:border-secondary transition-all">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">show_chart</span>
+<div>
+<p class="text-label-md font-label-md">Heart Rate Variability</p>
+<p class="text-[10px] text-outline uppercase">MS</p>
+</div>
+</div>
+<input class="w-20 bg-transparent border-none text-right font-headline-md text-secondary focus:ring-0" placeholder="78" type="number"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Step 3: Load & Wellbeing -->
+<section class="step-transition hidden opacity-0 translate-y-4" id="step-3">
+<div class="bg-surface-container-lowest rounded-[24px] p-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-outline-variant mb-stack-md">
+<h2 class="font-headline-md text-headline-md mb-6">Load &amp; Wellbeing</h2>
+<div class="space-y-8">
+<div>
+<div class="flex justify-between items-center mb-4">
+<label class="text-label-sm font-label-sm text-on-surface-variant uppercase">Training Load (RPE)</label>
+<span class="text-headline-md font-headline-md text-secondary" id="rpe-val">5</span>
+</div>
+<input class="w-full custom-slider" id="rpe-slider" max="10" min="1" oninput="document.getElementById('rpe-val').innerText = this.value" type="range" value="5"/>
+</div>
+<div>
+<div class="flex justify-between items-center mb-4">
+<label class="text-label-sm font-label-sm text-on-surface-variant uppercase">Stress Level</label>
+<span class="text-headline-md font-headline-md text-secondary" id="stress-val">3</span>
+</div>
+<input class="w-full custom-slider" id="stress-slider" max="10" min="1" oninput="document.getElementById('stress-val').innerText = this.value" type="range" value="3"/>
+</div>
+<div>
+<div class="flex justify-between items-center mb-4">
+<label class="text-label-sm font-label-sm text-on-surface-variant uppercase">General Mood</label>
+<span class="text-headline-md font-headline-md text-secondary" id="mood-val">7</span>
+</div>
+<input class="w-full custom-slider" id="mood-slider" max="10" min="1" oninput="document.getElementById('mood-val').innerText = this.value" type="range" value="7"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Step 4: Nutrition & Summary -->
+<section class="step-transition hidden opacity-0 translate-y-4" id="step-4">
+<div class="bg-surface-container-lowest rounded-[24px] p-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-outline-variant mb-stack-md">
+<h2 class="font-headline-md text-headline-md mb-6">Fueling &amp; Nutrition</h2>
+<div class="grid grid-cols-2 gap-4 mb-6">
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col items-center">
+<span class="material-symbols-outlined text-secondary mb-2">water_drop</span>
+<span class="text-label-sm font-label-sm text-outline uppercase mb-2">Hydration</span>
+<div class="flex items-center gap-3">
+<button class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-secondary border border-outline-variant shadow-sm" type="button">-</button>
+<span class="font-headline-md text-on-surface">2.5<small class="text-sm">L</small></span>
+<button class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-secondary border border-outline-variant shadow-sm" type="button">+</button>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col items-center">
+<span class="material-symbols-outlined text-secondary mb-2">restaurant</span>
+<span class="text-label-sm font-label-sm text-outline uppercase mb-2">Protein</span>
+<div class="flex items-center gap-3">
+<button class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-secondary border border-outline-variant shadow-sm" type="button">-</button>
+<span class="font-headline-md text-on-surface">140<small class="text-sm">g</small></span>
+<button class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-secondary border border-outline-variant shadow-sm" type="button">+</button>
+</div>
+</div>
+</div>
+<div class="mb-6">
+<label class="text-label-sm font-label-sm text-on-surface-variant uppercase mb-2 block">Nutrition Notes</label>
+<textarea class="w-full bg-surface-container-low border-outline-variant rounded-xl p-4 focus:ring-secondary focus:border-secondary h-24 text-body-md" placeholder="Any digestive issues or dietary deviations..."></textarea>
+</div>
+<div class="border-t border-outline-variant pt-6">
+<div class="bg-secondary/5 rounded-xl p-4 border border-secondary/20">
+<h3 class="text-label-md font-label-md text-secondary uppercase mb-2">Summary Preview</h3>
+<ul class="space-y-2 text-sm text-on-surface-variant">
+<li class="flex justify-between"><span>Feeling</span> <span class="font-bold text-on-surface">Aching (2/10)</span></li>
+<li class="flex justify-between"><span>Recovery Score</span> <span class="font-bold text-on-surface">Ready</span></li>
+<li class="flex justify-between"><span>Sleep</span> <span class="font-bold text-on-surface">8.5 hrs</span></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Navigation Buttons -->
+<div class="flex gap-4 mt-6">
+<button class="flex-1 py-4 rounded-full border border-outline-variant text-on-surface font-label-md hidden" id="prev-btn" type="button">Back</button>
+<button class="flex-[2] py-4 rounded-full bg-primary text-on-primary font-label-md shadow-lg active:scale-95 transition-transform" id="next-btn" type="button">Continue</button>
+<button class="flex-[2] py-4 rounded-full bg-primary text-on-primary font-label-md shadow-lg active:scale-95 transition-transform hidden" id="submit-btn" type="submit">Analyze My Recovery</button>
+</div>
+</form>
+</main>
+<!-- Bottom Navigation Shell (Filter: Active on Dashboard context) -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-4 pt-2 bg-surface-container-lowest dark:bg-inverse-surface shadow-[0_-4px_12px_rgba(0,0,0,0.05)] z-50 rounded-t-xl">
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed-dim rounded-full px-5 py-1.5" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-sm font-label-sm">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">check_circle</span>
+<span class="text-label-sm font-label-sm">Check-In</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="text-label-sm font-label-sm">Analytics</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-label-sm font-label-sm">Team</span>
+</a>
+</nav>
+<script>
+        let currentStep = 1;
+        const totalSteps = 4;
+        const stepNames = ["Symptoms", "Biometrics", "Wellbeing", "Nutrition"];
+        
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const currentStepLabel = document.getElementById('current-step-label');
+        const stepNameLabel = document.getElementById('step-name');
+
+        function updateStep() {
+            // Hide all steps
+            for (let i = 1; i <= totalSteps; i++) {
+                const step = document.getElementById(`step-${i}`);
+                step.classList.add('hidden', 'opacity-0', 'translate-y-4');
+            }
+
+            // Show current step
+            const activeStep = document.getElementById(`step-${currentStep}`);
+            activeStep.classList.remove('hidden');
+            setTimeout(() => {
+                activeStep.classList.remove('opacity-0', 'translate-y-4');
+            }, 50);
+
+            // Update UI components
+            progressBar.style.width = `${(currentStep / totalSteps) * 100}%`;
+            currentStepLabel.innerText = currentStep;
+            stepNameLabel.innerText = stepNames[currentStep - 1];
+
+            // Toggle buttons
+            prevBtn.classList.toggle('hidden', currentStep === 1);
+            if (currentStep === totalSteps) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+            }
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                updateStep();
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStep();
+            }
+        });
+
+        // Mic Interaction
+        const micBtn = document.getElementById('mic-button');
+        const micStatus = document.getElementById('mic-status');
+        let isRecording = false;
+
+        micBtn.addEventListener('click', () => {
+            isRecording = !isRecording;
+            if (isRecording) {
+                micBtn.classList.add('mic-pulse');
+                micStatus.innerText = "Listening... Tap to stop";
+                micStatus.classList.add('text-secondary');
+            } else {
+                micBtn.classList.remove('mic-pulse');
+                micStatus.innerText = "Transcription captured";
+                micStatus.classList.remove('text-secondary');
+            }
+        });
+
+        // Chip selection interaction
+        document.querySelectorAll('#step-1 button[type="button"]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.classList.toggle('bg-secondary-container');
+                btn.classList.toggle('border-secondary');
+                btn.classList.toggle('text-on-secondary-container');
+            });
+        });
+
+        // Simple Form Submission
+        document.getElementById('checkin-flow').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Your athletic metrics have been sent to PuNarva Analytics. Generating your recovery profile...');
+        });
+    </script>
+</body></html>

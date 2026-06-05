@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PuNarva | Recovery Insights</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .recovery-ring {
+            transform: rotate(-90deg);
+        }
+        .glass-card {
+            background: rgba(18, 33, 49, 0.4);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+        
+        @keyframes slideUpFade {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .animate-slide-up {
+            animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 1.2s ease-out forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#ffdadc",
+                        "inverse-primary": "#006b5f",
+                        "on-primary-container": "#00574d",
+                        "tertiary-container": "#ffac5a",
+                        "on-primary": "#003731",
+                        "primary": "#57f1db",
+                        "on-surface-variant": "#bacac5",
+                        "surface-bright": "#2c3a4c",
+                        "surface-container-highest": "#273647",
+                        "on-primary-fixed-variant": "#005047",
+                        "primary-container": "#2dd4bf",
+                        "tertiary-fixed": "#ffdcc0",
+                        "on-secondary": "#67001f",
+                        "surface-container-lowest": "#010f1f",
+                        "on-tertiary-container": "#744000",
+                        "secondary-container": "#891933",
+                        "inverse-surface": "#d4e4fa",
+                        "on-surface": "#d4e4fa",
+                        "background": "#051424",
+                        "on-tertiary-fixed-variant": "#6b3b00",
+                        "on-tertiary-fixed": "#2d1600",
+                        "outline": "#859490",
+                        "surface-variant": "#273647",
+                        "on-primary-fixed": "#00201c",
+                        "error": "#ffb4ab",
+                        "secondary-fixed-dim": "#ffb2b9",
+                        "surface-container-low": "#0d1c2d",
+                        "surface-container": "#122131",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed": "#62fae3",
+                        "on-secondary-fixed-variant": "#891933",
+                        "error-container": "#93000a",
+                        "secondary": "#ffb2b9",
+                        "tertiary": "#ffd1aa",
+                        "on-error": "#690005",
+                        "outline-variant": "#3c4a46",
+                        "on-tertiary": "#4b2800",
+                        "on-background": "#d4e4fa",
+                        "on-secondary-container": "#ff97a3",
+                        "surface-tint": "#3cddc7",
+                        "surface-container-high": "#1c2b3c",
+                        "primary-fixed-dim": "#3cddc7",
+                        "surface": "#051424",
+                        "on-secondary-fixed": "#400010",
+                        "surface-dim": "#051424",
+                        "inverse-on-surface": "#233143",
+                        "tertiary-fixed-dim": "#ffb875"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-mobile": "20px",
+                        "gutter": "24px",
+                        "unit": "4px",
+                        "margin-desktop": "64px",
+                        "container-max": "1440px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["JetBrains Mono"],
+                        "headline-lg": ["Geist", "Public Sans"],
+                        "headline-xl": ["Geist", "Public Sans"],
+                        "body-md": ["Geist", "Public Sans"],
+                        "headline-lg-mobile": ["Geist", "Public Sans"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", {lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "800"}],
+                        "label-sm": ["12px", {lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "500"}],
+                        "headline-lg": ["32px", {lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "600"}],
+                        "headline-xl": ["48px", {lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700"}],
+                        "body-md": ["16px", {lineHeight: "24px", fontWeight: "400"}],
+                        "headline-lg-mobile": ["24px", {lineHeight: "32px", fontWeight: "600"}],
+                        "label-lg": ["14px", {lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "600"}]
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-container/30">
+<!-- TopNavBar -->
+<header class="w-full top-0 sticky bg-surface/80 backdrop-blur-md border-b border-white/5 z-50">
+<div class="flex justify-between items-center h-20 px-stack-lg max-w-7xl mx-auto">
+<div class="text-2xl font-bold text-primary animate-fade-in">PuNarva</div>
+<nav class="hidden md:flex gap-8 items-center animate-fade-in">
+<a class="text-on-surface-variant font-label-lg hover:text-primary transition-colors duration-200" href="#">Dashboard</a>
+<a class="text-on-surface-variant font-label-lg hover:text-primary transition-colors duration-200" href="#">Workouts</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-lg" href="#">Recovery</a>
+<a class="text-on-surface-variant font-label-lg hover:text-primary transition-colors duration-200" href="#">Community</a>
+</nav>
+<div class="flex items-center gap-4 animate-fade-in">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">search</span>
+<img alt="User profile avatar" class="w-10 h-10 rounded-full bg-surface-container-high border-2 border-primary-container/50 shadow-lg shadow-primary/10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFvW-IA2-pXVGaMZOWw1ZVb53vEOUaVdv6SJZii9xfqPMMF4j60nBC6tiFRW49rjDPXDgEaqwzPmEpNBlaZSEkS_32OU7D9l6eygcJtNtNrmEB7OavfoVyNfPfUS83_9xRYnd1P7JWCPg7NcdrVBWQMof0DoQ9x7uvfRBSC5sEwGt8_KuruConnMu6epbafAyjZ4xduPAoHkd646ULR9_PVul2J0Bo_7wddD60vqnjgOy3OEM2Lx5VnsVvaKNQIMVwE_PP4Q2KO3M"/>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-4 md:px-stack-lg py-stack-lg space-y-stack-lg">
+<!-- Hero Section: Recovery Score -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-stack-lg items-center">
+<div class="lg:col-span-5 flex flex-col items-center text-center lg:text-left lg:items-start gap-4 animate-slide-up">
+<h1 class="font-headline-xl text-on-surface">Daily Recovery</h1>
+<p class="text-lg text-on-surface-variant max-w-md">Your body is primed for movement today. High HRV and quality sleep have maximized your potential.</p>
+<div class="flex gap-4 mt-4">
+<span class="px-4 py-2 bg-primary/10 text-primary border border-primary/20 rounded-full font-label-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">eco</span>
+                    Excellent State
+                </span>
+</div>
+</div>
+<div class="lg:col-span-7 flex justify-center animate-slide-up delay-1">
+<div class="relative w-72 h-72 md:w-80 md:h-80">
+<!-- Triple Recovery Ring -->
+<svg class="w-full h-full recovery-ring" viewbox="0 0 100 100">
+<circle class="text-surface-container-high/30" cx="50" cy="50" fill="transparent" r="45" stroke="currentColor" stroke-width="6"></circle>
+<circle class="text-primary transition-all duration-1000 ease-out" cx="50" cy="50" fill="transparent" r="45" stroke="currentColor" stroke-dasharray="282.7" stroke-dashoffset="34" stroke-linecap="round" stroke-width="6"></circle>
+<circle class="text-surface-container-high/30" cx="50" cy="50" fill="transparent" r="36" stroke="currentColor" stroke-width="6"></circle>
+<circle class="text-tertiary transition-all duration-1000 ease-out" cx="50" cy="50" fill="transparent" r="36" stroke="currentColor" stroke-dasharray="226.2" stroke-dashoffset="64" stroke-linecap="round" stroke-width="6"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-display-lg text-display-lg text-on-surface animate-fade-in delay-3">88</span>
+<span class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-widest">Score</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Grid Insights -->
+<section class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-stack-md">
+<!-- Sleep Quality Card -->
+<div class="md:col-span-2 glass-card rounded-[24px] p-stack-md flex flex-col justify-between min-h-[240px] animate-slide-up delay-2">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-2xl font-bold mb-1">Sleep Quality</h3>
+<p class="text-on-surface-variant">Deep sleep up by 12%</p>
+</div>
+<div class="p-3 rounded-xl bg-tertiary/10 border border-tertiary/20">
+<span class="material-symbols-outlined text-tertiary">bedtime</span>
+</div>
+</div>
+<div class="mt-8 h-24 flex items-end gap-2">
+<div class="flex-1 bg-tertiary/20 rounded-t-lg h-1/2"></div>
+<div class="flex-1 bg-tertiary/20 rounded-t-lg h-2/3"></div>
+<div class="flex-1 bg-tertiary/40 rounded-t-lg h-3/4"></div>
+<div class="flex-1 bg-tertiary/20 rounded-t-lg h-1/2"></div>
+<div class="flex-1 bg-tertiary h-full rounded-t-lg"></div>
+<div class="flex-1 bg-tertiary/30 rounded-t-lg h-2/3"></div>
+<div class="flex-1 bg-tertiary/50 rounded-t-lg h-4/5"></div>
+</div>
+</div>
+<!-- HRV Metric -->
+<div class="glass-card rounded-[24px] p-stack-md flex flex-col justify-between animate-slide-up delay-3">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="text-label-sm font-label-sm text-primary px-2 py-1 bg-primary/10 rounded-full border border-primary/20">Steady</span>
+</div>
+<div class="space-y-1">
+<div class="text-3xl font-bold">64 <span class="text-body-md text-on-surface-variant">ms</span></div>
+<div class="text-label-lg font-label-lg text-on-surface-variant">HRV Status</div>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="w-3/4 h-full bg-primary shadow-[0_0_8px_rgba(87,241,219,0.5)]"></div>
+</div>
+</div>
+<!-- Stress Levels -->
+<div class="glass-card rounded-[24px] p-stack-md flex flex-col justify-between animate-slide-up delay-4">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant px-2 py-1 bg-white/5 rounded-full border border-white/10">Low</span>
+</div>
+<div class="space-y-1">
+<div class="text-3xl font-bold">18/100</div>
+<div class="text-label-lg font-label-lg text-on-surface-variant">Stress Score</div>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="w-1/5 h-full bg-secondary shadow-[0_0_8px_rgba(255,178,185,0.5)]"></div>
+</div>
+</div>
+</section>
+<!-- Dynamic Visualization: Rest & Stretching -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-stack-lg">
+<!-- Stretching Illustration Card -->
+<div class="relative overflow-hidden glass-card rounded-[32px] p-stack-lg group hover:bg-white/5 transition-all duration-500 animate-slide-up delay-5">
+<div class="relative z-10 space-y-4">
+<h2 class="text-3xl font-bold text-on-surface">Guided Mobility</h2>
+<p class="text-lg text-on-surface-variant max-w-sm">Loosen your hip flexors and lower back with this 10-minute flow designed for your current recovery state.</p>
+<button class="mt-4 px-8 py-3 bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold rounded-full shadow-lg shadow-primary/20 hover:scale-105 transition-transform">
+                    Start Stretching
+                </button>
+</div>
+<div class="absolute -right-8 -bottom-8 w-64 h-64 opacity-40 transition-transform duration-700 group-hover:scale-110 group-hover:opacity-60">
+<img alt="Mobility exercise" class="w-full h-full object-cover rounded-3xl mix-blend-lighten" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0CwcJ4qE_K1zyQq8iEtlYGOo3DF6LfGLWrrVObSXdVPZqf-DBR5diBMje6KXCY0EjSjD7XAWwt9cu4G6QIsiCVCblrHD0tcwGfHntXkca_o-DIiSP66NAusNCeCwo4RuvxIdZND1mnUIHD7-dei0X0VpEwPRnld9IjrOA34hqNfFz8Gp9tKfb7kbUoik1m5folygFUgrgikggVsnQeHzDvBju8ZFYxdlaqR2iYa3oidvCzuR-7DxWiJm4uPEy0yo67a1Nyg6IYTU"/>
+</div>
+</div>
+<!-- Insight Panel -->
+<div class="space-y-stack-md animate-slide-up delay-5">
+<div class="glass-card rounded-[24px] p-stack-md flex gap-4 items-center hover:bg-white/5 transition-colors">
+<div class="w-12 h-12 rounded-full bg-tertiary-container/10 border border-tertiary-container/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-tertiary">water_drop</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Hydration Focus</p>
+<p class="text-on-surface-variant">Increase intake by 500ml today due to sleep-related fluid loss.</p>
+</div>
+</div>
+<div class="glass-card rounded-[24px] p-stack-md flex gap-4 items-center border-l-4 border-primary">
+<div class="w-12 h-12 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary">warning</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Action Required</p>
+<p class="text-on-surface-variant">HRV is slightly higher than baseline. Monitor for fatigue during cardio.</p>
+</div>
+</div>
+<div class="glass-card rounded-[24px] p-stack-md flex gap-4 items-center hover:bg-white/5 transition-colors">
+<div class="w-12 h-12 rounded-full bg-secondary/10 border border-secondary/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary">spa</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Rest Protocol</p>
+<p class="text-on-surface-variant">30-minute mindfulness session suggested before 9:00 PM.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<div class="h-24 md:hidden"></div>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-background/90 backdrop-blur-xl border-t border-white/5">
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[10px] font-medium">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">fitness_center</span>
+<span class="text-[10px] font-medium">Workouts</span>
+</button>
+<button class="flex flex-col items-center justify-center text-primary px-4 py-1 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">self_care</span>
+<span class="text-[10px] font-bold">Recovery</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">group</span>
+<span class="text-[10px] font-medium">Social</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-medium">Profile</span>
+</button>
+</nav>
+<script>
+    function animateScore() {
+        const scoreElement = document.querySelector('.text-display-lg');
+        if (!scoreElement) return;
+        let current = 0;
+        const target = 88;
+        const duration = 2000;
+        const startTime = performance.now();
+
+        function update(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            // Ease out cubic
+            const easeProgress = 1 - Math.pow(1 - progress, 3);
+            const value = Math.floor(easeProgress * target);
+            scoreElement.textContent = value;
+            if (progress < 1) requestAnimationFrame(update);
+        }
+        requestAnimationFrame(update);
+    }
+
+    window.onload = animateScore;
+
+    // Hover effect for glass cards
+    document.querySelectorAll('.glass-card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-4px)';
+            card.style.borderColor = 'rgba(87, 241, 219, 0.2)';
+            card.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(0px)';
+            card.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+        });
+    });
+</script>
+</body></html>

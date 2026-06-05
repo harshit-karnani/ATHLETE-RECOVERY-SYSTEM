@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PuNarva | Intensity &amp; Volume Analytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,600&amp;family=Geist:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#454932",
+                        "on-tertiary": "#16343b",
+                        "on-background": "#e5e2e1",
+                        "on-secondary-container": "#b7b5b4",
+                        "surface-tint": "#b8d300",
+                        "surface-container-high": "#2a2a2a",
+                        "error-container": "#93000a",
+                        "tertiary": "#ffffff",
+                        "secondary": "#c8c6c5",
+                        "on-error": "#690005",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "tertiary-fixed-dim": "#acccd4",
+                        "surface-dim": "#131313",
+                        "inverse-on-surface": "#313030",
+                        "primary-fixed-dim": "#b8d300",
+                        "surface": "#131313",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "error": "#ffb4ab",
+                        "surface-container-low": "#1c1b1b",
+                        "outline": "#909378",
+                        "surface-variant": "#353534",
+                        "on-primary-fixed": "#191e00",
+                        "primary-fixed": "#d2f000",
+                        "on-secondary-fixed-variant": "#474746",
+                        "surface-container": "#201f1f",
+                        "on-error-container": "#ffdad6",
+                        "secondary-container": "#474746",
+                        "on-tertiary-container": "#4b6971",
+                        "on-surface": "#e5e2e1",
+                        "inverse-surface": "#e5e2e1",
+                        "on-primary-fixed-variant": "#414c00",
+                        "tertiary-fixed": "#c8e8f1",
+                        "primary-container": "#d2f000",
+                        "on-secondary": "#313030",
+                        "surface-container-lowest": "#0e0e0e",
+                        "background": "#131313",
+                        "on-tertiary-fixed-variant": "#2e4b52",
+                        "on-tertiary-fixed": "#001f26",
+                        "secondary-fixed": "#e5e2e1",
+                        "inverse-primary": "#576500",
+                        "on-primary-container": "#5d6b00",
+                        "surface-bright": "#393939",
+                        "surface-container-highest": "#353534",
+                        "tertiary-container": "#c8e8f1",
+                        "on-primary": "#2c3400",
+                        "primary": "#ffffff",
+                        "on-surface-variant": "#c6c9ab"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "32px",
+                        "container-max": "1280px",
+                        "margin-mobile": "16px",
+                        "gutter": "16px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Barlow Condensed"],
+                        "label-sm": ["Geist"],
+                        "headline-md": ["Barlow Condensed"],
+                        "display-lg": ["Barlow Condensed"],
+                        "headline-lg-mobile": ["Barlow Condensed"],
+                        "body-lg": ["Geist"],
+                        "body-md": ["Geist"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["40px", {"lineHeight": "1.1", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "display-lg": ["72px", {"lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.1", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { background-color: #121212; color: #e5e2e1; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .heat-map-cell:hover { transform: scale(1.1); filter: brightness(1.2); z-index: 10; }
+        .glass-panel { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #454932; border-radius: 2px; }
+    </style>
+</head>
+<body class="font-body-md overflow-x-hidden">
+<!-- Sidebar Navigation -->
+<aside class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 bg-surface-container-lowest border-r border-outline-variant/20 py-8 z-50">
+<div class="px-6 mb-8">
+<span class="font-headline-lg text-headline-lg text-primary tracking-tighter">PuNarva</span>
+</div>
+<div class="flex-1 flex flex-col space-y-1">
+<a class="flex items-center gap-4 text-secondary-fixed-dim py-3 px-6 hover:text-primary transition-all hover:bg-surface-container-high group" href="#">
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform duration-300">dashboard</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 text-primary-fixed bg-primary-container/10 border-r-4 border-primary-fixed py-3 px-6 group" href="#">
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform duration-300" style="font-variation-settings: 'FILL' 1;">fitness_center</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Training</span>
+</a>
+<a class="flex items-center gap-4 text-secondary-fixed-dim py-3 px-6 hover:text-primary transition-all hover:bg-surface-container-high group" href="#">
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform duration-300">bedtime</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Sleep</span>
+</a>
+<a class="flex items-center gap-4 text-secondary-fixed-dim py-3 px-6 hover:text-primary transition-all hover:bg-surface-container-high group" href="#">
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform duration-300">restaurant</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Nutrition</span>
+</a>
+<a class="flex items-center gap-4 text-secondary-fixed-dim py-3 px-6 hover:text-primary transition-all hover:bg-surface-container-high group" href="#">
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform duration-300">groups</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Team</span>
+</a>
+</div>
+<div class="mt-auto px-6 pt-4 border-t border-outline-variant/20 space-y-1">
+<div class="flex items-center gap-3 mb-6 p-2 bg-surface-container/50 rounded-lg">
+<img alt="Athlete Profile" class="w-10 h-10 rounded-full object-cover grayscale" data-alt="Close-up portrait of a determined elite athlete in a dark gym setting. Dramatic high-contrast rim lighting highlights muscular definition and sweat. The color palette is dominated by deep blacks and charcoal tones with a single sharp highlight reflecting off the skin, evoking a mood of intense discipline and peak performance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZcvI9zZMWfq2cDa4g_sDdGM3sJ_OoNQ5DUtn83cdWjslNuvqDY7Zty-y1b5jotvyD8igh_H5hdShE5gt5p61PMyFxiAJx_7S6iwQWpUQW-dpW_juLRmsuSA7LBOJVr5pe3dW_pD-iIE21GFJ8NPKelDbHGn9Dm6AYHJ5tuYpxpG4ZVVTLCDKj2gwydm0esefa7yG-IPvyv3pyKK64_7er8mLoco9N9DmL_VC5KtgtLZwhfTfZYL0l9gQ8_esoysO86yue-3CYLKU"/>
+<div>
+<div class="font-label-sm text-white">Pro Athlete</div>
+<div class="text-[10px] text-primary-fixed uppercase tracking-tighter opacity-70">Elite Tier</div>
+</div>
+</div>
+<a class="flex items-center gap-4 text-secondary-fixed-dim py-2 hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Support</span>
+</a>
+<a class="flex items-center gap-4 text-secondary-fixed-dim py-2 hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 min-h-screen">
+<!-- Top Bar -->
+<header class="w-full sticky top-0 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 px-margin-desktop py-4 flex justify-between items-center z-40">
+<div class="flex gap-8 items-center">
+<span class="md:hidden font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary tracking-tighter">PuNarva</span>
+<nav class="hidden md:flex gap-6">
+<a class="font-headline-md text-headline-md text-secondary-fixed-dim hover:text-primary transition-colors cursor-pointer active:scale-95 duration-200" href="#">Recovery</a>
+<a class="font-headline-md text-headline-md text-primary border-b-2 border-primary-fixed pb-1 cursor-pointer active:scale-95 duration-200" href="#">Performance</a>
+<a class="font-headline-md text-headline-md text-secondary-fixed-dim hover:text-primary transition-colors cursor-pointer active:scale-95 duration-200" href="#">Vitals</a>
+<a class="font-headline-md text-headline-md text-secondary-fixed-dim hover:text-primary transition-colors cursor-pointer active:scale-95 duration-200" href="#">Analytics</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="bg-surface-container rounded px-3 py-1.5 flex items-center gap-2 border border-outline-variant/30">
+<span class="material-symbols-outlined text-primary-fixed text-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm text-on-surface w-32 lg:w-48 placeholder:text-secondary-fixed-dim" placeholder="Search Metrics" type="text"/>
+</div>
+<button class="material-symbols-outlined text-secondary hover:text-primary-fixed transition-colors">notifications</button>
+<button class="material-symbols-outlined text-secondary hover:text-primary-fixed transition-colors">settings</button>
+</div>
+</header>
+<!-- Analytics Dashboard Canvas -->
+<div class="px-margin-desktop py-8 max-w-container-max mx-auto space-y-gutter">
+<!-- Hero Metrics / Header -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-8">
+<div>
+<h1 class="font-display-lg text-display-lg text-primary uppercase leading-none">Load Analytics</h1>
+<p class="font-body-lg text-secondary-fixed-dim max-w-xl">Multi-dimensional analysis of volume, intensity, and metabolic fatigue metrics across your current training block.</p>
+</div>
+<div class="bg-primary-container/10 p-4 border-l-4 border-primary-fixed flex flex-col justify-between h-32 w-full md:w-64">
+<span class="font-label-sm text-primary-fixed uppercase tracking-widest">Predicted Peak</span>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg text-white">OCT 14</span>
+<span class="font-label-sm text-secondary">T-22 DAYS</span>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+<div class="bg-primary-fixed h-full w-2/3"></div>
+</div>
+</div>
+</div>
+<!-- Main Analytics Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Training Load Heat Map (7 Cols) -->
+<div class="lg:col-span-7 bg-surface-container-low rounded-lg p-6 flex flex-col space-y-6">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed">grid_view</span>
+<h3 class="font-headline-md text-headline-md uppercase">Intensity Heatmap</h3>
+</div>
+<div class="flex gap-2">
+<span class="bg-surface-container-high px-2 py-1 text-[10px] font-bold text-secondary rounded">30 DAY VIEW</span>
+<span class="bg-surface-container-high px-2 py-1 text-[10px] font-bold text-secondary rounded">NORMALIZED</span>
+</div>
+</div>
+<div class="relative overflow-x-auto pb-4 custom-scrollbar">
+<div class="grid grid-cols-7 gap-2 min-w-[500px]">
+<!-- Column Labels -->
+<div class="text-[10px] font-bold text-outline uppercase">Mon</div>
+<div class="text-[10px] font-bold text-outline uppercase">Tue</div>
+<div class="text-[10px] font-bold text-outline uppercase">Wed</div>
+<div class="text-[10px] font-bold text-outline uppercase">Thu</div>
+<div class="text-[10px] font-bold text-outline uppercase">Fri</div>
+<div class="text-[10px] font-bold text-outline uppercase">Sat</div>
+<div class="text-[10px] font-bold text-outline uppercase">Sun</div>
+<!-- Heatmap Cells (Last 30 days dummy data) -->
+<!-- Shades based on intensity: bg-[#0e1400], bg-[#212b00], bg-[#414c00], bg-[#8da200], bg-[#d2f000] -->
+<div class="h-16 rounded-sm bg-[#212b00] heat-map-cell transition-transform duration-200 flex items-center justify-center group relative">
+<span class="text-[10px] font-bold opacity-0 group-hover:opacity-100">420</span>
+</div>
+<div class="h-16 rounded-sm bg-[#414c00] heat-map-cell transition-transform duration-200 flex items-center justify-center group">
+<span class="text-[10px] font-bold opacity-0 group-hover:opacity-100">650</span>
+</div>
+<div class="h-16 rounded-sm bg-[#d2f000] heat-map-cell transition-transform duration-200 flex items-center justify-center group">
+<span class="text-[10px] font-bold opacity-0 group-hover:opacity-100 text-black">1120</span>
+</div>
+<div class="h-16 rounded-sm bg-[#0e1400] heat-map-cell transition-transform duration-200"></div>
+<div class="h-16 rounded-sm bg-[#8da200] heat-map-cell transition-transform duration-200"></div>
+<div class="h-16 rounded-sm bg-[#d2f000] heat-map-cell transition-transform duration-200"></div>
+<div class="h-16 rounded-sm bg-[#212b00] heat-map-cell transition-transform duration-200"></div>
+<!-- Row 2 -->
+<div class="h-16 rounded-sm bg-[#414c00] heat-map-cell transition-transform duration-200"></div>
+<div class="h-16 rounded-sm bg-[#d2f000] heat-map-cell transition-transform duration-200"></div>
+<div class="h-16 rounded-sm bg-[#212b00] heat-map-cell transition-transform duration-200"></div>
+<div class="h-16 rounded-sm bg-[#414c00] heat-map-cell transition-transform duration-200"></div>
+<div class="h-16 rounded-sm bg-[#8da200] heat-map-cell transition-transform duration-200"></div>
+<div class="h-16 rounded-sm bg-[#0e1400] heat-map-cell transition-transform duration-200"></div>
+<div class="h-16 rounded-sm bg-[#d2f000] heat-map-cell transition-transform duration-200"></div>
+<!-- Row 3 -->
+<div class="h-16 rounded-sm bg-[#8da200] heat-map-cell transition-transform duration-200"></div>
+<div class="h-16 rounded-sm bg-[#414c00] heat-map-cell transition-transform duration-200"></div>
+<div class="h-16 rounded-sm bg-[#212b00] heat-map-cell transition-transform duration-200"></div>
+<div class="h-16 rounded-sm bg-[#d2f000] heat-map-cell transition-transform duration-200"></div>
+<div class="h-16 rounded-sm bg-[#8da200] heat-map-cell transition-transform duration-200"></div>
+<div class="h-16 rounded-sm bg-[#414c00] heat-map-cell transition-transform duration-200"></div>
+<div class="h-16 rounded-sm bg-[#212b00] heat-map-cell transition-transform duration-200"></div>
+<!-- Row 4 -->
+<div class="h-16 rounded-sm bg-[#d2f000] heat-map-cell transition-transform duration-200"></div>
+<div class="h-16 rounded-sm bg-[#0e1400] heat-map-cell transition-transform duration-200"></div>
+<div class="h-16 rounded-sm bg-[#414c00] heat-map-cell transition-transform duration-200"></div>
+<div class="h-16 rounded-sm bg-[#8da200] heat-map-cell transition-transform duration-200"></div>
+<div class="h-16 rounded-sm bg-[#d2f000] heat-map-cell transition-transform duration-200"></div>
+<div class="h-16 rounded-sm bg-[#212b00] heat-map-cell transition-transform duration-200"></div>
+<div class="h-16 rounded-sm bg-[#414c00] heat-map-cell transition-transform duration-200"></div>
+</div>
+</div>
+<div class="flex items-center justify-between border-t border-outline-variant/20 pt-4">
+<div class="flex items-center gap-4">
+<span class="text-[10px] font-bold text-outline uppercase">Low Load</span>
+<div class="flex gap-1">
+<div class="w-3 h-3 bg-[#0e1400] rounded-sm"></div>
+<div class="w-3 h-3 bg-[#212b00] rounded-sm"></div>
+<div class="w-3 h-3 bg-[#414c00] rounded-sm"></div>
+<div class="w-3 h-3 bg-[#8da200] rounded-sm"></div>
+<div class="w-3 h-3 bg-[#d2f000] rounded-sm"></div>
+</div>
+<span class="text-[10px] font-bold text-outline uppercase">High Load</span>
+</div>
+<p class="text-[10px] text-secondary-fixed-dim italic">Aggregate TSS calculated from multi-sensor stream.</p>
+</div>
+</div>
+<!-- Secondary Technical Column (5 Cols) -->
+<div class="lg:col-span-5 space-y-gutter">
+<!-- Training Stress Balance -->
+<div class="bg-surface-container-high p-6 rounded-lg relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl">query_stats</span>
+</div>
+<h4 class="font-label-sm text-primary-fixed uppercase tracking-widest mb-4">Training Stress Balance (TSB)</h4>
+<div class="flex items-end gap-2 mb-2">
+<span class="font-display-lg text-6xl leading-none text-white font-bold">+12.4</span>
+<span class="font-label-sm text-[#d2f000] mb-2">Optimal Zone</span>
+</div>
+<p class="text-sm text-secondary-fixed-dim">You are currently in a "Fresh" state. Readiness for high-intensity efforts is high.</p>
+</div>
+<!-- Predicted Performance Chart Small -->
+<div class="bg-surface-container rounded-lg p-6 border border-outline-variant/10">
+<div class="flex justify-between items-center mb-6">
+<h4 class="font-label-sm text-on-surface uppercase tracking-widest">Metabolic Efficiency</h4>
+<span class="material-symbols-outlined text-secondary text-lg">info</span>
+</div>
+<!-- Simple bar visualization for efficiency -->
+<div class="space-y-4">
+<div class="space-y-1">
+<div class="flex justify-between text-[10px] font-bold uppercase text-secondary-fixed-dim">
+<span>Fat Oxidation</span>
+<span class="text-primary-fixed">72%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-2 rounded-full">
+<div class="bg-primary-fixed h-full w-[72%]"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-[10px] font-bold uppercase text-secondary-fixed-dim">
+<span>Glycolytic Capacity</span>
+<span class="text-tertiary-fixed-dim">45%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-2 rounded-full">
+<div class="bg-tertiary-fixed-dim h-full w-[45%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- CTL / ATL Line Chart (Full Width) -->
+<div class="lg:col-span-12 bg-surface-container-low rounded-lg p-8">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+<div>
+<h3 class="font-headline-md text-headline-md uppercase">Fatigue vs. Fitness (CTL/ATL)</h3>
+<p class="text-sm text-secondary-fixed-dim">Long-term fitness trend vs. short-term fatigue accumulation</p>
+</div>
+<div class="flex flex-wrap gap-6">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary-fixed"></div>
+<span class="font-label-sm text-[10px] uppercase">CTL (Fitness)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-tertiary-fixed-dim"></div>
+<span class="font-label-sm text-[10px] uppercase">ATL (Fatigue)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-error"></div>
+<span class="font-label-sm text-[10px] uppercase">TSB (Balance)</span>
+</div>
+</div>
+</div>
+<!-- SVG Chart Container -->
+<div class="w-full h-80 bg-surface-container rounded relative p-4">
+<!-- Abstract Chart Lines -->
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 1000 320">
+<!-- Grid Lines -->
+<line stroke="#454932" stroke-dasharray="4" stroke-width="0.5" x1="0" x2="1000" y1="80" y2="80"></line>
+<line stroke="#454932" stroke-dasharray="4" stroke-width="0.5" x1="0" x2="1000" y1="160" y2="160"></line>
+<line stroke="#454932" stroke-dasharray="4" stroke-width="0.5" x1="0" x2="1000" y1="240" y2="240"></line>
+<!-- ATL (Fatigue) - High Volatility -->
+<path class="opacity-70" d="M0,280 L50,120 L100,200 L150,50 L200,180 L250,90 L300,140 L350,40 L400,150 L450,110 L500,60 L550,220 L600,130 L650,200 L700,50 L750,140 L800,180 L850,60 L900,110 L950,50 L1000,160" fill="none" stroke="#acccd4" stroke-linejoin="round" stroke-width="3"></path>
+<!-- CTL (Fitness) - Steady Rise -->
+<path d="M0,260 Q100,240 200,220 T400,180 T600,150 T800,120 T1000,90" fill="none" stroke="#d2f000" stroke-linejoin="round" stroke-width="5"></path>
+<!-- TSB (Balance) -->
+<path d="M0,160 L100,140 L200,180 L300,130 L400,190 L500,150 L600,220 L700,180 L800,240 L900,200 L1000,280" fill="none" stroke="#ffb4ab" stroke-dasharray="8" stroke-width="2"></path>
+<!-- Interactive Point / Tooltip Trigger -->
+<circle class="cursor-pointer" cx="700" cy="50" fill="#ffffff" r="6">
+<title>Peak Fatigue: 142 TSS</title>
+</circle>
+</svg>
+<!-- Tooltip Placeholder -->
+<div class="absolute left-[720px] top-10 bg-surface-container-highest p-3 border border-primary-fixed/50 rounded-lg shadow-2xl glass-panel z-20 pointer-events-none">
+<div class="font-label-sm text-[10px] text-primary-fixed mb-1">SEP 22, 2023</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between gap-4">
+<span class="text-[10px] text-secondary">CTL:</span>
+<span class="text-[10px] font-bold">112.5</span>
+</div>
+<div class="flex justify-between gap-4">
+<span class="text-[10px] text-secondary">ATL:</span>
+<span class="text-[10px] font-bold">142.1</span>
+</div>
+<div class="flex justify-between gap-4 border-t border-outline-variant/30 mt-1 pt-1">
+<span class="text-[10px] text-secondary">TSB:</span>
+<span class="text-[10px] font-bold text-error">-29.6</span>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-8 border-t border-outline-variant/20 pt-6">
+<div>
+<div class="font-label-sm text-secondary-fixed-dim uppercase tracking-tighter">Current CTL</div>
+<div class="font-headline-md text-headline-md text-white">114.2 <span class="text-primary-fixed text-sm">↑ 4.2%</span></div>
+</div>
+<div>
+<div class="font-label-sm text-secondary-fixed-dim uppercase tracking-tighter">Current ATL</div>
+<div class="font-headline-md text-headline-md text-white">128.5 <span class="text-error text-sm">↑ 12.1%</span></div>
+</div>
+<div>
+<div class="font-label-sm text-secondary-fixed-dim uppercase tracking-tighter">Ramp Rate</div>
+<div class="font-headline-md text-headline-md text-white">6.2 <span class="text-secondary text-sm">pts/wk</span></div>
+</div>
+<div>
+<div class="font-label-sm text-secondary-fixed-dim uppercase tracking-tighter">Training Monotony</div>
+<div class="font-headline-md text-headline-md text-white">1.18 <span class="text-[#d2f000] text-sm">SAFE</span></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Contextual Action -->
+<div class="flex justify-center pt-8">
+<button class="bg-primary-container text-on-primary-fixed font-label-sm text-label-sm uppercase tracking-widest px-12 py-4 rounded-full flex items-center gap-3 active:scale-95 transition-all shadow-[0_0_20px_rgba(210,240,0,0.2)]">
+<span class="material-symbols-outlined">analytics</span>
+                    Generate Deep Performance Report
+                </button>
+</div>
+</div>
+</main>
+<!-- Bottom Nav for Mobile -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface/90 backdrop-blur-lg border-t border-outline-variant/20 flex justify-around items-center py-3 z-50">
+<a class="flex flex-col items-center gap-1 text-secondary" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-bold uppercase">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary-fixed" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">fitness_center</span>
+<span class="text-[10px] font-bold uppercase">Training</span>
+</a>
+<div class="w-12 h-12 bg-primary-fixed rounded-full flex items-center justify-center -mt-8 shadow-lg">
+<span class="material-symbols-outlined text-black font-bold">add</span>
+</div>
+<a class="flex flex-col items-center gap-1 text-secondary" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-[10px] font-bold uppercase">Stats</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-secondary" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-bold uppercase">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for heatmap cells
+        document.querySelectorAll('.heat-map-cell').forEach(cell => {
+            cell.addEventListener('mouseenter', () => {
+                // Potential for adding dynamic tooltip logic here
+            });
+        });
+
+        // Atmospheric effect: Pulse the "Predicted Peak" marker
+        const peakIndicator = document.querySelector('.bg-primary-fixed.h-full');
+        if (peakIndicator) {
+            setInterval(() => {
+                peakIndicator.classList.toggle('opacity-80');
+            }, 2000);
+        }
+    </script>
+</body></html>

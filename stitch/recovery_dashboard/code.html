@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PuNarva Athlete Recovery Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "surface-container-lowest": "#ffffff",
+                "inverse-primary": "#bec6e0",
+                "tertiary-container": "#002114",
+                "tertiary": "#000000",
+                "outline": "#76777d",
+                "on-secondary-container": "#006f66",
+                "primary-container": "#131b2e",
+                "tertiary-fixed": "#85f8c4",
+                "secondary": "#006a61",
+                "secondary-fixed-dim": "#6bd8cb",
+                "surface-container-high": "#e6e8ea",
+                "surface-bright": "#f7f9fb",
+                "inverse-surface": "#2d3133",
+                "surface-dim": "#d8dadc",
+                "surface-variant": "#e0e3e5",
+                "surface-container-low": "#f2f4f6",
+                "on-secondary": "#ffffff",
+                "on-secondary-fixed": "#00201d",
+                "surface-container": "#eceef0",
+                "on-tertiary-fixed-variant": "#005137",
+                "secondary-container": "#86f2e4",
+                "on-error-container": "#93000a",
+                "primary-fixed": "#dae2fd",
+                "surface-tint": "#565e74",
+                "primary-fixed-dim": "#bec6e0",
+                "secondary-fixed": "#89f5e7",
+                "on-tertiary-fixed": "#002114",
+                "on-secondary-fixed-variant": "#005049",
+                "error-container": "#ffdad6",
+                "on-surface": "#191c1e",
+                "on-primary-container": "#7c839b",
+                "on-error": "#ffffff",
+                "inverse-on-surface": "#eff1f3",
+                "outline-variant": "#c6c6cd",
+                "surface-container-highest": "#e0e3e5",
+                "on-primary-fixed-variant": "#3f465c",
+                "surface": "#f7f9fb",
+                "error": "#ba1a1a",
+                "primary": "#000000",
+                "on-tertiary": "#ffffff",
+                "tertiary-fixed-dim": "#68dba9",
+                "on-background": "#191c1e",
+                "on-primary": "#ffffff",
+                "on-surface-variant": "#45464d",
+                "on-tertiary-container": "#069669",
+                "on-primary-fixed": "#131b2e",
+                "background": "#f7f9fb"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "gutter": "24px",
+                "stack-md": "16px",
+                "margin-desktop": "40px",
+                "margin-mobile": "16px",
+                "container-max-width": "1280px",
+                "stack-sm": "8px",
+                "stack-lg": "32px"
+            },
+            "fontFamily": {
+                "headline-lg": ["Public Sans"],
+                "body-md": ["Public Sans"],
+                "label-md": ["Public Sans"],
+                "label-sm": ["Public Sans"],
+                "display-lg-mobile": ["Public Sans"],
+                "display-lg": ["Public Sans"],
+                "body-lg": ["Public Sans"],
+                "headline-md": ["Public Sans"],
+                "headline-lg-mobile": ["Public Sans"]
+            },
+            "fontSize": {
+                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+      body {
+        font-family: 'Public Sans', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        background-color: #f7f9fb;
+      }
+      .recovery-gradient {
+        background: conic-gradient(from 180deg at 50% 50%, #069669 0deg, #86f2e4 360deg);
+      }
+      .chart-mask {
+        mask-image: radial-gradient(circle, transparent 65%, black 66%);
+      }
+      .shadow-soft {
+        box-shadow: 0 4px 20px -2px rgba(0, 111, 102, 0.08);
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface">
+<!-- Top Navigation -->
+<nav class="bg-surface-bright dark:bg-inverse-surface w-full top-0 sticky flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 z-40 transition-opacity">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-fixed overflow-hidden">
+<img alt="athlete profile photo" class="w-full h-full object-cover" data-alt="A professional close-up portrait of a fit male athlete with short hair, captured in soft studio lighting. The aesthetic is clean and modern, following a high-end corporate athletic brand style with a neutral background and professional clarity, emphasizing health and performance excellence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPOxqFRggA57zhQGoGv1ODoKDHt_zwQqSJNk2JOQvyptKMoTlMqJK3q4bmM7TCmysqyD978aIUlCDslUxjc1Rd_-3PyamfwwkKQ-GfbzteDKme-eJHEZ71US3CkJmn68U9cSbfwQmLoQa3d3tnbVYVb4Ido43IMShKhKS1n91mR_eh_rLCjLMGeYzEexH5R36llHvvaYL3BMo8zQDmu1Fz5b_qQszs3rrpv7ctWNKD_k5xX3hGxmjw0n9dQWmtY-uq3pTer-NpgZY"/>
+</div>
+<span class="font-headline-lg-mobile text-headline-lg-mobile md:text-headline-lg text-primary dark:text-inverse-primary tracking-tight font-bold">PuNarva</span>
+</div>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-on-surface-variant hover:opacity-80 cursor-pointer" data-icon="notifications">notifications</span>
+</div>
+</nav>
+<main class="max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg pb-32">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row md:items-end justify-between gap-gutter mb-stack-lg">
+<div class="space-y-1">
+<h1 class="font-headline-lg text-headline-lg text-primary">Alex Rivera</h1>
+<div class="flex flex-wrap items-center gap-3 text-on-surface-variant font-label-md text-label-md">
+<span class="bg-surface-container px-3 py-1 rounded-full">Build Phase</span>
+<span>October 24, 2023</span>
+<span class="flex items-center text-on-secondary-container bg-secondary-container px-2 py-0.5 rounded-md">
+<span class="material-symbols-outlined text-[18px]" data-icon="trending_up">trending_up</span>
+                        +5%
+                    </span>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-secondary-container/30 px-4 py-2 rounded-xl text-on-secondary-container">
+<span class="material-symbols-outlined" data-icon="sync" style="font-variation-settings: 'FILL' 1;">sync</span>
+<span class="font-label-md text-label-md">Sync Complete</span>
+</div>
+</header>
+<!-- Conditional High Fatigue Warning -->
+<div class="mb-stack-lg bg-error-container text-on-error-container p-4 rounded-2xl flex items-start gap-4 animate-pulse">
+<span class="material-symbols-outlined" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
+<div>
+<p class="font-label-md text-label-md font-bold uppercase tracking-wider">High Fatigue Detected</p>
+<p class="font-body-md text-body-md opacity-90">Physiological load exceeds recovery capacity. Consider immediate deloading of CNS-intensive sessions.</p>
+</div>
+</div>
+<!-- Hero: Recovery Score & Summary -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-stack-lg">
+<div class="lg:col-span-5 bg-surface-container-lowest rounded-[24px] p-gutter border border-outline-variant shadow-soft flex flex-col items-center justify-center relative overflow-hidden">
+<div class="relative w-64 h-64 flex items-center justify-center">
+<!-- Gauge Background -->
+<div class="absolute inset-0 rounded-full border-[16px] border-surface-container"></div>
+<!-- Score Ring -->
+<div class="absolute inset-0 rounded-full border-[16px] border-on-secondary-container chart-mask" style="clip-path: polygon(0 0, 100% 0, 100% 84%, 0 84%);"></div>
+<div class="text-center z-10">
+<span class="font-display-lg text-display-lg text-primary leading-none">84</span>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mt-2">Recovery Score</p>
+</div>
+</div>
+<div class="mt-stack-lg w-full">
+<div class="flex justify-between items-end mb-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant">7-Day Trend</span>
+<span class="text-on-secondary-container font-label-md text-label-md">+12 pts</span>
+</div>
+<!-- Sparkline Mockup -->
+<div class="h-12 w-full flex items-end gap-1">
+<div class="bg-surface-container h-1/2 w-full rounded-t-sm"></div>
+<div class="bg-surface-container h-2/3 w-full rounded-t-sm"></div>
+<div class="bg-surface-container h-1/3 w-full rounded-t-sm"></div>
+<div class="bg-secondary-container h-3/4 w-full rounded-t-sm"></div>
+<div class="bg-secondary-container h-4/5 w-full rounded-t-sm"></div>
+<div class="bg-on-secondary-container h-full w-full rounded-t-sm"></div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-7 flex flex-col gap-gutter">
+<div class="bg-primary-container text-on-primary-container p-gutter rounded-[24px] flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-secondary-fixed" data-icon="psychology">psychology</span>
+<h3 class="font-headline-md text-headline-md text-white">AI Recovery Summary</h3>
+</div>
+<p class="font-body-lg text-body-lg text-primary-fixed opacity-90 leading-relaxed">
+                            Alex, your parasympathetic activation is trending upwards despite high training volume. Sleep quality has stabilized over the last 48 hours, facilitating efficient metabolic waste clearance. While CNS fatigue is manageable, mechanical load on lower extremities is peaking.
+                        </p>
+</div>
+<div class="mt-stack-md flex gap-4">
+<button class="bg-secondary-fixed text-on-secondary-fixed px-6 py-3 rounded-xl font-label-md text-label-md hover:opacity-90 transition-opacity">View Full Analysis</button>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-[24px] p-gutter flex items-center justify-between shadow-soft">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-error-container flex items-center justify-center text-error">
+<span class="material-symbols-outlined" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-primary">Injury Risk Profile</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Elevated tension in Left Patellar</p>
+</div>
+</div>
+<span class="bg-[#FFF4E5] text-[#B45309] px-4 py-2 rounded-full font-label-md text-label-md font-bold">Medium Risk</span>
+</div>
+</div>
+</div>
+<!-- 6 Recovery Dimension Cards - Bento Grid -->
+<h2 class="font-headline-md text-headline-md text-primary mb-stack-md">Core Metrics</h2>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-stack-md mb-stack-lg">
+<!-- Physiological Load -->
+<div class="bg-surface-container-lowest p-5 rounded-[24px] border border-outline-variant shadow-soft hover:scale-[1.02] transition-transform">
+<span class="material-symbols-outlined text-on-secondary-container mb-3" data-icon="monitor_heart">monitor_heart</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Physio Load</p>
+<p class="font-headline-md text-headline-md text-primary">High</p>
+<div class="mt-2 h-1 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="bg-error h-full w-[85%]"></div>
+</div>
+</div>
+<!-- Sleep Quality -->
+<div class="bg-surface-container-lowest p-5 rounded-[24px] border border-outline-variant shadow-soft hover:scale-[1.02] transition-transform">
+<span class="material-symbols-outlined text-on-secondary-container mb-3" data-icon="bedtime">bedtime</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Sleep Qual</p>
+<p class="font-headline-md text-headline-md text-primary">92%</p>
+<div class="mt-2 h-1 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="bg-on-secondary-container h-full w-[92%]"></div>
+</div>
+</div>
+<!-- Muscle Soreness -->
+<div class="bg-surface-container-lowest p-5 rounded-[24px] border border-outline-variant shadow-soft hover:scale-[1.02] transition-transform">
+<span class="material-symbols-outlined text-on-secondary-container mb-3" data-icon="fitness_center">fitness_center</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Soreness</p>
+<p class="font-headline-md text-headline-md text-primary">Mild</p>
+<div class="mt-2 h-1 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="bg-secondary-container h-full w-[30%]"></div>
+</div>
+</div>
+<!-- Mental Stress -->
+<div class="bg-surface-container-lowest p-5 rounded-[24px] border border-outline-variant shadow-soft hover:scale-[1.02] transition-transform">
+<span class="material-symbols-outlined text-on-secondary-container mb-3" data-icon="self_improvement">self_improvement</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Stress</p>
+<p class="font-headline-md text-headline-md text-primary">Low</p>
+<div class="mt-2 h-1 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="bg-on-secondary-container h-full w-[15%]"></div>
+</div>
+</div>
+<!-- Nutrition -->
+<div class="bg-surface-container-lowest p-5 rounded-[24px] border border-outline-variant shadow-soft hover:scale-[1.02] transition-transform">
+<span class="material-symbols-outlined text-on-secondary-container mb-3" data-icon="restaurant">restaurant</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Nutrition</p>
+<p class="font-headline-md text-headline-md text-primary">Optimal</p>
+<div class="mt-2 h-1 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="bg-on-secondary-container h-full w-[95%]"></div>
+</div>
+</div>
+<!-- Historical Risk -->
+<div class="bg-surface-container-lowest p-5 rounded-[24px] border border-outline-variant shadow-soft hover:scale-[1.02] transition-transform">
+<span class="material-symbols-outlined text-on-secondary-container mb-3" data-icon="history">history</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Risk Trend</p>
+<p class="font-headline-md text-headline-md text-primary">Stable</p>
+<div class="mt-2 h-1 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="bg-on-secondary-container h-full w-[20%]"></div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-stack-lg">
+<!-- Interactive Body Map -->
+<div class="lg:col-span-5 bg-surface-container-lowest p-gutter rounded-[24px] border border-outline-variant shadow-soft">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-primary">Anatomical Focus</h3>
+<span class="bg-error-container text-error px-2 py-1 rounded text-label-sm font-bold">2 Hotspots</span>
+</div>
+<div class="relative aspect-[3/4] bg-surface-container rounded-2xl overflow-hidden flex items-center justify-center">
+<img alt="body map" class="opacity-20 absolute inset-0 w-full h-full object-contain mix-blend-multiply" data-alt="A high-fidelity minimalist anatomical 3D render of a human figure highlighting biomechanical stress points. The background is a clean studio white, while the figure is presented in a muted gray aesthetic with glowing yellow and red translucent markers on the left knee and right shoulder to indicate tension zones, matching a high-performance sports medicine dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-Uopu0L1VxgR3m1QU2FZDK594TJbHZbCK7vdsdq9jq7jhBedmIzfBM6bGfexwKMmWfAKsIKalLGAk_zuV__R7Ff1wgiQlnm66V6XywCjDGKHaIR-gZm9wzQoYhA2XJQ8YK5D_LF0FpQJJ0YN3FvtFvGg5dzi3d3wWPqPDtBUHxucjdHBr49fR0ZtN49RH33SJihPTADwtNDJU2SOYWyVAHs9Lh4jZRQblSUEcUGqZ-Buo9lkkYRKleSAQ_zYnOfWT9j-ladEbd8s"/>
+<!-- SVG Overlay for precise mapping -->
+<svg class="absolute inset-0 w-full h-full" viewbox="0 0 100 100">
+<!-- Knee Highlight -->
+<circle class="fill-error/40 animate-ping" cx="45" cy="72" r="4"></circle>
+<circle class="fill-error" cx="45" cy="72" r="2"></circle>
+<!-- Shoulder Highlight -->
+<circle class="fill-[#B45309]/40 animate-pulse" cx="60" cy="30" r="3"></circle>
+<circle class="fill-[#B45309]" cx="60" cy="30" r="1.5"></circle>
+</svg>
+<div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm p-3 rounded-lg border border-outline-variant">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-error"></div>
+<span class="text-label-sm font-bold">Left Patellar (High)</span>
+</div>
+<div class="flex items-center gap-2 mt-1">
+<div class="w-3 h-3 rounded-full bg-[#B45309]"></div>
+<span class="text-label-sm font-bold">Right Trapezius (Med)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Coach Recommendations & Protocols -->
+<div class="lg:col-span-7 space-y-gutter">
+<div class="bg-surface-container-lowest p-gutter rounded-[24px] border border-outline-variant shadow-soft">
+<h3 class="font-headline-md text-headline-md text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-on-secondary-container" data-icon="sports">sports</span>
+                        Coach Recommendations
+                    </h3>
+<div class="space-y-4">
+<div class="flex gap-4 p-4 bg-surface-bright rounded-xl border-l-4 border-on-secondary-container">
+<div class="flex-1">
+<p class="font-label-md text-label-md text-primary">Modify Afternoon Session</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Switch high-intensity plyometrics to low-impact swimming (20 mins zone 1).</p>
+</div>
+</div>
+<div class="flex gap-4 p-4 bg-surface-bright rounded-xl border-l-4 border-secondary-container">
+<div class="flex-1">
+<p class="font-label-md text-label-md text-primary">Hydration Strategy</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Increase intake of electrolyte-rich fluids (Sodium/Magnesium mix) by 500ml.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="bg-secondary-container/20 p-gutter rounded-[24px] border border-secondary-container/40">
+<h4 class="font-label-md text-label-md text-on-secondary-container uppercase tracking-widest mb-3">Recovery Protocol</h4>
+<ul class="space-y-3">
+<li class="flex items-center gap-2 text-body-md">
+<span class="material-symbols-outlined text-[20px]" data-icon="check_circle">check_circle</span>
+                                Contrast Bath (10 min)
+                            </li>
+<li class="flex items-center gap-2 text-body-md">
+<span class="material-symbols-outlined text-[20px]" data-icon="check_circle">check_circle</span>
+                                Foam Roll: Quads/Adductors
+                            </li>
+<li class="flex items-center gap-2 text-body-md">
+<span class="material-symbols-outlined text-[20px]" data-icon="circle">circle</span>
+                                Compression Boots (Level 4)
+                            </li>
+</ul>
+</div>
+<div class="bg-surface-container-lowest p-gutter rounded-[24px] border border-outline-variant shadow-soft">
+<h4 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-3">Nutrition Plan</h4>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-on-tertiary-container/10 rounded-full flex items-center justify-center text-on-tertiary-container">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+</div>
+<div>
+<p class="font-label-md text-label-md">Post-Workout Fuel</p>
+<p class="font-body-md text-body-md text-on-surface-variant">40g Protein + 60g complex carbs</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-4 pt-2 bg-surface-container-lowest dark:bg-inverse-surface shadow-[0_-4px_12px_rgba(0,0,0,0.05)] z-50 rounded-t-xl md:hidden">
+<div class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed-dim rounded-full px-5 py-1.5 transition-all scale-95">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+<span class="font-label-sm text-label-sm">Check-In</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="leaderboard">leaderboard</span>
+<span class="font-label-sm text-label-sm">Analytics</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-sm text-label-sm">Team</span>
+</div>
+</nav>
+<!-- Floating Action Button - Only on relevant screens -->
+<button class="fixed right-6 bottom-24 md:bottom-10 bg-primary text-on-primary w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all z-40">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+</body></html>

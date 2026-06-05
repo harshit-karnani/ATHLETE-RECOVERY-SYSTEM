@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PuNarva | Elite Session Tracker</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&amp;family=Geist:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glow-citron {
+            filter: drop-shadow(0 0 15px rgba(210, 240, 0, 0.4));
+        }
+        .grid-bg {
+            background-image: linear-gradient(rgba(69, 73, 50, 0.1) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(69, 73, 50, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.2; }
+        }
+        .spotlight {
+            background: radial-gradient(circle at 50% 50%, rgba(210, 240, 0, 0.05) 0%, transparent 70%);
+            animation: pulse-soft 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed overflow-x-hidden">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#454932",
+                        "on-tertiary": "#16343b",
+                        "on-background": "#e5e2e1",
+                        "on-secondary-container": "#b7b5b4",
+                        "surface-tint": "#b8d300",
+                        "surface-container-high": "#2a2a2a",
+                        "error-container": "#93000a",
+                        "tertiary": "#ffffff",
+                        "secondary": "#c8c6c5",
+                        "on-error": "#690005",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "tertiary-fixed-dim": "#acccd4",
+                        "surface-dim": "#131313",
+                        "inverse-on-surface": "#313030",
+                        "primary-fixed-dim": "#b8d300",
+                        "surface": "#131313",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "error": "#ffb4ab",
+                        "surface-container-low": "#1c1b1b",
+                        "outline": "#909378",
+                        "surface-variant": "#353534",
+                        "on-primary-fixed": "#191e00",
+                        "primary-fixed": "#d2f000",
+                        "on-secondary-fixed-variant": "#474746",
+                        "surface-container": "#201f1f",
+                        "on-error-container": "#ffdad6",
+                        "secondary-container": "#474746",
+                        "on-tertiary-container": "#4b6971",
+                        "on-surface": "#e5e2e1",
+                        "inverse-surface": "#e5e2e1",
+                        "on-primary-fixed-variant": "#414c00",
+                        "tertiary-fixed": "#c8e8f1",
+                        "primary-container": "#d2f000",
+                        "on-secondary": "#313030",
+                        "surface-container-lowest": "#0e0e0e",
+                        "background": "#131313",
+                        "on-tertiary-fixed-variant": "#2e4b52",
+                        "on-tertiary-fixed": "#001f26",
+                        "secondary-fixed": "#e5e2e1",
+                        "inverse-primary": "#576500",
+                        "on-primary-container": "#5d6b00",
+                        "surface-bright": "#393939",
+                        "surface-container-highest": "#353534",
+                        "tertiary-container": "#c8e8f1",
+                        "on-primary": "#2c3400",
+                        "primary": "#ffffff",
+                        "on-surface-variant": "#c6c9ab"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "32px",
+                        "container-max": "1280px",
+                        "margin-mobile": "16px",
+                        "gutter": "16px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Barlow Condensed"],
+                        "label-sm": ["Geist"],
+                        "headline-md": ["Barlow Condensed"],
+                        "display-lg": ["Barlow Condensed"],
+                        "headline-lg-mobile": ["Barlow Condensed"],
+                        "body-lg": ["Geist"],
+                        "body-md": ["Geist"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["40px", {"lineHeight": "1.1", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "display-lg": ["72px", {"lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.1", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<!-- Navigation Shell -->
+<header class="w-full sticky top-0 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 z-50 flex justify-between items-center px-margin-desktop py-4">
+<div class="font-headline-lg text-headline-lg font-bold text-primary tracking-tighter">PuNarva</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-label-sm text-label-sm text-secondary-fixed-dim hover:text-primary transition-colors cursor-pointer active:scale-95 duration-200" href="#">Recovery</a>
+<a class="font-label-sm text-label-sm text-primary border-b-2 border-primary-fixed pb-1 cursor-pointer active:scale-95 duration-200" href="#">Performance</a>
+<a class="font-label-sm text-label-sm text-secondary-fixed-dim hover:text-primary transition-colors cursor-pointer active:scale-95 duration-200" href="#">Vitals</a>
+<a class="font-label-sm text-label-sm text-secondary-fixed-dim hover:text-primary transition-colors cursor-pointer active:scale-95 duration-200" href="#">Analytics</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface hover:bg-surface-container-high/50 p-2 rounded-full transition-all cursor-pointer active:scale-95">notifications</button>
+<button class="material-symbols-outlined text-on-surface hover:bg-surface-container-high/50 p-2 rounded-full transition-all cursor-pointer active:scale-95">settings</button>
+</div>
+</header>
+<main class="relative min-h-[calc(100vh-80px)]">
+<!-- Technical Background Layer -->
+<div class="absolute inset-0 grid-bg pointer-events-none opacity-20"></div>
+<div class="absolute inset-0 spotlight pointer-events-none"></div>
+<div class="max-w-container-max mx-auto px-margin-desktop py-8 grid grid-cols-12 gap-gutter relative z-10">
+<!-- Session Summary Header -->
+<div class="col-span-12 flex flex-col md:flex-row justify-between items-end mb-8 border-l-4 border-primary-fixed pl-6">
+<div>
+<span class="font-label-sm text-label-sm text-primary-fixed uppercase tracking-widest bg-primary-container/10 px-2 py-1">LIVE SESSION</span>
+<h1 class="font-display-lg text-display-lg text-primary uppercase mt-2">HIIT VO2 MAX PUSH</h1>
+</div>
+<div class="flex gap-12 mt-4 md:mt-0">
+<div class="text-right">
+<p class="font-label-sm text-label-sm text-secondary-fixed-dim uppercase">DURATION</p>
+<p class="font-headline-md text-headline-md text-primary">24:12</p>
+</div>
+<div class="text-right">
+<p class="font-label-sm text-label-sm text-secondary-fixed-dim uppercase">CALORIES</p>
+<p class="font-headline-md text-headline-md text-primary">342 Kcal</p>
+</div>
+</div>
+</div>
+<!-- Main Power Gauge (Bento Central) -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-low p-8 rounded-lg flex flex-col items-center justify-center relative overflow-hidden group">
+<div class="absolute top-4 left-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed animate-pulse" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="font-label-sm text-label-sm text-primary-fixed uppercase tracking-widest">Instantaneous Power</span>
+</div>
+<!-- SVG Power Gauge -->
+<div class="relative w-72 h-72 md:w-96 md:h-96 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90 transform" viewbox="0 0 100 100">
+<circle class="text-surface-variant" cx="50" cy="50" fill="none" r="45" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-primary-fixed glow-citron transition-all duration-1000 ease-out" cx="50" cy="50" fill="none" r="45" stroke="currentColor" stroke-dasharray="283" stroke-dashoffset="70" stroke-width="6"></circle>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="font-display-lg text-[100px] md:text-[140px] leading-none text-primary-fixed glow-citron">412</span>
+<span class="font-headline-md text-headline-md text-secondary-fixed-dim uppercase -mt-4">WATTS</span>
+</div>
+</div>
+<!-- Small Grid Metrics within Power Card -->
+<div class="w-full grid grid-cols-3 gap-4 mt-8 pt-8 border-t border-outline-variant/20">
+<div class="text-center">
+<p class="font-label-sm text-label-sm text-secondary-fixed-dim uppercase">CADENCE</p>
+<p class="font-headline-md text-headline-md text-primary">102 <span class="text-xs">RPM</span></p>
+</div>
+<div class="text-center border-x border-outline-variant/20">
+<p class="font-label-sm text-label-sm text-secondary-fixed-dim uppercase">SPEED</p>
+<p class="font-headline-md text-headline-md text-primary">38.4 <span class="text-xs">KM/H</span></p>
+</div>
+<div class="text-center">
+<p class="font-label-sm text-label-sm text-secondary-fixed-dim uppercase">RESISTANCE</p>
+<p class="font-headline-md text-headline-md text-primary">18 <span class="text-xs">LVL</span></p>
+</div>
+</div>
+</div>
+<!-- Right Sidebar Biometrics -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-gutter">
+<!-- Heart Rate Monitor -->
+<div class="bg-surface-container-low p-6 rounded-lg border-l-4 border-[#00FF41]">
+<div class="flex justify-between items-start mb-6">
+<div>
+<p class="font-label-sm text-label-sm text-secondary-fixed-dim uppercase">HEART RATE</p>
+<h3 class="font-headline-md text-headline-md text-primary">172 BPM</h3>
+</div>
+<span class="material-symbols-outlined text-error animate-ping">favorite</span>
+</div>
+<div class="flex gap-1 h-8 items-end">
+<div class="flex-1 bg-[#1A3D1A] h-2 rounded-full"></div>
+<div class="flex-1 bg-[#2D6A2D] h-4 rounded-full"></div>
+<div class="flex-1 bg-[#42A142] h-6 rounded-full"></div>
+<div class="flex-1 bg-[#00FF41] h-8 rounded-full shadow-[0_0_10px_#00FF41]"></div>
+<div class="flex-1 bg-surface-variant h-2 rounded-full"></div>
+</div>
+<p class="font-label-sm text-label-sm text-[#00FF41] mt-2 uppercase tracking-tighter">ZONE 4: ANAEROBIC THRESHOLD</p>
+</div>
+<!-- Remaining Intervals -->
+<div class="bg-surface-container-low p-6 rounded-lg">
+<p class="font-label-sm text-label-sm text-secondary-fixed-dim uppercase mb-4">INTERVAL PROGRESS</p>
+<div class="flex justify-between font-headline-md text-headline-md text-primary mb-2">
+<span>4 / 6</span>
+<span>01:45</span>
+</div>
+<div class="w-full h-3 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary-fixed w-2/3 shadow-[0_0_15px_rgba(210,240,0,0.4)]"></div>
+</div>
+<div class="mt-4 flex gap-2">
+<span class="px-2 py-1 bg-secondary-container text-on-secondary-container text-[10px] rounded uppercase font-bold tracking-widest">NEXT: ACTIVE RECOVERY</span>
+</div>
+</div>
+<!-- Quick Action Buttons -->
+<div class="grid grid-cols-2 gap-4">
+<button class="bg-surface-container-low text-primary border border-primary-fixed/20 py-4 font-label-sm text-label-sm uppercase hover:bg-primary-fixed hover:text-on-primary-fixed transition-all active:scale-95">PAUSE SESSION</button>
+<button class="bg-primary-fixed text-on-primary-fixed py-4 font-label-sm text-label-sm uppercase font-bold shadow-[0_0_20px_rgba(210,240,0,0.3)] hover:brightness-110 transition-all active:scale-95">LAP SPLIT</button>
+</div>
+</div>
+<!-- Bottom Data Visualization -->
+<div class="col-span-12 bg-surface-container-low p-8 rounded-lg">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-primary">SESSION INTENSITY GRAPH</h3>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 bg-primary-fixed rounded-full"></span>
+<span class="font-label-sm text-label-sm text-secondary-fixed-dim">POWER</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 bg-[#00FF41] rounded-full"></span>
+<span class="font-label-sm text-label-sm text-secondary-fixed-dim">HR</span>
+</div>
+</div>
+</div>
+<!-- Visualization Placeholder Canvas-style -->
+<div class="w-full h-48 relative overflow-hidden rounded-lg">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 1000 200">
+<!-- Background Grid Lines -->
+<line stroke="#353534" stroke-dasharray="4" stroke-width="1" x1="0" x2="1000" y1="50" y2="50"></line>
+<line stroke="#353534" stroke-dasharray="4" stroke-width="1" x1="0" x2="1000" y1="100" y2="100"></line>
+<line stroke="#353534" stroke-dasharray="4" stroke-width="1" x1="0" x2="1000" y1="150" y2="150"></line>
+<!-- Power Line -->
+<path class="glow-citron" d="M 0 180 Q 50 160, 100 170 T 200 120 T 300 150 T 400 60 T 500 100 T 600 40 T 700 90 T 800 140 T 900 160 T 1000 100" fill="none" stroke="#d2f000" stroke-width="3"></path>
+<!-- Heart Rate Line -->
+<path d="M 0 160 Q 50 155, 100 165 T 200 145 T 300 140 T 400 110 T 500 105 T 600 80 T 700 85 T 800 95 T 900 100 T 1000 90" fill="none" opacity="0.6" stroke="#00FF41" stroke-width="2"></path>
+<!-- Current Position Marker -->
+<line stroke="#ffffff" stroke-dasharray="4" stroke-width="1" x1="750" x2="750" y1="0" y2="200"></line>
+<circle cx="750" cy="70" fill="#d2f000" r="4"></circle>
+</svg>
+</div>
+<div class="flex justify-between mt-4 font-label-sm text-label-sm text-secondary-fixed-dim">
+<span>00:00</span>
+<span>05:00</span>
+<span>10:00</span>
+<span>15:00</span>
+<span>20:00</span>
+<span class="text-primary-fixed">24:12 (LIVE)</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Side Navigation Shell (Hidden on small screens, fixed on large) -->
+<aside class="hidden xl:flex flex-col h-screen w-64 fixed left-0 top-0 bg-surface-container-lowest border-r border-outline-variant/20 py-8 z-[60]">
+<div class="px-6 font-headline-lg text-headline-lg text-primary mb-8 font-bold tracking-tighter">PuNarva</div>
+<div class="flex-1 flex flex-col">
+<div class="px-6 mb-6">
+<div class="flex items-center gap-3">
+<img alt="Athlete Profile" class="w-10 h-10 rounded-full object-cover border-2 border-primary-fixed" data-alt="A professional studio portrait of a high-performance endurance athlete with a focused, intense expression. The lighting is cinematic with high contrast, deep shadows, and cool blue and sharp white highlights. The athlete is wearing technical compression gear, and the overall mood is disciplined and elite." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoOCMi668xON3v_c09j50RX6f3tMD8EJG0GicTZ9KFgFXHh74UVqNKVWcLS2XWXF4akNnFH04iSahJysmc3_GIomaJI29TrQaODnziuad0FBSEM09kSWm0WJTQOtZgnF1hq-ecVpCpHQGOUCzB8EF8n3GWptCk0zveQrZ4hToFyyWD7bjHZNyfm51ZZku45SBpoaSRUKnGuuQFmg-lsqccYekPWdfzsfrumeB1eI-iI7PkH4FQbPIQUANeYiKy3F8gvs-v3rLnfeE"/>
+<div>
+<p class="font-label-sm text-label-sm text-primary uppercase font-bold">Pro Athlete</p>
+<p class="text-[10px] text-secondary-fixed-dim uppercase tracking-widest">Elite Performance</p>
+</div>
+</div>
+</div>
+<nav class="flex flex-col">
+<a class="flex items-center gap-4 text-secondary-fixed-dim py-3 px-6 hover:text-primary transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform duration-300">dashboard</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 text-primary-fixed bg-primary-container/10 border-r-4 border-primary-fixed py-3 px-6 group" href="#">
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform duration-300">fitness_center</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Training</span>
+</a>
+<a class="flex items-center gap-4 text-secondary-fixed-dim py-3 px-6 hover:text-primary transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform duration-300">bedtime</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Sleep</span>
+</a>
+<a class="flex items-center gap-4 text-secondary-fixed-dim py-3 px-6 hover:text-primary transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform duration-300">restaurant</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Nutrition</span>
+</a>
+<a class="flex items-center gap-4 text-secondary-fixed-dim py-3 px-6 hover:text-primary transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform duration-300">groups</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Team</span>
+</a>
+</nav>
+<div class="px-6 mt-8">
+<button class="w-full bg-primary-fixed text-on-primary-fixed py-3 font-label-sm text-label-sm uppercase font-bold active:scale-95 duration-200">Log Session</button>
+</div>
+</div>
+<div class="mt-auto border-t border-outline-variant/20 pt-4">
+<a class="flex items-center gap-4 text-secondary-fixed-dim py-3 px-6 hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Support</span>
+</a>
+<a class="flex items-center gap-4 text-secondary-fixed-dim py-3 px-6 hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Logout</span>
+</a>
+</div>
+</aside>
+<script>
+        // Micro-interaction: Update power and cadence randomly for live feel
+        const powerDisplay = document.querySelector('.glow-citron.text-[100px]');
+        const cadenceDisplay = document.querySelector('.text-center:first-child .text-headline-md');
+        const hrDisplay = document.querySelector('.border-l-4 h3');
+
+        setInterval(() => {
+            const currentPower = parseInt(powerDisplay.innerText);
+            const fluctuation = Math.floor(Math.random() * 11) - 5;
+            powerDisplay.innerText = currentPower + fluctuation;
+
+            const currentCadence = parseInt(cadenceDisplay.innerText);
+            cadenceDisplay.innerHTML = `${currentCadence + (Math.random() > 0.5 ? 1 : -1)} <span class="text-xs">RPM</span>`;
+
+            const currentHR = parseInt(hrDisplay.innerText);
+            hrDisplay.innerText = `${currentHR + (Math.random() > 0.7 ? 1 : -1)} BPM`;
+        }, 1500);
+
+        // Spotlight mouse tracking effect (desktop)
+        const spotlight = document.querySelector('.spotlight');
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 100;
+            const y = (e.clientY / window.innerHeight) * 100;
+            spotlight.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(210, 240, 0, 0.08) 0%, transparent 70%)`;
+        });
+    </script>
+</body></html>
