@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 
 interface HeaderProps {
-  onPortalClick?: () => void;
+  onPortalClick?: (role: 'athlete' | 'coach') => void;
 }
 
 export function Header({ onPortalClick }: HeaderProps) {
@@ -29,53 +29,31 @@ export function Header({ onPortalClick }: HeaderProps) {
     >
       <div className="flex items-center justify-between transition-all duration-300 px-2 pl-5 py-2">
         {/* Logo */}
-        <a href="#hero" className="text-lg font-medium tracking-tight transition-colors duration-300 text-foreground">
+        <a href="#hero" className="font-serif text-2xl font-black tracking-tighter transition-colors duration-300 text-foreground">
           PUNARVA
         </a>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-10 md:flex">
-          <a
-            href="#programs"
-            className="text-sm transition-colors text-muted-foreground hover:text-foreground"
-          >
-            Programs
-          </a>
-          <a
-            href="#products"
-            className="text-sm transition-colors text-muted-foreground hover:text-foreground"
-          >
-            Methods
-          </a>
-          <a
-            href="#results"
-            className="text-sm transition-colors text-muted-foreground hover:text-foreground"
-          >
-            Results
-          </a>
-          <a
-            href="#testimonials"
-            className="text-sm transition-colors text-muted-foreground hover:text-foreground"
-          >
-            Testimonials
-          </a>
-        </nav>
-
-        {/* CTA */}
-        <div className="hidden items-center gap-6 md:flex">
+        <nav className="hidden items-center gap-6 md:flex pr-2">
           <button
-            onClick={onPortalClick}
-            className="px-4 py-2 text-sm font-medium transition-all rounded-full bg-foreground text-background hover:opacity-85"
+            onClick={() => onPortalClick?.('athlete')}
+            className="text-sm font-medium transition-colors text-muted-foreground hover:text-foreground"
           >
             Athlete Portal
           </button>
-        </div>
+          <button
+            onClick={() => onPortalClick?.('coach')}
+            className="text-sm font-medium transition-colors text-muted-foreground hover:text-foreground"
+          >
+            Coach Portal
+          </button>
+        </nav>
 
         {/* Mobile Menu Button */}
         <button
           type="button"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="transition-colors md:hidden text-foreground"
+          className="transition-colors md:hidden text-foreground pr-2"
           aria-label="Toggle menu"
         >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -86,42 +64,23 @@ export function Header({ onPortalClick }: HeaderProps) {
       {isMenuOpen && (
         <div className="border-t border-border bg-background px-6 py-8 md:hidden rounded-b-2xl">
           <nav className="flex flex-col gap-6">
-            <a
-              href="#programs"
-              className="text-lg text-foreground"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Programs
-            </a>
-            <a
-              href="#products"
-              className="text-lg text-foreground"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Methods
-            </a>
-            <a
-              href="#results"
-              className="text-lg text-foreground"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Results
-            </a>
-            <a
-              href="#testimonials"
-              className="text-lg text-foreground"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Testimonials
-            </a>
             <button
-              className="mt-4 bg-foreground px-5 py-3 text-center text-sm font-medium text-background rounded-full"
+              className="text-left text-lg text-foreground"
               onClick={() => {
                 setIsMenuOpen(false);
-                if (onPortalClick) onPortalClick();
+                onPortalClick?.('athlete');
               }}
             >
               Athlete Portal
+            </button>
+            <button
+              className="text-left text-lg text-foreground"
+              onClick={() => {
+                setIsMenuOpen(false);
+                onPortalClick?.('coach');
+              }}
+            >
+              Coach Portal
             </button>
           </nav>
         </div>

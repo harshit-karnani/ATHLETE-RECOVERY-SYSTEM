@@ -11,6 +11,8 @@ vite.config.ts.timestamp-*
 # Environment variables
 .env
 .env.local
+service-account.json
+serviceAccountKey.json
 
 node_modules
 dist

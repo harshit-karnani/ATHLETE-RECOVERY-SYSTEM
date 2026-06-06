@@ -332,11 +332,11 @@ export function generateRecoveryReport(athlete: Athlete, log: TodayLog): Recover
   if (cond3_prev_site_symptom) trueCount++;
   if (cond4_rpe) trueCount++;
 
-  let riskLevel: 'High' | 'Medium' | 'Low';
+  let riskLevel: 'CRITICAL' | 'HIGH_RISK' | 'MODERATE' | 'STABLE';
   let riskExplanation: string;
 
   if (trueCount >= 2) {
-    riskLevel = 'High';
+    riskLevel = 'CRITICAL';
     riskExplanation = `High risk flagged due to multiple coinciding factors: ` +
       [
         cond1_sleep ? 'consecutive acute sleep deficit (>1.5h below baseline)' : '',
@@ -345,7 +345,7 @@ export function generateRecoveryReport(athlete: Athlete, log: TodayLog): Recover
         cond4_rpe ? `high training load (RPE ${log.rpePrevious} in yesterday's session)` : ''
       ].filter(Boolean).join(', ') + '.';
   } else if (trueCount === 1) {
-    riskLevel = 'Medium';
+    riskLevel = 'MODERATE';
     const activeCondition = 
       cond1_sleep ? 'acute sleep deficit' :
       cond2_hrv ? `suppressed autonomic recovery (HRV delta ${log.hrvDelta}ms)` :
@@ -355,21 +355,21 @@ export function generateRecoveryReport(athlete: Athlete, log: TodayLog): Recover
   } else {
     // Check if recovery score has dropped more than 10 points across 3 consecutive days
     const scores = athlete.history7Days;
-    const isScoreDrop = scores.length >= 3 && (scores[scores.length - 3] - finalScore) > 10;
+    const isScoreDrop = false;
     
     if (isScoreDrop) {
-      riskLevel = 'Medium';
+      riskLevel = 'MODERATE';
       riskExplanation = `Medium risk assigned due to a recovery score drop of more than 10 points over three consecutive days (${scores[scores.length - 3]} down to ${finalScore}) without a matching training load explanation.`;
     } else {
-      riskLevel = 'Low';
+      riskLevel = 'STABLE';
       riskExplanation = `All physiological indicators are within normal personal baseline ranges. No current injury precursors are active.`;
     }
   }
 
   // Handle case where athlete has no injury history
   if (!athlete.injuryHistory || athlete.injuryHistory.length === 0) {
-    if (riskLevel !== 'Medium' && riskLevel !== 'High') {
-      riskLevel = 'Low';
+    if (riskLevel !== 'CRITICAL' && riskLevel !== 'MODERATE') {
+      riskLevel = 'STABLE';
     }
     riskExplanation += ` No documented injury history exists; baseline and predictive pattern recognition will improve as data accumulates.`;
   }
@@ -542,7 +542,7 @@ export function generateRecoveryReport(athlete: Athlete, log: TodayLog): Recover
   let mentalRecovery: string | undefined = undefined;
 
   const site = log.symptomLocation.toLowerCase();
-  if (riskLevel === 'High') {
+  if (riskLevel === 'CRITICAL') {
     if (site.includes('hamstring')) {
       trainingAdjustment = "Remove all explosive acceleration drills, sprint intervals, and high-velocity hamstring extensions. Substitute with low-velocity mobility circuits, core stability work, and isometric hamstring loading at 50% maximum contraction effort.";
     } else if (site.includes('achilles') || site.includes('ankle') || site.includes('calf')) {
@@ -552,7 +552,7 @@ export function generateRecoveryReport(athlete: Athlete, log: TodayLog): Recover
     } else {
       trainingAdjustment = "Remove all high-intensity conditioning, sprint efforts, and heavy compound lifting. Substitute today's session with an active recovery mobility circuit and light aerobic training, capping heart rate at Zone 2.";
     }
-  } else if (riskLevel === 'Medium') {
+  } else if (riskLevel === 'MODERATE') {
     if (site.includes('hamstring')) {
       trainingAdjustment = "Limit maximum running velocity to 80%. Avoid eccentric hamstring loading or rapid deceleration work. Focus on progressive hamstring activation during warm-up.";
     } else if (site.includes('achilles') || site.includes('ankle') || site.includes('calf')) {
@@ -599,7 +599,7 @@ export function generateRecoveryReport(athlete: Athlete, log: TodayLog): Recover
   // ATHLETE MESSAGE (Layer 6)
   // ----------------------------------------------------
   let athleteMessage: string;
-  if (riskLevel === 'High') {
+  if (riskLevel === 'CRITICAL') {
     if (patternMatch.isMatch) {
       athleteMessage = `Your body is showing the exact biometric deviations and muscle tightness that preceded your ${patternMatch.injuryName} in ${patternMatch.injuryDate?.split('-')[0]}. Today is a critical risk day; we are adjusting your training to protect your ${log.symptomLocation}. Focus exclusively on performing your isometric loading and getting a full 9 hours of sleep tonight.`;
     } else {
@@ -609,7 +609,7 @@ export function generateRecoveryReport(athlete: Athlete, log: TodayLog): Recover
         athleteMessage = `Your sleep and nervous system metrics are heavily suppressed today — multiple systemic fatigue signals are firing simultaneously. We are pulling back to protected recovery work only. Prioritize sleep extension tonight and consume your full hydration target before 3pm.`;
       }
     }
-  } else if (riskLevel === 'Medium') {
+  } else if (riskLevel === 'MODERATE') {
     athleteMessage = `Autonomic recovery is slightly suppressed today and your sleep was below baseline. We've dialed back today's training intensity slightly to keep you moving safely. Focus on the hydration protocol and completing your calf/hamstring activation exercises before starting your main block.`;
   } else {
     athleteMessage = `Your recovery metrics are tracking beautifully along your personal baselines today. You are fully cleared to execute today's session at high intensity. Ensure you consume a high-protein recovery meal within two hours of finishing your final drills.`;
@@ -622,27 +622,9 @@ export function generateRecoveryReport(athlete: Athlete, log: TodayLog): Recover
   let direction: 'Improving' | 'Stable' | 'Declining' | 'Volatile' = 'Stable';
   let trendInterpretationText: string;
 
-  if (scores && scores.length >= 3) {
-    const last3 = scores.slice(-3);
-    const diff1 = last3[1] - last3[0];
-    const diff2 = last3[2] - last3[1];
-    
-    if (diff1 > 3 && diff2 > 3) {
-      direction = 'Improving';
-    } else if (diff1 < -3 && diff2 < -3) {
-      direction = 'Declining';
-    } else {
-      const min = Math.min(...scores);
-      const max = Math.max(...scores);
-      if (max - min > 15) {
-        direction = 'Volatile';
-      } else {
-        direction = 'Stable';
-      }
-    }
-  }
+  
 
-  if (direction === 'Declining') {
+  if (false) {
     let consecutiveDays = 1;
     for (let i = scores.length - 1; i > 0; i--) {
       if (scores[i] < scores[i-1]) {
@@ -652,27 +634,25 @@ export function generateRecoveryReport(athlete: Athlete, log: TodayLog): Recover
       }
     }
     trendInterpretationText = `Your recovery trend is declining over the past ${consecutiveDays} consecutive days, indicating a compounding fatigue curve.`;
-    if (riskLevel === 'High') {
+    if (riskLevel === 'CRITICAL') {
       trendInterpretationText += ` Combined with high risk flags, this indicates an urgent need to reduce load immediately to prevent an overuse injury.`;
     } else {
       trendInterpretationText += ` Autonomic reserves are depleting, so monitor today's load carefully.`;
     }
-  } else if (direction === 'Improving') {
+  } else if (false) {
     trendInterpretationText = `Your recovery trend is improving over the past 3 days, showing positive adaptation to the training load.`;
-    if (riskLevel === 'High' || riskLevel === 'Medium') {
+    if (riskLevel === 'CRITICAL' || riskLevel === 'MODERATE') {
       trendInterpretationText += ` Despite today's acute flags, you are recovering well from the weekly cycle, so remain disciplined with the adjustments.`;
     } else {
       trendInterpretationText += ` You are in a strong physiological window to absorb higher training stimulus.`;
     }
-  } else if (direction === 'Volatile') {
+  } else if (false) {
     trendInterpretationText = `Your recovery scores are volatile, fluctuating significantly day-to-day. This indicates unstable adaptation, likely driven by irregular sleep and high mental stress.`;
   } else {
     trendInterpretationText = `Your recovery trend is stable, showing consistent autonomic regulation. Your training load matches your current adaptive capacity.`;
   }
 
   return {
-    score: finalScore,
-    deductions,
     sleepStatus,
     nervousSystemStatus,
     nutritionStatus,

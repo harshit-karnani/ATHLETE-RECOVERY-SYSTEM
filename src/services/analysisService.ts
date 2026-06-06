@@ -256,45 +256,40 @@ function adaptAIResponse(
   fallback: RecoveryReport
 ): RecoveryReport {
   try {
-    const metrics = ai.metrics_analysis as Record<string, any> | undefined;
-    const risk = ai.injury_risk as Record<string, any> | undefined;
+    // const risk = ai.injury_risk as Record<string, any> | undefined;
     const dims = ai.dimension_scores as Record<string, any> | undefined;
-    const directives = ai.coach_directives as Record<string, any> | undefined;
-    const trend = ai.trend_summary as Record<string, any> | undefined;
 
     return {
-      score: (metrics?.calculated_recovery_score as number) ?? fallback.score,
-      deductions: fallback.deductions, // Keep local deductions for the audit log
-      sleepStatus: (metrics?.sleep_status as RecoveryReport['sleepStatus']) ?? fallback.sleepStatus,
-      nervousSystemStatus: (metrics?.nervous_system_status as RecoveryReport['nervousSystemStatus']) ?? fallback.nervousSystemStatus,
-      nutritionStatus: (metrics?.nutrition_status as RecoveryReport['nutritionStatus']) ?? fallback.nutritionStatus,
-      mentalLoadStatus: (metrics?.mental_load_status as RecoveryReport['mentalLoadStatus']) ?? fallback.mentalLoadStatus,
-      riskLevel: (risk?.risk_level as RecoveryReport['riskLevel']) ?? fallback.riskLevel,
+      sleepStatus: (ai.sleep_status as RecoveryReport['sleepStatus']) ?? fallback.sleepStatus,
+      nervousSystemStatus: (ai.nervous_system_status as RecoveryReport['nervousSystemStatus']) ?? fallback.nervousSystemStatus,
+      nutritionStatus: (ai.nutrition_status as RecoveryReport['nutritionStatus']) ?? fallback.nutritionStatus,
+      mentalLoadStatus: (ai.mental_load_status as RecoveryReport['mentalLoadStatus']) ?? fallback.mentalLoadStatus,
+      riskLevel: (ai.risk_level as RecoveryReport['riskLevel']) ?? fallback.riskLevel,
       patternMatch: {
-        isMatch: (risk?.pattern_matched as boolean) ?? fallback.patternMatch.isMatch,
-        injuryName: (risk?.matched_site as string) ?? fallback.patternMatch.injuryName,
-        injuryDate: (risk?.matched_injury_id as string) ?? fallback.patternMatch.injuryDate,
-        reason: (risk?.flag_reason as string) ?? fallback.patternMatch.reason,
+        isMatch: (ai.pattern_matched as boolean) ?? fallback.patternMatch.isMatch,
+        injuryName: (ai.matched_injury as string) ?? fallback.patternMatch.injuryName,
+        injuryDate: fallback.patternMatch.injuryDate,
+        reason: (ai.flag_reason as string) ?? fallback.patternMatch.reason,
       },
-      riskExplanation: (risk?.flag_reason as string) ?? fallback.riskExplanation,
+      riskExplanation: (ai.flag_reason as string) ?? fallback.riskExplanation,
       dimensions: {
         physiologicalLoad: (dims?.physiological_load as number) ?? fallback.dimensions.physiologicalLoad,
         sleepQuality: (dims?.sleep_quality as number) ?? fallback.dimensions.sleepQuality,
         muscleSoreness: (dims?.muscle_soreness as number) ?? fallback.dimensions.muscleSoreness,
         mentalStress: (dims?.mental_stress as number) ?? fallback.dimensions.mentalStress,
-        nutritionStatus: (dims?.nutrition_adequacy as number) ?? fallback.dimensions.nutritionStatus,
+        nutritionStatus: (dims?.nutrition_status as number) ?? fallback.dimensions.nutritionStatus,
         historicalRisk: (dims?.historical_risk as number) ?? fallback.dimensions.historicalRisk,
       },
       directives: {
-        trainingAdjustment: (directives?.training_adjustment as string) ?? fallback.directives.trainingAdjustment,
-        recoveryProtocol: (directives?.recovery_protocol as string) ?? fallback.directives.recoveryProtocol,
-        nutritionFocus: (directives?.nutrition_focus as string) ?? fallback.directives.nutritionFocus,
-        mentalRecovery: (directives?.mental_recovery as string | undefined) ?? fallback.directives.mentalRecovery,
+        trainingAdjustment: (ai.training_adjustment as string) ?? fallback.directives.trainingAdjustment,
+        recoveryProtocol: (ai.recovery_protocol as string) ?? fallback.directives.recoveryProtocol,
+        nutritionFocus: (ai.nutrition_focus as string) ?? fallback.directives.nutritionFocus,
+        mentalRecovery: (ai.mental_recovery as string | undefined) ?? fallback.directives.mentalRecovery,
       },
       athleteMessage: (ai.athlete_message as string) ?? fallback.athleteMessage,
       trendInterpretation: {
-        direction: (trend?.direction as RecoveryReport['trendInterpretation']['direction']) ?? fallback.trendInterpretation.direction,
-        interpretation: (trend?.interpretation as string) ?? fallback.trendInterpretation.interpretation,
+        direction: (ai.trend_direction as RecoveryReport['trendInterpretation']['direction']) ?? fallback.trendInterpretation.direction,
+        interpretation: (ai.trend_interpretation as string) ?? fallback.trendInterpretation.interpretation,
       },
       referralFlag: ai.referral_flag ? {
         required: !!ai.referral_flag.required,

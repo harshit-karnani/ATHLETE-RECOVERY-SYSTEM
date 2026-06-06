@@ -1,39 +1,47 @@
-import { db } from './firebase';
-import { doc, setDoc } from 'firebase/firestore';
+// The backend server URL (adjust if port differs)
+const BACKEND_URL = 'http://localhost:3001/api/db';
 
 export async function saveSessionData(athleteId: string, dateStr: string, sessionData: any) {
   try {
-    const sessionRef = doc(db, 'athletes', athleteId, 'sessions', dateStr);
-    await setDoc(sessionRef, sessionData, { merge: true });
-    console.log(`Saved session to Firebase: /athletes/${athleteId}/sessions/${dateStr}`);
+    const response = await fetch(`${BACKEND_URL}/session`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ athleteId, dateStr, sessionData })
+    });
+    if (!response.ok) {
+      console.error('Failed to save session data:', await response.text());
+    }
   } catch (err) {
-    console.warn("Failed to save to Firebase (likely missing credentials). Local state will be used as fallback.", err);
+    console.error('Network error saving session data:', err);
   }
 }
 
 export async function saveCoachOverride(athleteId: string, dateStr: string, overrideText: string) {
   try {
-    const overrideObj = {
-      text: overrideText,
-      issued_by: 'Coach Harrington',
-      timestamp: new Date().toISOString(),
-      approved_ai: false
-    };
-    
-    const sessionRef = doc(db, 'athletes', athleteId, 'sessions', dateStr);
-    await setDoc(sessionRef, { coach_override: overrideObj }, { merge: true });
-    console.log(`Saved override to Firebase: /athletes/${athleteId}/sessions/${dateStr}`);
+    const response = await fetch(`${BACKEND_URL}/override`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ athleteId, dateStr, overrideText })
+    });
+    if (!response.ok) {
+      console.error('Failed to save coach override:', await response.text());
+    }
   } catch (err) {
-    console.warn("Failed to save override to Firebase.", err);
+    console.error('Network error saving coach override:', err);
   }
 }
 
 export async function saveInjuryRecord(athleteId: string, injuryData: any) {
   try {
-    const injuryRef = doc(db, 'athletes', athleteId, 'injuries', `inj-${Date.now()}`);
-    await setDoc(injuryRef, injuryData, { merge: true });
-    console.log(`Saved injury to Firebase: /athletes/${athleteId}/injuries/`);
+    const response = await fetch(`${BACKEND_URL}/injury`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ athleteId, injuryData })
+    });
+    if (!response.ok) {
+      console.error('Failed to save injury record:', await response.text());
+    }
   } catch (err) {
-    console.warn("Failed to save injury to Firebase.", err);
+    console.error('Network error saving injury record:', err);
   }
 }

@@ -32,7 +32,7 @@ export interface Athlete {
   trackedDays: number;
   baseline: PersonalBaseline;
   injuryHistory: Injury[];
-  history7Days: number[]; // past 7 days of recovery scores
+  history7Days: ('CRITICAL' | 'HIGH_RISK' | 'MODERATE' | 'STABLE')[]; // past 7 days of recovery scores
   weightKg: number;
   heightCm: number;
   gender: 'male' | 'female';
@@ -106,13 +106,11 @@ export interface ExtendedNutrition {
 }
 
 export interface RecoveryReport {
-  score: number;
-  deductions: ScoreDeduction[];
   sleepStatus: 'Optimal' | 'Sub-optimal' | 'Critical Risk';
   nervousSystemStatus: 'Recovered' | 'Suppressed' | 'Stressed';
   nutritionStatus: 'Adequate' | 'Deficit' | 'Critical Deficit';
   mentalLoadStatus: 'Low' | 'Moderate' | 'High';
-  riskLevel: 'High' | 'Medium' | 'Low';
+  riskLevel: 'CRITICAL' | 'HIGH_RISK' | 'MODERATE' | 'STABLE';
   patternMatch: PatternMatchResult;
   riskExplanation: string;
   dimensions: MultiDimensionScores;

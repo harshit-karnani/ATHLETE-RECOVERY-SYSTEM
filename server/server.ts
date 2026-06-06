@@ -3,15 +3,8 @@ import express from 'express';
 import cors from 'cors';
 import analysisRouter from './routes/analysis.ts';
 import athleteRouter from './routes/athlete.ts';
-import * as admin from 'firebase-admin';
-
-if (!admin.apps.length) {
-  try {
-    admin.initializeApp();
-  } catch (err) {
-    console.warn("Firebase Admin Initialization Warning:", err);
-  }
-}
+import queryRouter from './routes/queryEngine.ts';
+// Firebase Admin has been replaced with Supabase in athlete.ts
 
 
 const app = express();
@@ -28,19 +21,24 @@ app.get('/api/health', (_req, res) => {
     engine: 'punarva',
     version: '2.4',
     timestamp: new Date().toISOString(),
-    api_key_set: !!process.env.ANTHROPIC_API_KEY && process.env.ANTHROPIC_API_KEY !== 'sk-ant-REPLACE_WITH_YOUR_KEY',
+    api_key_set: !!(process.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY),
   });
 });
+
+import dbRouter from './routes/db.ts';
 
 // ─── Routes ─────────────────────────────────────────────────────
 app.use('/api/analysis', analysisRouter);
 app.use('/api/athlete', athleteRouter);
+app.use('/api/query', queryRouter);
+app.use('/api/db', dbRouter);
 
 // ─── Start ──────────────────────────────────────────────────────
 app.listen(PORT, () => {
+  const hasKey = !!(process.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY);
   console.log(`\n  ┌──────────────────────────────────────┐`);
   console.log(`  │  PUNARVA ENGINE SERVER               │`);
   console.log(`  │  Port: ${PORT}                          │`);
-  console.log(`  │  API Key: ${process.env.ANTHROPIC_API_KEY ? '✓ loaded' : '✗ MISSING'}                │`);
+  console.log(`  │  API Key: ${hasKey ? '✓ loaded' : '✗ MISSING'}                │`);
   console.log(`  └──────────────────────────────────────┘\n`);
 });

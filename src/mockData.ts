@@ -29,7 +29,7 @@ export const mockAthletes: Athlete[] = [
         description: 'Occurred during wet track session, preceded by multiple nights of sleep deprivation (<6.5h) and a high HRV suppression.'
       }
     ],
-    history7Days: [84, 82, 78, 72, 65, 74, 80],
+    history7Days: ['STABLE', 'STABLE', 'MODERATE', 'STABLE', 'STABLE', 'HIGH_RISK', 'CRITICAL'],
     weightKg: 82,
     heightCm: 185,
     gender: 'male'
@@ -61,7 +61,7 @@ export const mockAthletes: Athlete[] = [
         description: 'Pain developed at distal insertion following double high-intensity hill climb blocks with highly suppressed autonomic reserve.'
       }
     ],
-    history7Days: [90, 88, 86, 89, 87, 85, 82],
+    history7Days: ['STABLE', 'STABLE', 'MODERATE', 'STABLE', 'STABLE', 'HIGH_RISK', 'CRITICAL'],
     weightKg: 54,
     heightCm: 168,
     gender: 'female'
@@ -92,7 +92,7 @@ export const mockAthletes: Athlete[] = [
         description: 'Acute soreness in the left patellar tendon following back-to-back games and significant sleep debt.'
       }
     ],
-    history7Days: [78, 82, 80, 75, 78, 80, 82],
+    history7Days: ['STABLE', 'STABLE', 'MODERATE', 'STABLE', 'STABLE', 'HIGH_RISK', 'CRITICAL'],
     weightKg: 91,
     heightCm: 191,
     gender: 'male'
@@ -110,7 +110,7 @@ export const mockAthletes: Athlete[] = [
       hrvDelta: 0
     },
     injuryHistory: [], // Test case for NO injury history
-    history7Days: [88, 92, 90, 85, 87, 86, 88],
+    history7Days: ['STABLE', 'STABLE', 'MODERATE', 'STABLE', 'STABLE', 'HIGH_RISK', 'CRITICAL'],
     weightKg: 71,
     heightCm: 165,
     gender: 'female'
@@ -329,8 +329,8 @@ for (let i = 0; i < 31; i++) {
     hrvDelta: 0
   };
 
-  const history7Days = Array.from({ length: 7 }, () => Math.floor(Math.random() * 25) + 70); // 70-95
-  
+  const possibleBadges: ('CRITICAL' | 'HIGH_RISK' | 'MODERATE' | 'STABLE')[] = ['STABLE', 'STABLE', 'MODERATE', 'STABLE'];
+  const history7Days = Array.from({ length: 7 }, () => possibleBadges[Math.floor(Math.random() * possibleBadges.length)]);
   mockAthletes.push({
     id,
     name,
