@@ -5,8 +5,7 @@ import { LandingPage } from './components/LandingPage';
 import { AthleteDashboard } from './components/AthleteDashboard';
 import { DailyCheckin } from './components/DailyCheckin';
 import { CoachPortal } from './components/CoachPortal';
-import type { RecoveryReport } from './types';
-import { supabase } from './supabaseClient';
+import type { RecoveryReport, TodayLog } from './types';
 
 function App() {
   const [session, setSession] = useState<any>(null);
